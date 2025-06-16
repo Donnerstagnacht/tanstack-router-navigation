@@ -44,7 +44,7 @@ export function NavItemList({
                   {item.badge && (
                     <Badge 
                       className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
-                      variant="destructive"
+                      variant="default"
                     >
                       {item.badge}
                     </Badge>
@@ -66,7 +66,7 @@ export function NavItemList({
                 {item.badge && (
                   <Badge 
                     className="absolute top-2 right-4 h-5 w-5 p-0 flex items-center justify-center" 
-                    variant="destructive"
+                    variant="default"
                   >
                     {item.badge}
                   </Badge>
@@ -101,7 +101,7 @@ export function NavItemList({
                   {item.badge && (
                     <Badge 
                       className="absolute -top-0 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
-                      variant="destructive"
+                      variant="default"
                     >
                       {item.badge}
                     </Badge>
@@ -137,7 +137,7 @@ export function NavItemList({
                 {item.badge && (
                   <Badge 
                     className="absolute -top-0 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
-                    variant="destructive"
+                    variant="default"
                   >
                     {item.badge}
                   </Badge>
@@ -170,7 +170,7 @@ export function NavItemList({
                 {item.badge && (
                   <Badge 
                     className="absolute -top-3 -right-5 h-5 w-5 p-0 flex items-center justify-center" 
-                    variant="destructive"
+                    variant="default"
                   >
                     {item.badge}
                   </Badge>
@@ -198,7 +198,7 @@ export function NavItemList({
             <item.icon className="h-5 w-5" />
             <span>{item.label}</span>
             {item.badge && (
-              <Badge className="ml-auto" variant="destructive">
+              <Badge className="ml-auto" variant="default">
                 {item.badge}
               </Badge>
             )}
