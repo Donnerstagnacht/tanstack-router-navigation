@@ -19,7 +19,7 @@ export default function NavigationDemo({ onScreenTypeChange, onPriorityChange }:
   const isMobileDevice = useIsMobile()
   const [screenType, setScreenType] = useState<ScreenType>("automatic")
   const [actualScreen, setActualScreen] = useState<"mobile" | "desktop">("desktop")
-  const [priority, setPriority] = useState<PriorityType>("primary")
+  const [priority, setPriority] = useState<PriorityType>("combined")
 
   // Handle screen type changes
   const handleScreenTypeChange = (type: ScreenType) => {
