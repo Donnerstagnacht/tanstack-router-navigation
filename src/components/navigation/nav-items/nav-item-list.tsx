@@ -89,7 +89,8 @@ export function NavItemList({
           {items.length <= 4 ? (
             <div className="col-span-full flex flex-wrap justify-center gap-8">              {items.map((item) => (                <Button
                   key={item.id}
-                  variant="ghost"                  className={cn(
+                  variant="ghost"                  
+                  className={cn(
                     "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
                     isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                   )}
@@ -220,7 +221,8 @@ export function NavItemList({
     return (
       <div className="flex-1 overflow-x-auto scrollbar-hide">
         <div className="flex items-center justify-center gap-1 px-2 min-w-max">
-          {items.map((item) => (            <Button
+          {items.map((item) => (            
+            <Button
               key={item.id}
               variant="ghost"
               className={cn(
@@ -252,7 +254,8 @@ export function NavItemList({
   if (variant === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="flex flex-col gap-2">
-        {items.map((item) => (          <Button 
+        {items.map((item) => (          
+          <Button 
             key={item.id} 
             variant="ghost" 
             className={cn(

@@ -1,5 +1,3 @@
-"use client"
-
 import { useTheme } from "@/hooks/use-theme"
 import { Toaster as Sonner } from "sonner"
 

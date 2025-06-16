@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { StateSwitcher } from "@/components/navigation/toggles/state-switcher"
