@@ -94,8 +94,8 @@ export function NavItemList({
                     "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
                     isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                   )}
-                  onClick={(e) => {
-                    if (item.onClick) item.onClick(e);
+                  onClick={() => {
+                    if (item.onClick) item.onClick();
                     setHoveredItem(null); // Reset hover state after click
                   }}
                 >
@@ -122,8 +122,8 @@ export function NavItemList({
                   "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
                   isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                 )}
-                onClick={(e) => {
-                  if (item.onClick) item.onClick(e);
+                onClick={() => {
+                  if (item.onClick) item.onClick();
                   setHoveredItem(null); // Reset hover state after click
                 }}
               >
@@ -160,8 +160,8 @@ export function NavItemList({
                     "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
                     isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                   )}
-                  onClick={(e) => {
-                    if (item.onClick) item.onClick(e);
+                  onClick={() => {
+                    if (item.onClick) item.onClick();
                     setHoveredItem(null); // Reset hover state after click
                   }}
                   onMouseEnter={() => setHoveredItem(item.id)}
@@ -204,8 +204,8 @@ export function NavItemList({
                   "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
                   isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                 )}
-                onClick={(e) => {
-                  if (item.onClick) item.onClick(e);
+                onClick={() => {
+                  if (item.onClick) item.onClick();
                   setHoveredItem(null); // Reset hover state after click
                 }}
                 onMouseEnter={() => setHoveredItem(item.id)}
@@ -244,8 +244,8 @@ export function NavItemList({
                 "flex h-16 min-w-16 flex-col gap-1 hover:bg-accent px-2 flex-shrink-0",
                 isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
               )}
-              onClick={(e) => {
-                if (item.onClick) item.onClick(e);
+              onClick={() => {
+                if (item.onClick) item.onClick();
                 setHoveredItem(null); // Reset hover state after click
               }}
               onMouseEnter={() => setHoveredItem(item.id)}
@@ -282,8 +282,8 @@ export function NavItemList({
               "justify-start gap-3 h-12 px-3 flex-shrink-0",
               isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
             )}
-            onClick={(e) => {
-              if (item.onClick) item.onClick(e);
+            onClick={() => {
+              if (item.onClick) item.onClick();
               setHoveredItem(null); // Reset hover state after click
             }}
             onMouseEnter={() => setHoveredItem(item.id)}
