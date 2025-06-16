@@ -18,6 +18,8 @@ import { Route as FilesRouteImport } from './routes/files'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsTestsRouteImport } from './routes/projects/tests'
+import { Route as ProjectsTasksRouteImport } from './routes/projects/tasks'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -64,6 +66,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsTestsRoute = ProjectsTestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const ProjectsTasksRoute = ProjectsTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => ProjectsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,8 +85,10 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/projects/tasks': typeof ProjectsTasksRoute
+  '/projects/tests': typeof ProjectsTestsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +98,10 @@ export interface FileRoutesByTo {
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/projects/tasks': typeof ProjectsTasksRoute
+  '/projects/tests': typeof ProjectsTestsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +112,10 @@ export interface FileRoutesById {
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/projects/tasks': typeof ProjectsTasksRoute
+  '/projects/tests': typeof ProjectsTestsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +129,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/projects'
     | '/settings'
+    | '/projects/tasks'
+    | '/projects/tests'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +142,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/projects'
     | '/settings'
+    | '/projects/tasks'
+    | '/projects/tests'
   id:
     | '__root__'
     | '/'
@@ -133,6 +155,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/projects'
     | '/settings'
+    | '/projects/tasks'
+    | '/projects/tests'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,7 +167,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRoute
   MessagesRoute: typeof MessagesRoute
   NotificationsRoute: typeof NotificationsRoute
-  ProjectsRoute: typeof ProjectsRoute
+  ProjectsRoute: typeof ProjectsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
 }
 
@@ -212,8 +236,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/tests': {
+      id: '/projects/tests'
+      path: '/tests'
+      fullPath: '/projects/tests'
+      preLoaderRoute: typeof ProjectsTestsRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/tasks': {
+      id: '/projects/tasks'
+      path: '/tasks'
+      fullPath: '/projects/tasks'
+      preLoaderRoute: typeof ProjectsTasksRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
   }
 }
+
+interface ProjectsRouteChildren {
+  ProjectsTasksRoute: typeof ProjectsTasksRoute
+  ProjectsTestsRoute: typeof ProjectsTestsRoute
+}
+
+const ProjectsRouteChildren: ProjectsRouteChildren = {
+  ProjectsTasksRoute: ProjectsTasksRoute,
+  ProjectsTestsRoute: ProjectsTestsRoute,
+}
+
+const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
+  ProjectsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -223,7 +275,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRoute,
   MessagesRoute: MessagesRoute,
   NotificationsRoute: NotificationsRoute,
-  ProjectsRoute: ProjectsRoute,
+  ProjectsRoute: ProjectsRouteWithChildren,
   SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
