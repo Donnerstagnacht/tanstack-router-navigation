@@ -228,6 +228,8 @@ export function NavItemList({
                 isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
               )}
               onClick={item.onClick}
+              onMouseEnter={() => setHoveredItem(item.id)}
+              onMouseLeave={() => setHoveredItem(null)}
             >
               <div className="relative">
                 <item.icon className={cn("h-5 w-5 flex-shrink-0", isItemActive(item, currentRoute) && "text-primary")} />
@@ -261,6 +263,8 @@ export function NavItemList({
               isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
             )}
             onClick={item.onClick}
+            onMouseEnter={() => setHoveredItem(item.id)}
+            onMouseLeave={() => setHoveredItem(null)}
           >
             <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute) && "text-primary")} />
             <span>{item.label}</span>
