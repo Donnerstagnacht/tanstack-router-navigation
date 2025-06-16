@@ -18,7 +18,7 @@ const MOBILE_BREAKPOINT = 768;
 
 export function ScreenProvider({ children }: { children: ReactNode }) {
   const [screen, setScreen] = useState<ScreenType>("automatic");
-  const [priority, setPriority] = useState<PriorityType>("primary");
+  const [priority, setPriority] = useState<PriorityType>("combined");
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {

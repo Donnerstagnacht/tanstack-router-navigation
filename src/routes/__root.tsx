@@ -87,8 +87,8 @@ function RootContent() {
       { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
     ];    // Define navigation items for secondary navigation
     const secondaryNavItems = [
-      { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => router.navigate({ to: "/projects/tasks" }) },
-      { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => router.navigate({ to: "/projects/tests" }) }
+      { id: "files", label: "Files", icon: "File", badge: 3, href: "/files", onClick: () => router.navigate({ to: "/projects/tasks"}) },
+      { id: "projects", label: "Projects", icon: "FolderOpen", badge: 2, href: "/projects", onClick: () => router.navigate({ to: "/projects/tests"}) }
     ];
     
     // Add command dialog open effect with keyboard shortcut
@@ -245,7 +245,8 @@ function RootContent() {
                       <CommandGroup heading="Secondary Navigation">
                         {secondaryNavItems.map((item) => {
                           const IconComponent = getIconComponent(item.icon);
-                          return (                            <CommandItem 
+                          return (                            
+                          <CommandItem 
                               key={item.id}
                               onSelect={() => {
                                 console.log(`Navigating to ${item.label}`);
