@@ -86,7 +86,7 @@ function RootContent() {
       { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => router.navigate({ to: "/calendar" }) },
       { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
     ];    // Define navigation items for secondary navigation
-    const secondaryNavItems = [
+    const projectSecondaryNavItems = [
       { id: "files", label: "Files", icon: "File", badge: 3, href: "/files", onClick: () => router.navigate({ to: "/projects/tasks"}) },
       { id: "projects", label: "Projects", icon: "FolderOpen", badge: 2, href: "/projects", onClick: () => router.navigate({ to: "/projects/tests"}) }
     ];
@@ -109,7 +109,7 @@ function RootContent() {
     useNavigationKeyboard({
       isActive: open,
       onNavigate: (itemId: string) => {
-        const item = [...primaryNavItems, ...secondaryNavItems].find(item => item.id === itemId);
+        const item = [...primaryNavItems, ...projectSecondaryNavItems].find(item => item.id === itemId);
         if (item) {
           console.log(`Navigating to ${item.label}`);
           setOpen(false);
@@ -120,7 +120,7 @@ function RootContent() {
           
           // Toggle priority based on navigation item if it exists in both
           const inPrimary = primaryNavItems.some(i => i.id === item.id);
-          const inSecondary = secondaryNavItems.some(i => i.id === item.id);
+          const inSecondary = projectSecondaryNavItems.some(i => i.id === item.id);
           if (inPrimary && !inSecondary) {
             setPriority("primary");
           } else if (inSecondary && !inPrimary) {
@@ -137,7 +137,7 @@ function RootContent() {
         setOpen(false);
       },
       onClose: () => setOpen(false),
-      items: [...primaryNavItems, ...secondaryNavItems]    });
+      items: [...primaryNavItems, ...projectSecondaryNavItems]    });
     
     const getMarginClass = () => {
       const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
@@ -202,7 +202,7 @@ function RootContent() {
                   userName="John Doe"
                   avatarUrl="/placeholder-user.jpg"
                   onUserClick={() => console.log("User profile clicked")}
-                  navigationItems={secondaryNavItems}
+                  navigationItems={projectSecondaryNavItems}
                 />
               )}
 
@@ -243,7 +243,7 @@ function RootContent() {
                     <>
                       <CommandSeparator />
                       <CommandGroup heading="Secondary Navigation">
-                        {secondaryNavItems.map((item) => {
+                        {projectSecondaryNavItems.map((item) => {
                           const IconComponent = getIconComponent(item.icon);
                           return (                            
                           <CommandItem 
