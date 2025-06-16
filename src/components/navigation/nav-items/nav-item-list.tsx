@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 import type { NavigationItem } from '../dynamic-navigation'
 
 // Helper function to determine if an item is active
-function isItemActive(item: NavigationItem, currentRoute?: string): boolean {
+function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: boolean): boolean {
   if (!currentRoute) return false
   
   // Direct match with href if available
@@ -16,7 +16,8 @@ function isItemActive(item: NavigationItem, currentRoute?: string): boolean {
   
   // Check if current route is a child of this item's route
   // For example: if item.href is '/projects' and currentRoute is '/projects/tasks'
-  if (item.href && currentRoute.startsWith(item.href + '/')) {
+  // Only apply this check when isPrimary is true
+  if (isPrimary && item.href && currentRoute.startsWith(item.href + '/')) {
     return true
   }
   
@@ -32,8 +33,8 @@ function isItemActive(item: NavigationItem, currentRoute?: string): boolean {
         if (route === currentRoute) {
           return true
         }
-        // Child route match
-        if (currentRoute.startsWith(route + '/')) {
+        // Child route match - only apply when isPrimary is true
+        if (isPrimary && currentRoute.startsWith(route + '/')) {
           return true
         }
       }
@@ -53,9 +54,9 @@ function isItemActive(item: NavigationItem, currentRoute?: string): boolean {
     return true
   }
   
-  // Child route matching with ID
+  // Child route matching with ID - only apply when isPrimary is true
   // For example: if item.id is 'projects' and currentRoute is '/projects/tasks'
-  if (routePath.startsWith(item.id + '/')) {
+  if (isPrimary && routePath.startsWith(item.id + '/')) {
     return true
   }
   
@@ -88,7 +89,7 @@ export function NavItemList({
   React.useEffect(() => {
     console.log('Variant:', variant, 'Current route:', currentRoute || 'undefined');
     items.forEach((item) => {
-      const isActive = isItemActive(item, currentRoute);
+      const isActive = isItemActive(item, currentRoute, isPrimary);
       console.log(`Item ${item.id}:`, { 
         isActive, 
         href: item.href || 'not set',
@@ -96,7 +97,7 @@ export function NavItemList({
         onClick: item.onClick ? 'defined' : 'not defined'
       });
     });
-  }, [currentRoute, items, variant]);
+  }, [currentRoute, items, variant, isPrimary]);
   
   // asButton variant - Grid layout of large buttons used in overlay
   if (variant === 'asButton') {
@@ -112,14 +113,14 @@ export function NavItemList({
                   variant="ghost"                  
                   className={cn(
                     "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
-                    isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
+                    isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
                   )}
                   onClick={() => {
                     if (item.onClick) item.onClick();
                     setHoveredItem(null); // Reset hover state after click
                   }}
                 >
-                  <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute) && "text-primary")} />
+                  <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
                   <span className="text-sm">{item.label}</span>
                   {item.badge && (
                     <Badge 
@@ -140,14 +141,14 @@ export function NavItemList({
                 variant="ghost"
                 className={cn(
                   "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
-                  isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
+                  isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
                 )}
                 onClick={() => {
                   if (item.onClick) item.onClick();
                   setHoveredItem(null); // Reset hover state after click
                 }}
               >
-                <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute) && "text-primary")} />
+                <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
                 <span className="text-sm">{item.label}</span>
                 {item.badge && (
                   <Badge 
@@ -178,7 +179,7 @@ export function NavItemList({
                   size="icon"
                   className={cn(
                     "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
-                    isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
+                    isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
                   )}
                   onClick={() => {
                     if (item.onClick) item.onClick();
@@ -189,7 +190,7 @@ export function NavItemList({
                   onTouchStart={() => setHoveredItem(item.id)}
                   onTouchEnd={() => setHoveredItem(null)}
                 >
-                  <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute) && "text-primary")} />
+                  <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
                   {item.badge && (
                     <Badge 
                       className="absolute -top-0 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
@@ -222,7 +223,7 @@ export function NavItemList({
                 size="icon"
                 className={cn(
                   "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
-                  isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
+                  isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
                 )}
                 onClick={() => {
                   if (item.onClick) item.onClick();
@@ -231,7 +232,7 @@ export function NavItemList({
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute) && "text-primary")} />
+                <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
                 {item.badge && (
                   <Badge 
                     className="absolute -top-0 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
@@ -262,7 +263,7 @@ export function NavItemList({
               variant="ghost"
               className={cn(
                 "flex h-16 min-w-16 flex-col gap-1 hover:bg-accent px-2 flex-shrink-0",
-                isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
+                isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
               )}
               onClick={() => {
                 if (item.onClick) item.onClick();
@@ -272,7 +273,7 @@ export function NavItemList({
               onMouseLeave={() => setHoveredItem(null)}
             >
               <div className="relative">
-                <item.icon className={cn("h-5 w-5 flex-shrink-0", isItemActive(item, currentRoute) && "text-primary")} />
+                <item.icon className={cn("h-5 w-5 flex-shrink-0", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
                 {item.badge && (
                   <Badge 
                     className="absolute -top-3 -right-5 h-5 w-5 p-0 flex items-center justify-center" 
@@ -300,7 +301,7 @@ export function NavItemList({
             variant="ghost" 
             className={cn(
               "justify-start gap-3 h-12 px-3 flex-shrink-0",
-              isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
+              isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
             )}
             onClick={() => {
               if (item.onClick) item.onClick();
@@ -309,7 +310,7 @@ export function NavItemList({
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute) && "text-primary")} />
+            <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
             <span>{item.label}</span>
             {item.badge && (
               <Badge className="ml-auto" variant="default">
