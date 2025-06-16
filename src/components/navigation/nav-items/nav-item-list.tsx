@@ -66,7 +66,7 @@ interface NavItemListProps {
   items: NavigationItem[]
   variant: 'asButton' | 'asButtonList' | 'asLabeledButtonList'
   isMobile: boolean
-  isLeft: boolean  // Used for determining popover position and other layout decisions
+  isPrimary: boolean  // Used for determining popover position and other layout decisions
   hoveredItem: string | null
   setHoveredItem: (id: string | null) => void
   className?: string
@@ -77,7 +77,7 @@ export function NavItemList({
   items,
   variant,
   isMobile,
-  isLeft,
+  isPrimary: isPrimary,
   hoveredItem,
   setHoveredItem,
   className,
@@ -242,7 +242,7 @@ export function NavItemList({
                 )}
               </Button>
             </PopoverTrigger>
-            <PopoverContent side={isLeft ? "right" : "left"} className="w-auto p-2" sideOffset={8}>
+            <PopoverContent side={isPrimary ? "right" : "left"} className="w-auto p-2" sideOffset={8}>
               <span className="text-sm font-medium">{item.label}</span>
             </PopoverContent>
           </Popover>

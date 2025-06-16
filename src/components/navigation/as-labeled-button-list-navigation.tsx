@@ -58,7 +58,7 @@ export function AsLabeledButtonListNavigation({
             items={items}
             variant="asLabeledButtonList"
             isMobile={true}
-            isLeft={isPrimary}
+            isPrimary={isPrimary}
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
             currentRoute={currentRoute}
@@ -114,7 +114,7 @@ export function AsLabeledButtonListNavigation({
           items={items}
           variant="asLabeledButtonList"
           isMobile={false}
-          isLeft={isPrimary}
+          isPrimary={isPrimary}
           hoveredItem={hoveredItem}
           setHoveredItem={setHoveredItem}
           currentRoute={currentRoute}

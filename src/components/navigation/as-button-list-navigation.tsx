@@ -58,7 +58,7 @@ export function AsButtonListNavigation({
             items={items}
             variant="asButtonList"
             isMobile={isMobile}
-            isLeft={isPrimary}
+            isPrimary={isPrimary}
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
             currentRoute={currentRoute}
@@ -115,7 +115,7 @@ export function AsButtonListNavigation({
               items={items}
               variant="asButtonList"
               isMobile={isMobile}
-              isLeft={isPrimary}
+              isPrimary={isPrimary}
               hoveredItem={hoveredItem}
               setHoveredItem={setHoveredItem}
               currentRoute={currentRoute}
@@ -160,7 +160,7 @@ export function AsButtonListNavigation({
             items={items}
             variant="asButtonList"
             isMobile={false}
-            isLeft={isPrimary}
+            isPrimary={isPrimary}
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
             currentRoute={currentRoute}

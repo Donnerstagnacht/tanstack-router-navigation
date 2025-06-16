@@ -75,7 +75,7 @@ export function AsButtonNavigation({
                 items={items}
                 variant="asButton"
                 isMobile={isMobile}
-                isLeft={isPrimary}
+                isPrimary={isPrimary}
                 hoveredItem={hoveredItem}
                 setHoveredItem={setHoveredItem}
                 currentRoute={currentRoute}

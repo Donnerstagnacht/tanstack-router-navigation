@@ -37,7 +37,7 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [hoverTimeout, setHoverTimeout] = React.useState<NodeJS.Timeout | null>(null)
-  const isLeft = priority === "primary"
+  const isPrimary = priority === "primary"
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -96,7 +96,7 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          side={isLeft ? "top" : "top"}
+          side={isPrimary ? "top" : "top"}
           align="end"
           className="p-1"
           style={{ width: 'max-content', minWidth: 'fit-content' }}
@@ -174,7 +174,7 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          side={isLeft ? "right" : "left"}
+          side={isPrimary ? "right" : "left"}
           align="start"
           className="p-1"
           style={{ width: 'max-content', minWidth: 'fit-content' }}
