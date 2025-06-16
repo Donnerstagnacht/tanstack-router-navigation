@@ -72,10 +72,6 @@ function App() {
           </CardFooter>
         </Card>
       </div>
-      <div className="flex flex-wrap items-center gap-2 md:flex-row">
-        <Button>Button</Button>
-      </div>
-
     </div>
   )
 }
