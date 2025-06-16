@@ -87,10 +87,8 @@ function RootContent() {
       { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
     ];    // Define navigation items for secondary navigation
     const secondaryNavItems = [
-      { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => router.navigate({ to: "/files" }) },
-      { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => router.navigate({ to: "/projects" }) },
-      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => router.navigate({ to: "/calendar" }) },
-      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
+      { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => router.navigate({ to: "/projects/tasks" }) },
+      { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => router.navigate({ to: "/projects/tests" }) }
     ];
     
     // Add command dialog open effect with keyboard shortcut
