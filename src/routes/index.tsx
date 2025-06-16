@@ -27,7 +27,7 @@ function App() {
             <p>Testen Sie verschiedene Navigationstypen, Prioritäten und Bildschirmkonfigurationen.</p>
           </CardContent>
           <CardFooter>
-            <Link to="/navigation">
+            <Link to="/settings">
               <Button>Navigation Demo anzeigen</Button>
             </Link>
           </CardFooter>
@@ -66,7 +66,7 @@ function App() {
             </div>
           </CardContent>
           <CardFooter>
-            <Link to="/navigation">
+            <Link to="/settings">
               <Button variant="outline">Demo starten</Button>
             </Link>
           </CardFooter>
