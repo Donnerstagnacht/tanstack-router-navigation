@@ -70,7 +70,7 @@ export const Route = createRootRoute({
 
 function RootContent() {
   // State for navigation configuration
-  const [state, setState] = useState<"asButton" | "asButtonList" | "asLabeledButtonList">("asButton");
+  const [state, setState] = useState<"asButton" | "asButtonList" | "asLabeledButtonList">("asButtonList");
   const [open, setOpen] = useState(false);
   const router = useRouter();
   // Get screen and priority from context

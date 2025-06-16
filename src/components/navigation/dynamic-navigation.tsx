@@ -49,7 +49,7 @@ const unauthenticatedItems: NavigationItem[] = [
 ]
 
 export function DynamicNavigation({
-  state = "asButton",
+  state = "asButtonList",
   priority = "primary",
   screen = "automatic",
   navigationItems = unauthenticatedItems,
