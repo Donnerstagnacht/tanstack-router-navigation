@@ -13,6 +13,8 @@ import {
   FolderOpen,
   Calendar,
   MessageSquare,
+  LineChart,
+  AreaChart,
 } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { AsButtonNavigation } from "@/components/navigation/as-button-navigation"
@@ -83,6 +85,8 @@ export function DynamicNavigation({
     FolderOpen,
     Calendar,
     MessageSquare,
+    LineChart,
+    AreaChart
   }
   
   // Process navigation items to ensure icon is a component

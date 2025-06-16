@@ -24,13 +24,16 @@ import {
   Moon,
   Keyboard,
   Laptop,
-  Sun
+  Sun,
+  LineChart,
+  FileText,
+  AreaChart
 } from 'lucide-react'
 import { getShortcutForItem } from '@/lib/keyboard-navigation'
 import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard'
 
 // Helper function to get the correct icon component
-function getIconComponent(iconName: string) {
+export function getIconComponent(iconName: string) {
   const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     Home,
     Settings,
@@ -48,7 +51,10 @@ function getIconComponent(iconName: string) {
     Moon,
     Sun,
     Laptop,
-    Keyboard
+    Keyboard,
+    LineChart,
+    FileText,
+    AreaChart
   };
   
   return iconMap[iconName] || Search; // Fallback to Search icon if the name doesn't match
@@ -75,21 +81,85 @@ function RootContent() {
   const router = useRouter();
   // Get screen and priority from context
   const { screen, priority, setPriority } = useScreenContext();
-    // Define navigation items for primary navigation with TanStack Router integration
-    const primaryNavItems = [
-      { id: "home", label: "Home", icon: "Home", href: "/", onClick: () => router.navigate({ to: "/" }) },
-      { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/dashboard", onClick: () => router.navigate({ to: "/dashboard" }) },
-      { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5, href: "/messages", onClick: () => router.navigate({ to: "/messages" }) },
-      { id: "settings", label: "Settings", icon: "Settings", href: "/settings", onClick: () => router.navigate({ to: "/settings" }) },
-      { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => router.navigate({ to: "/files" }) },
-      { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => router.navigate({ to: "/projects" }) },
-      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => router.navigate({ to: "/calendar" }) },
-      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
-    ];    // Define navigation items for secondary navigation
-    const projectSecondaryNavItems = [
-      { id: "files", label: "Files", icon: "File", badge: 3, href: "/files", onClick: () => router.navigate({ to: "/projects/tasks"}) },
-      { id: "projects", label: "Projects", icon: "FolderOpen", badge: 2, href: "/projects", onClick: () => router.navigate({ to: "/projects/tests"}) }
-    ];
+  // Track current route to determine which secondary nav items to display
+  const [currentPrimaryRoute, setCurrentPrimaryRoute] = useState<string | null>(null);
+  
+  // Define navigation items for primary navigation with TanStack Router integration
+  const primaryNavItems = [
+    { id: "home", label: "Home", icon: "Home", href: "/", onClick: () => {
+      router.navigate({ to: "/" });
+      setCurrentPrimaryRoute("home");
+    }},
+    { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/dashboard", onClick: () => {
+      router.navigate({ to: "/dashboard" });
+      setCurrentPrimaryRoute("dashboard");
+    }},
+    { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5, href: "/messages", onClick: () => {
+      router.navigate({ to: "/messages" });
+      setCurrentPrimaryRoute("messages");
+    }},
+    { id: "settings", label: "Settings", icon: "Settings", href: "/settings", onClick: () => {
+      router.navigate({ to: "/settings" });
+      setCurrentPrimaryRoute("settings");
+    }},
+    { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => {
+      router.navigate({ to: "/files" });
+      setCurrentPrimaryRoute("files");
+    }},
+    { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => {
+      router.navigate({ to: "/projects" });
+      setCurrentPrimaryRoute("projects");
+    }},
+    { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => {
+      router.navigate({ to: "/calendar" });
+      setCurrentPrimaryRoute("calendar");
+    }},
+    { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => {
+      router.navigate({ to: "/notifications" });
+      setCurrentPrimaryRoute("notifications");
+    }},
+  ];
+    // Define a type for navigation items
+  type NavItem = {
+    id: string;
+    label: string;
+    icon: string;
+    href: string;
+    badge?: number;
+    onClick: () => void;
+  };
+
+  // Define route-specific secondary navigation items
+  const projectSecondaryNavItems: NavItem[] = [
+    { id: "tasks", label: "Tasks", icon: "File", badge: 3, href: "/projects/tasks", onClick: () => router.navigate({ to: "/projects/tasks" }) },
+    { id: "tests", label: "Tests", icon: "FolderOpen", badge: 2, href: "/projects/tests", onClick: () => router.navigate({ to: "/projects/tests" }) }
+  ];
+  
+  // Define dashboard secondary navigation items
+  const dashboardSecondaryNavItems: NavItem[] = [
+    { id: "analytics", label: "Analytics", icon: "LineChart", href: "/dashboard/analytics", onClick: () => router.navigate({ to: "/dashboard/analytics" }) },
+    { id: "reports", label: "Reports", icon: "AreaChart", href: "/dashboard/reports", onClick: () => router.navigate({ to: "/dashboard/reports" }) }
+  ];
+  
+  // Determine which secondary items to show based on current route
+  const getSecondaryNavItems = () => {
+    switch(currentPrimaryRoute) {
+      case "projects":
+        return projectSecondaryNavItems;
+      case "dashboard":
+        return dashboardSecondaryNavItems;
+      default:
+        return null;
+    }
+  };
+    const secondaryNavItems = getSecondaryNavItems();
+  
+  // Set initial route based on current path
+  useEffect(() => {
+    const path = window.location.pathname;
+    const route = path === '/' ? 'home' : path.split('/')[1];
+    setCurrentPrimaryRoute(route);
+  }, []);
     
     // Add command dialog open effect with keyboard shortcut
     useEffect(() => {
@@ -104,23 +174,27 @@ function RootContent() {
 
       document.addEventListener("keydown", down);
       return () => document.removeEventListener("keydown", down);
-    }, []);
-      // Use our custom hook for handling navigation shortcuts
+    }, []);    // Use our custom hook for handling navigation shortcuts
     useNavigationKeyboard({
       isActive: open,
       onNavigate: (itemId: string) => {
-        const item = [...primaryNavItems, ...projectSecondaryNavItems].find(item => item.id === itemId);
+        const allItems = [...primaryNavItems, ...(secondaryNavItems || [])];
+        const item = allItems.find(item => item.id === itemId);
         if (item) {
           console.log(`Navigating to ${item.label}`);
           setOpen(false);
           
           // Navigate to the appropriate route using TanStack Router
-          const route = itemId === 'home' ? '/' : `/${itemId}`;
-          router.navigate({ to: route });
+          if (item.onClick) {
+            item.onClick();
+          } else {
+            const route = itemId === 'home' ? '/' : `/${itemId}`;
+            router.navigate({ to: route });
+          }
           
           // Toggle priority based on navigation item if it exists in both
           const inPrimary = primaryNavItems.some(i => i.id === item.id);
-          const inSecondary = projectSecondaryNavItems.some(i => i.id === item.id);
+          const inSecondary = secondaryNavItems ? secondaryNavItems.some(i => i.id === item.id) : false;
           if (inPrimary && !inSecondary) {
             setPriority("primary");
           } else if (inSecondary && !inPrimary) {
@@ -135,9 +209,9 @@ function RootContent() {
       onKeyboardShortcutsOpen: () => {
         console.log("Opening keyboard shortcuts");
         setOpen(false);
-      },
-      onClose: () => setOpen(false),
-      items: [...primaryNavItems, ...projectSecondaryNavItems]    });
+      },      onClose: () => setOpen(false),
+      items: [...primaryNavItems, ...(secondaryNavItems || [])]
+    });
     
     const getMarginClass = () => {
       const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
@@ -189,8 +263,7 @@ function RootContent() {
                   navigationItems={primaryNavItems}
                 />
               )}
-              
-              {(priority === "secondary" || priority === "combined") && (
+                {secondaryNavItems && (priority === "secondary" || priority === "combined") && (
                 <DynamicNavigation 
                   state={state} 
                   priority="secondary" 
@@ -202,7 +275,7 @@ function RootContent() {
                   userName="John Doe"
                   avatarUrl="/placeholder-user.jpg"
                   onUserClick={() => console.log("User profile clicked")}
-                  navigationItems={projectSecondaryNavItems}
+                  navigationItems={secondaryNavItems}
                 />
               )}
 
@@ -215,16 +288,20 @@ function RootContent() {
                 <CommandInput placeholder="Type a command or search..." />
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
-                  <CommandGroup heading="Primary Navigation">
-                    {primaryNavItems.map((item) => {
+                  <CommandGroup heading="Primary Navigation">                    {primaryNavItems.map((item) => {
                       const IconComponent = getIconComponent(item.icon);
                       return (                        <CommandItem 
                           key={item.id}
                           onSelect={() => {
                             console.log(`Navigating to ${item.label}`);
                             // Navigate to the appropriate route using TanStack Router
-                            const route = item.id === 'home' ? '/' : `/${item.id}`;
-                            router.navigate({ to: route });
+                            if (item.onClick) {
+                              item.onClick();
+                            } else {
+                              const route = item.id === 'home' ? '/' : `/${item.id}`;
+                              router.navigate({ to: route });
+                            }
+                            setOpen(false);
                           }}
                         >
                           <div className="flex items-center">
@@ -238,12 +315,11 @@ function RootContent() {
                         </CommandItem>
                       );
                     })}
-                  </CommandGroup>
-                  {priority === "combined" && (
+                  </CommandGroup>                  {priority === "combined" && secondaryNavItems && (
                     <>
                       <CommandSeparator />
                       <CommandGroup heading="Secondary Navigation">
-                        {projectSecondaryNavItems.map((item) => {
+                        {secondaryNavItems.map((item) => {
                           const IconComponent = getIconComponent(item.icon);
                           return (                            
                           <CommandItem 
@@ -251,7 +327,12 @@ function RootContent() {
                               onSelect={() => {
                                 console.log(`Navigating to ${item.label}`);
                                 // Navigate to the appropriate route using TanStack Router
-                                router.navigate({ to: `/${item.id}` });
+                                if (item.onClick) {
+                                  item.onClick();
+                                } else {
+                                  router.navigate({ to: item.href });
+                                }
+                                setOpen(false);
                               }}
                             >
                               <div className="flex items-center">

@@ -20,6 +20,8 @@ import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsTestsRouteImport } from './routes/projects/tests'
 import { Route as ProjectsTasksRouteImport } from './routes/projects/tasks'
+import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
+import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard/analytics'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -76,30 +78,44 @@ const ProjectsTasksRoute = ProjectsTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => ProjectsRoute,
 } as any)
+const DashboardReportsRoute = DashboardReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/files': typeof FilesRoute
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
   '/projects/tasks': typeof ProjectsTasksRoute
   '/projects/tests': typeof ProjectsTestsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/files': typeof FilesRoute
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
   '/projects/tasks': typeof ProjectsTasksRoute
   '/projects/tests': typeof ProjectsTestsRoute
 }
@@ -107,13 +123,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/files': typeof FilesRoute
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
   '/projects/tasks': typeof ProjectsTasksRoute
   '/projects/tests': typeof ProjectsTestsRoute
 }
@@ -129,6 +147,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/projects'
     | '/settings'
+    | '/dashboard/analytics'
+    | '/dashboard/reports'
     | '/projects/tasks'
     | '/projects/tests'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +162,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/projects'
     | '/settings'
+    | '/dashboard/analytics'
+    | '/dashboard/reports'
     | '/projects/tasks'
     | '/projects/tests'
   id:
@@ -155,6 +177,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/projects'
     | '/settings'
+    | '/dashboard/analytics'
+    | '/dashboard/reports'
     | '/projects/tasks'
     | '/projects/tests'
   fileRoutesById: FileRoutesById
@@ -162,7 +186,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarRoute: typeof CalendarRoute
-  DashboardRoute: typeof DashboardRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   FilesRoute: typeof FilesRoute
   HomeRoute: typeof HomeRoute
   MessagesRoute: typeof MessagesRoute
@@ -250,8 +274,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsTasksRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/dashboard/reports': {
+      id: '/dashboard/reports'
+      path: '/reports'
+      fullPath: '/dashboard/reports'
+      preLoaderRoute: typeof DashboardReportsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/analytics': {
+      id: '/dashboard/analytics'
+      path: '/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof DashboardAnalyticsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
+
+interface DashboardRouteChildren {
+  DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
+  DashboardReportsRoute: typeof DashboardReportsRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAnalyticsRoute: DashboardAnalyticsRoute,
+  DashboardReportsRoute: DashboardReportsRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
 
 interface ProjectsRouteChildren {
   ProjectsTasksRoute: typeof ProjectsTasksRoute
@@ -270,7 +322,7 @@ const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarRoute: CalendarRoute,
-  DashboardRoute: DashboardRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   FilesRoute: FilesRoute,
   HomeRoute: HomeRoute,
   MessagesRoute: MessagesRoute,
