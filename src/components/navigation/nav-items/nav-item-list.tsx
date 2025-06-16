@@ -85,14 +85,19 @@ export function NavItemList({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-max gap-8 w-full p-4">
           {/* Use different layout for fewer items */}
           {items.length <= 4 ? (
-            <div className="col-span-full flex flex-wrap justify-center gap-8">              {items.map((item) => (                <Button
+            <div className="col-span-full flex flex-wrap justify-center gap-8">
+              {items.map((item) => (
+                <Button
                   key={item.id}
                   variant="ghost"                  
                   className={cn(
                     "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
                     isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                   )}
-                  onClick={item.onClick}
+                  onClick={(e) => {
+                    if (item.onClick) item.onClick(e);
+                    setHoveredItem(null); // Reset hover state after click
+                  }}
                 >
                   <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute) && "text-primary")} />
                   <span className="text-sm">{item.label}</span>
@@ -109,14 +114,18 @@ export function NavItemList({
             </div>
           ) : (
             // Original layout for 5+ items
-            items.map((item) => (              <Button
+            items.map((item) => (
+              <Button
                 key={item.id}
                 variant="ghost"
                 className={cn(
                   "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
                   isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                 )}
-                onClick={item.onClick}
+                onClick={(e) => {
+                  if (item.onClick) item.onClick(e);
+                  setHoveredItem(null); // Reset hover state after click
+                }}
               >
                 <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute) && "text-primary")} />
                 <span className="text-sm">{item.label}</span>
@@ -141,7 +150,8 @@ export function NavItemList({
     return (
       <div className="flex-1 overflow-x-auto scrollbar-hide">
         <div className="flex items-center justify-center gap-1 px-2 min-w-max">
-          {items.map((item) => (            <Popover key={item.id} open={hoveredItem === item.id}>
+          {items.map((item) => (
+            <Popover key={item.id} open={hoveredItem === item.id}>
               <PopoverTrigger asChild>
                 <Button
                   variant="ghost"
@@ -150,7 +160,10 @@ export function NavItemList({
                     "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
                     isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                   )}
-                  onClick={item.onClick}
+                  onClick={(e) => {
+                    if (item.onClick) item.onClick(e);
+                    setHoveredItem(null); // Reset hover state after click
+                  }}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   onTouchStart={() => setHoveredItem(item.id)}
@@ -181,7 +194,8 @@ export function NavItemList({
   if (variant === 'asButtonList' && !isMobile) {
     return (
       <div className={cn("flex flex-col items-center gap-2", className)}>
-        {items.map((item) => (          <Popover key={item.id} open={hoveredItem === item.id}>
+        {items.map((item) => (
+          <Popover key={item.id} open={hoveredItem === item.id}>
             <PopoverTrigger asChild>
               <Button
                 variant="ghost"
@@ -190,9 +204,12 @@ export function NavItemList({
                   "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
                   isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
                 )}
+                onClick={(e) => {
+                  if (item.onClick) item.onClick(e);
+                  setHoveredItem(null); // Reset hover state after click
+                }}
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
-                onClick={item.onClick}
               >
                 <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute) && "text-primary")} />
                 {item.badge && (
@@ -227,7 +244,10 @@ export function NavItemList({
                 "flex h-16 min-w-16 flex-col gap-1 hover:bg-accent px-2 flex-shrink-0",
                 isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
               )}
-              onClick={item.onClick}
+              onClick={(e) => {
+                if (item.onClick) item.onClick(e);
+                setHoveredItem(null); // Reset hover state after click
+              }}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
             >
@@ -262,7 +282,10 @@ export function NavItemList({
               "justify-start gap-3 h-12 px-3 flex-shrink-0",
               isItemActive(item, currentRoute) && "bg-accent text-accent-foreground"
             )}
-            onClick={item.onClick}
+            onClick={(e) => {
+              if (item.onClick) item.onClick(e);
+              setHoveredItem(null); // Reset hover state after click
+            }}
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
           >
