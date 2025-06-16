@@ -14,14 +14,28 @@ function isItemActive(item: NavigationItem, currentRoute?: string): boolean {
     return true
   }
   
+  // Check if current route is a child of this item's route
+  // For example: if item.href is '/projects' and currentRoute is '/projects/tasks'
+  if (item.href && currentRoute.startsWith(item.href + '/')) {
+    return true
+  }
+  
   // Extract route from onClick function string representation
   if (item.onClick) {
     try {
       const onClickStr = item.onClick.toString()
       // Look for navigation patterns like "navigate({ to: '/route' })" or "router.navigate({ to: '/route' })"
       const routeMatch = onClickStr.match(/to:\s*['"]([^'"]+)['"]\s*}/)
-      if (routeMatch && routeMatch[1] === currentRoute) {
-        return true
+      if (routeMatch) {
+        const route = routeMatch[1]
+        // Exact match
+        if (route === currentRoute) {
+          return true
+        }
+        // Child route match
+        if (currentRoute.startsWith(route + '/')) {
+          return true
+        }
       }
     } catch (e) {
       // Ignore errors from toString conversion
@@ -33,9 +47,15 @@ function isItemActive(item: NavigationItem, currentRoute?: string): boolean {
     return true
   }
   
-  // Match route name with ID
+  // Match route name with ID (exact match)
   const routePath = currentRoute.startsWith('/') ? currentRoute.slice(1) : currentRoute
   if (routePath === item.id) {
+    return true
+  }
+  
+  // Child route matching with ID
+  // For example: if item.id is 'projects' and currentRoute is '/projects/tasks'
+  if (routePath.startsWith(item.id + '/')) {
     return true
   }
   
