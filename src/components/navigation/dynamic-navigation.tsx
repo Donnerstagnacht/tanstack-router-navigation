@@ -1,21 +1,5 @@
 import * as React from "react"
-import {
-  Home,
-  Settings,
-  User,
-  Mail,
-  Search,
-  Bell,
-  Heart,
-  Bookmark,
-  LayoutDashboard,
-  File,
-  FolderOpen,
-  Calendar,
-  MessageSquare,
-  LineChart,
-  AreaChart,
-} from "lucide-react"
+import { iconMap } from "@/lib/icons/icon-map"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { AsButtonNavigation } from "@/components/navigation/as-button-navigation"
 import { AsButtonListNavigation } from "@/components/navigation/as-button-list-navigation"
@@ -47,7 +31,7 @@ type DynamicNavigationProps = {
 }
 
 const unauthenticatedItems: NavigationItem[] = [
-  { id: "home", icon: Home, label: "Home", href: "/" }
+  { id: "home", icon: "Home", label: "Home", href: "/" }
 ]
 
 export function DynamicNavigation({
@@ -69,27 +53,8 @@ export function DynamicNavigation({
 
   const isPrimary = priority === "primary"
   const isMobile = screen === "mobile" || (screen === "automatic" && isMobileDevice)
-  
-  // Map string icons to actual components
-  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    Home,
-    Settings,
-    User,
-    Mail,
-    Search,
-    Bell,
-    Heart,
-    Bookmark,
-    LayoutDashboard,
-    File,
-    FolderOpen,
-    Calendar,
-    MessageSquare,
-    LineChart,
-    AreaChart
-  }
-  
-  // Process navigation items to ensure icon is a component
+    // Use the centralized icon map from lib/icons/icon-map
+    // Process navigation items to ensure icon is a component using the centralized icon map
   const processedItems = navigationItems.map(item => {
     if (typeof item.icon === 'string' && iconMap[item.icon]) {
       return { ...item, icon: iconMap[item.icon] }

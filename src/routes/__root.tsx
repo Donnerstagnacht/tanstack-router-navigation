@@ -5,60 +5,12 @@ import { Toaster } from '@/components/ui/sonner'
 import { DynamicNavigation } from '@/components/navigation/dynamic-navigation'
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from '@/components/ui/command'
 import { Badge } from '@/components/ui/badge'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ScreenProvider, useScreenContext } from '@/contexts/screen-context'
-import { 
-  Search, 
-  Home, 
-  Settings, 
-  User, 
-  Mail, 
-  Bell, 
-  Heart, 
-  Bookmark, 
-  LayoutDashboard, 
-  File, 
-  FolderOpen, 
-  Calendar, 
-  MessageSquare, 
-  Moon,
-  Keyboard,
-  Laptop,
-  Sun,
-  LineChart,
-  FileText,
-  AreaChart
-} from 'lucide-react'
+import { Moon, Keyboard } from 'lucide-react'
 import { getShortcutForItem } from '@/lib/keyboard-navigation'
 import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard'
-
-// Helper function to get the correct icon component
-export function getIconComponent(iconName: string) {
-  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    Home,
-    Settings,
-    User,
-    Mail,
-    Search,
-    Bell,
-    Heart,
-    Bookmark,
-    LayoutDashboard,
-    File,
-    FolderOpen,
-    Calendar,
-    MessageSquare,
-    Moon,
-    Sun,
-    Laptop,
-    Keyboard,
-    LineChart,
-    FileText,
-    AreaChart
-  };
-  
-  return iconMap[iconName] || Search; // Fallback to Search icon if the name doesn't match
-}
+import { getIconComponent, iconMap } from '@/lib/icons/icon-map'
 
 export const Route = createRootRoute({
   component: () => {
@@ -119,11 +71,11 @@ function RootContent() {
       setCurrentPrimaryRoute("notifications");
     }},
   ];
-    // Define a type for navigation items
+    // Define a type for navigation items with type-safe icon names
   type NavItem = {
     id: string;
     label: string;
-    icon: string;
+    icon: keyof typeof iconMap;
     href: string;
     badge?: number;
     onClick: () => void;
