@@ -66,19 +66,17 @@ export function NavItemList({
   
   // For debugging - log the current route
   React.useEffect(() => {
-    if (currentRoute) {
-      console.log('Current route:', currentRoute);
-      items.forEach((item) => {
-        const isActive = isItemActive(item, currentRoute);
-        console.log(`Item ${item.id}:`, { 
-          isActive, 
-          href: item.href || 'not set',
-          currentRoute,
-          onClick: item.onClick ? 'defined' : 'not defined'
-        });
+    console.log('Variant:', variant, 'Current route:', currentRoute || 'undefined');
+    items.forEach((item) => {
+      const isActive = isItemActive(item, currentRoute);
+      console.log(`Item ${item.id}:`, { 
+        isActive, 
+        href: item.href || 'not set',
+        currentRoute,
+        onClick: item.onClick ? 'defined' : 'not defined'
       });
-    }
-  }, [currentRoute, items]);
+    });
+  }, [currentRoute, items, variant]);
   
   // asButton variant - Grid layout of large buttons used in overlay
   if (variant === 'asButton') {

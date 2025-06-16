@@ -53,7 +53,8 @@ export function AsLabeledButtonListNavigation({
         )}
       >
         <div className="flex items-center py-2">
-          {/* Scrollable navigation items */}          <NavItemList
+          {/* Scrollable navigation items */}          
+          <NavItemList
             items={items}
             variant="asLabeledButtonList"
             isMobile={true}
