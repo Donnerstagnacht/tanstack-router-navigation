@@ -6,6 +6,7 @@ import { StateSwitcher } from "@/components/navigation/toggles/state-switcher"
 import { NavItemList } from "@/components/navigation/nav-items/nav-item-list"
 import { NavUserAvatar } from "@/components/navigation/nav-items/nav-user-avatar"
 import type { NavigationItem, NavigationState, NavigationPriority, Language } from "./dynamic-navigation"
+import { useRouter } from "@tanstack/react-router"
 
 interface AsLabeledButtonListNavigationProps {
   items: NavigationItem[];
@@ -41,6 +42,8 @@ export function AsLabeledButtonListNavigation({
   language,
   setLanguage,
 }: AsLabeledButtonListNavigationProps) {
+  const router = useRouter()
+  const currentRoute = router.state.location.pathname
   if (isMobile) {
     // Mobile: Bottom bar (primary) or Top bar (secondary) with carousel + expandable more menu
     return (
@@ -52,14 +55,14 @@ export function AsLabeledButtonListNavigation({
         )}
       >
         <div className="flex items-center py-2">
-          {/* Scrollable navigation items */}
-          <NavItemList
+          {/* Scrollable navigation items */}          <NavItemList
             items={items}
             variant="asLabeledButtonList"
             isMobile={true}
             isLeft={isPrimary}
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
+            currentRoute={currentRoute}
           />
 
           {/* Divider */}
@@ -108,14 +111,14 @@ export function AsLabeledButtonListNavigation({
       )}
     >
       {/* Main navigation items with vertical scrolling */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide p-4">
-        <NavItemList
+      <div className="flex-1 overflow-y-auto scrollbar-hide p-4">        <NavItemList
           items={items}
           variant="asLabeledButtonList"
           isMobile={false}
           isLeft={isPrimary}
           hoveredItem={hoveredItem}
           setHoveredItem={setHoveredItem}
+          currentRoute={currentRoute}
         />
       </div>
 

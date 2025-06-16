@@ -6,6 +6,7 @@ import { StateSwitcher } from "@/components/navigation/toggles/state-switcher"
 import { NavItemList } from "@/components/navigation/nav-items/nav-item-list"
 import { NavUserAvatar } from "@/components/navigation/nav-items/nav-user-avatar"
 import type { NavigationItem, NavigationState, NavigationPriority, Language } from "./dynamic-navigation"
+import { useRouter } from "@tanstack/react-router"
 
 interface AsButtonListNavigationProps {
   items: NavigationItem[];
@@ -42,6 +43,8 @@ export function AsButtonListNavigation({
   language,
   setLanguage,
 }: AsButtonListNavigationProps) {
+  const router = useRouter()
+  const currentRoute = router.state.location.pathname
   if (isMobile) {
     // Mobile: Bottom bar (primary) or Top bar (secondary) with carousel + expandable more menu
     return (
@@ -51,8 +54,7 @@ export function AsButtonListNavigation({
           isPrimary ? "bottom-0 border-t" : "top-0 border-b",
           className,
         )}
-      >
-        <div className="flex items-center py-2">
+      >        <div className="flex items-center py-2">
           {/* Scrollable navigation items */}
           <NavItemList
             items={items}
@@ -61,6 +63,7 @@ export function AsButtonListNavigation({
             isLeft={isPrimary}
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
+            currentRoute={currentRoute}
           />
 
           {/* Divider */}
@@ -109,8 +112,7 @@ export function AsButtonListNavigation({
     >
       {isPrimary ? (
         // Primary Navigation (links) - with vertical scrolling
-        <>
-          <div className="flex-1 overflow-y-auto scrollbar-hide py-4">
+        <>          <div className="flex-1 overflow-y-auto scrollbar-hide py-4">
             <NavItemList
               items={items}
               variant="asButtonList"
@@ -118,6 +120,7 @@ export function AsButtonListNavigation({
               isLeft={isPrimary}
               hoveredItem={hoveredItem}
               setHoveredItem={setHoveredItem}
+              currentRoute={currentRoute}
             />
           </div>
 
@@ -162,6 +165,7 @@ export function AsButtonListNavigation({
             isLeft={isPrimary}
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
+            currentRoute={currentRoute}
           />
         </div>
       )}

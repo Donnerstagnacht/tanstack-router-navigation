@@ -8,6 +8,7 @@ import { StateSwitcher } from "@/components/navigation/toggles/state-switcher"
 import { NavItemList } from "@/components/navigation/nav-items/nav-item-list"
 import { NavUserAvatar } from "@/components/navigation/nav-items/nav-user-avatar"
 import type { NavigationItem, NavigationState, Language } from "./dynamic-navigation"
+import { useRouter } from "@tanstack/react-router"
 
 interface AsButtonNavigationProps {
   items: NavigationItem[];
@@ -44,7 +45,10 @@ export function AsButtonNavigation({
   onUserClick,
   language,
   setLanguage,
-}: AsButtonNavigationProps) {  return (
+}: AsButtonNavigationProps) {  const router = useRouter()
+  const currentRoute = router.state.location.pathname
+  
+  return (
     <>
       {/* Main navigation button - hidden when overlay is open */}
       {!isExpanded && (
@@ -69,15 +73,15 @@ export function AsButtonNavigation({
             onClose={() => setIsExpanded(false)}
           />
           <div className="flex h-full items-center justify-center">
-            <div className="flex flex-col items-center max-w-3xl w-full px-6">
-              <NavItemList
+            <div className="flex flex-col items-center max-w-3xl w-full px-6">              <NavItemList
                 items={items}
                 variant="asButton"
                 isMobile={isMobile}
                 isLeft={isPrimary}
                 hoveredItem={hoveredItem}
                 setHoveredItem={setHoveredItem}
-              />              {/* User Avatar and Name Button - Full width below menu grid */}
+                currentRoute={currentRoute}
+              />{/* User Avatar and Name Button - Full width below menu grid */}
               {authenticated && userName && isPrimary && (
                 <NavUserAvatar
                   userName={userName}

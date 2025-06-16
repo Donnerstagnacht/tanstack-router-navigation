@@ -62,23 +62,22 @@ export const Route = createRootRoute({
     const [screen, setScreen] = useState<"mobile" | "desktop" | "automatic">("automatic");
     const [open, setOpen] = useState(false);
     const router = useRouter();
-  
     // Define navigation items for primary navigation with TanStack Router integration
     const primaryNavItems = [
-      { id: "home", label: "Home", icon: "Home", onClick: () => router.navigate({ to: "/" }) },
-      { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", onClick: () => router.navigate({ to: "/dashboard" }) },
-      { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5, onClick: () => router.navigate({ to: "/messages" }) },
-      { id: "settings", label: "Settings", icon: "Settings", onClick: () => router.navigate({ to: "/settings" }) },
-      { id: "files", label: "Files", icon: "File", onClick: () => router.navigate({ to: "/files" }) },
-      { id: "projects", label: "Projects", icon: "FolderOpen", onClick: () => router.navigate({ to: "/projects" }) },
-      { id: "calendar", label: "Calendar", icon: "Calendar", onClick: () => router.navigate({ to: "/calendar" }) },
-      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, onClick: () => router.navigate({ to: "/notifications" }) },
+      { id: "home", label: "Home", icon: "Home", href: "/", onClick: () => router.navigate({ to: "/" }) },
+      { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/dashboard", onClick: () => router.navigate({ to: "/dashboard" }) },
+      { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5, href: "/messages", onClick: () => router.navigate({ to: "/messages" }) },
+      { id: "settings", label: "Settings", icon: "Settings", href: "/settings", onClick: () => router.navigate({ to: "/settings" }) },
+      { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => router.navigate({ to: "/files" }) },
+      { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => router.navigate({ to: "/projects" }) },
+      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => router.navigate({ to: "/calendar" }) },
+      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
     ];    // Define navigation items for secondary navigation
     const secondaryNavItems = [
-      { id: "files", label: "Files", icon: "File", onClick: () => router.navigate({ to: "/files" }) },
-      { id: "projects", label: "Projects", icon: "FolderOpen", onClick: () => router.navigate({ to: "/projects" }) },
-      { id: "calendar", label: "Calendar", icon: "Calendar", onClick: () => router.navigate({ to: "/calendar" }) },
-      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, onClick: () => router.navigate({ to: "/notifications" }) },
+      { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => router.navigate({ to: "/files" }) },
+      { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => router.navigate({ to: "/projects" }) },
+      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => router.navigate({ to: "/calendar" }) },
+      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => router.navigate({ to: "/notifications" }) },
     ];
     
     // Add command dialog open effect with keyboard shortcut
