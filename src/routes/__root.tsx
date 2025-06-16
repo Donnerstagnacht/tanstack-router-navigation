@@ -106,6 +106,9 @@ export const Route = createRootRoute({
           console.log(`Navigating to ${item.label}`);
           setOpen(false);
           
+          // Navigate to the appropriate route
+          window.location.href = `/${item.id === 'home' ? '' : item.id}`;
+          
           // Toggle priority based on navigation item if it exists in both
           const inPrimary = primaryNavItems.some(i => i.id === item.id);
           const inSecondary = secondaryNavItems.some(i => i.id === item.id);
@@ -224,7 +227,11 @@ export const Route = createRootRoute({
                       return (
                         <CommandItem 
                           key={item.id}
-                          onSelect={() => console.log(`Navigating to ${item.label}`)}
+                          onSelect={() => {
+                            console.log(`Navigating to ${item.label}`);
+                            // Navigate to the appropriate route
+                            window.location.href = `/${item.id === 'home' ? '' : item.id}`;
+                          }}
                         >
                           <div className="flex items-center">
                             <IconComponent className="mr-2 h-4 w-4" />
@@ -247,7 +254,11 @@ export const Route = createRootRoute({
                           return (
                             <CommandItem 
                               key={item.id}
-                              onSelect={() => console.log(`Navigating to ${item.label}`)}
+                              onSelect={() => {
+                                console.log(`Navigating to ${item.label}`);
+                                // Navigate to the appropriate route
+                                window.location.href = `/${item.id}`;
+                              }}
                             >
                               <div className="flex items-center">
                                 <IconComponent className="mr-2 h-4 w-4" />
