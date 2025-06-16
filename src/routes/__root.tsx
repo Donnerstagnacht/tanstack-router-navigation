@@ -6,7 +6,7 @@ import { DynamicNavigation } from '@/components/navigation/dynamic-navigation'
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from '@/components/ui/command'
 import { Badge } from '@/components/ui/badge'
 import React, { useState, useEffect } from 'react'
-import { ScreenContext } from '@/contexts/screen-context'
+import { ScreenProvider, useScreenContext } from '@/contexts/screen-context'
 import { 
   Search, 
   Home, 
@@ -56,12 +56,25 @@ function getIconComponent(iconName: string) {
 
 export const Route = createRootRoute({
   component: () => {
-    // State for navigation configuration
-    const [state, setState] = useState<"asButton" | "asButtonList" | "asLabeledButtonList">("asButton");
-    const [priority, setPriority] = useState<"primary" | "secondary" | "combined">("primary");
-    const [screen, setScreen] = useState<"mobile" | "desktop" | "automatic">("automatic");
-    const [open, setOpen] = useState(false);
-    const router = useRouter();
+    return (
+      <ThemeProvider defaultTheme="system" storageKey="theme">
+        <ScreenProvider>
+          <RootContent />
+          <Toaster richColors position='top-right' />
+          <TanStackRouterDevtools />
+        </ScreenProvider>
+      </ThemeProvider>
+    );
+  },
+})
+
+function RootContent() {
+  // State for navigation configuration
+  const [state, setState] = useState<"asButton" | "asButtonList" | "asLabeledButtonList">("asButton");
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  // Get screen and priority from context
+  const { screen, priority, setPriority } = useScreenContext();
     // Define navigation items for primary navigation with TanStack Router integration
     const primaryNavItems = [
       { id: "home", label: "Home", icon: "Home", href: "/", onClick: () => router.navigate({ to: "/" }) },
@@ -126,20 +139,7 @@ export const Route = createRootRoute({
         setOpen(false);
       },
       onClose: () => setOpen(false),
-      items: [...primaryNavItems, ...secondaryNavItems]
-    });
-    
-    // Auto-detect screen type on window resize
-    useEffect(() => {
-      const handleResize = () => {
-        if (screen !== "automatic") return;
-        const isMobile = window.innerWidth < 768;
-        setScreen(isMobile ? "mobile" : "desktop");
-      };
-      
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, [screen, setScreen]);
+      items: [...primaryNavItems, ...secondaryNavItems]    });
     
     const getMarginClass = () => {
       const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
@@ -175,10 +175,8 @@ export const Route = createRootRoute({
     };
 
     return (
-        <ThemeProvider defaultTheme="system" storageKey="theme">
-          <ScreenContext.Provider value={{ screen, setScreen, priority, setPriority }}>
-            <div className="min-h-screen bg-background">
-              {(priority === "primary" || priority === "combined") && (
+      <div className="min-h-screen bg-background">
+        {(priority === "primary" || priority === "combined") && (
                 <DynamicNavigation 
                   state={state} 
                   priority="primary" 
@@ -282,15 +280,9 @@ export const Route = createRootRoute({
                       <Keyboard className="mr-2 h-4 w-4" />
                       Keyboard shortcuts
                       <CommandShortcut>{getShortcutForItem("keyboard").display}</CommandShortcut>
-                    </CommandItem>
-                  </CommandGroup>
+                    </CommandItem>                  </CommandGroup>
                 </CommandList>
               </CommandDialog>
             </div>
-          </ScreenContext.Provider>
-            <Toaster richColors position='top-right' />
-            <TanStackRouterDevtools />
-          </ThemeProvider>
     );
-  },
-})
+}
