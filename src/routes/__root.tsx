@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRoute, useRouter } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { ThemeProvider } from '@/components/navigation/toggles/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
@@ -61,25 +61,24 @@ export const Route = createRootRoute({
     const [priority, setPriority] = useState<"primary" | "secondary" | "combined">("primary");
     const [screen, setScreen] = useState<"mobile" | "desktop" | "automatic">("automatic");
     const [open, setOpen] = useState(false);
+    const router = useRouter();
   
-    // Define navigation items for primary navigation
+    // Define navigation items for primary navigation with TanStack Router integration
     const primaryNavItems = [
-      { id: "home", label: "Home", icon: "Home" },
-      { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard" },
-      { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5 },
-      { id: "settings", label: "Settings", icon: "Settings" },
-      { id: "files", label: "Files", icon: "File" },
-      { id: "projects", label: "Projects", icon: "FolderOpen" },
-      { id: "calendar", label: "Calendar", icon: "Calendar" },
-      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2 },
-    ];
-
-    // Define navigation items for secondary navigation
+      { id: "home", label: "Home", icon: "Home", onClick: () => router.navigate({ to: "/" }) },
+      { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", onClick: () => router.navigate({ to: "/dashboard" }) },
+      { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5, onClick: () => router.navigate({ to: "/messages" }) },
+      { id: "settings", label: "Settings", icon: "Settings", onClick: () => router.navigate({ to: "/settings" }) },
+      { id: "files", label: "Files", icon: "File", onClick: () => router.navigate({ to: "/files" }) },
+      { id: "projects", label: "Projects", icon: "FolderOpen", onClick: () => router.navigate({ to: "/projects" }) },
+      { id: "calendar", label: "Calendar", icon: "Calendar", onClick: () => router.navigate({ to: "/calendar" }) },
+      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, onClick: () => router.navigate({ to: "/notifications" }) },
+    ];    // Define navigation items for secondary navigation
     const secondaryNavItems = [
-      { id: "files", label: "Files", icon: "File" },
-      { id: "projects", label: "Projects", icon: "FolderOpen" },
-      { id: "calendar", label: "Calendar", icon: "Calendar" },
-      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2 },
+      { id: "files", label: "Files", icon: "File", onClick: () => router.navigate({ to: "/files" }) },
+      { id: "projects", label: "Projects", icon: "FolderOpen", onClick: () => router.navigate({ to: "/projects" }) },
+      { id: "calendar", label: "Calendar", icon: "Calendar", onClick: () => router.navigate({ to: "/calendar" }) },
+      { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, onClick: () => router.navigate({ to: "/notifications" }) },
     ];
     
     // Add command dialog open effect with keyboard shortcut
@@ -96,8 +95,7 @@ export const Route = createRootRoute({
       document.addEventListener("keydown", down);
       return () => document.removeEventListener("keydown", down);
     }, []);
-    
-    // Use our custom hook for handling navigation shortcuts
+      // Use our custom hook for handling navigation shortcuts
     useNavigationKeyboard({
       isActive: open,
       onNavigate: (itemId: string) => {
@@ -106,8 +104,9 @@ export const Route = createRootRoute({
           console.log(`Navigating to ${item.label}`);
           setOpen(false);
           
-          // Navigate to the appropriate route
-          window.location.href = `/${item.id === 'home' ? '' : item.id}`;
+          // Navigate to the appropriate route using TanStack Router
+          const route = itemId === 'home' ? '/' : `/${itemId}`;
+          router.navigate({ to: route });
           
           // Toggle priority based on navigation item if it exists in both
           const inPrimary = primaryNavItems.some(i => i.id === item.id);
@@ -224,13 +223,13 @@ export const Route = createRootRoute({
                   <CommandGroup heading="Primary Navigation">
                     {primaryNavItems.map((item) => {
                       const IconComponent = getIconComponent(item.icon);
-                      return (
-                        <CommandItem 
+                      return (                        <CommandItem 
                           key={item.id}
                           onSelect={() => {
                             console.log(`Navigating to ${item.label}`);
-                            // Navigate to the appropriate route
-                            window.location.href = `/${item.id === 'home' ? '' : item.id}`;
+                            // Navigate to the appropriate route using TanStack Router
+                            const route = item.id === 'home' ? '/' : `/${item.id}`;
+                            router.navigate({ to: route });
                           }}
                         >
                           <div className="flex items-center">
@@ -251,13 +250,12 @@ export const Route = createRootRoute({
                       <CommandGroup heading="Secondary Navigation">
                         {secondaryNavItems.map((item) => {
                           const IconComponent = getIconComponent(item.icon);
-                          return (
-                            <CommandItem 
+                          return (                            <CommandItem 
                               key={item.id}
                               onSelect={() => {
                                 console.log(`Navigating to ${item.label}`);
-                                // Navigate to the appropriate route
-                                window.location.href = `/${item.id}`;
+                                // Navigate to the appropriate route using TanStack Router
+                                router.navigate({ to: `/${item.id}` });
                               }}
                             >
                               <div className="flex items-center">
