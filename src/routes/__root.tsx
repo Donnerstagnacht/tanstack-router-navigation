@@ -10,7 +10,8 @@ import { ScreenProvider, useScreenContext } from '@/contexts/screen-context'
 import { Moon, Keyboard } from 'lucide-react'
 import { getShortcutForItem } from '@/lib/keyboard-navigation'
 import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard'
-import { getIconComponent, iconMap } from '@/lib/icons/icon-map'
+import { getIconComponent } from '@/lib/icons/icon-map'
+import { createNavItems } from '@/lib/navigation/nav-config'
 
 export const Route = createRootRoute({
   component: () => {
@@ -36,75 +37,10 @@ function RootContent() {
   // Track current route to determine which secondary nav items to display
   const [currentPrimaryRoute, setCurrentPrimaryRoute] = useState<string | null>(null);
   
-  // Define navigation items for primary navigation with TanStack Router integration
-  const primaryNavItems = [
-    { id: "home", label: "Home", icon: "Home", href: "/", onClick: () => {
-      router.navigate({ to: "/" });
-      setCurrentPrimaryRoute("home");
-    }},
-    { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/dashboard", onClick: () => {
-      router.navigate({ to: "/dashboard" });
-      setCurrentPrimaryRoute("dashboard");
-    }},
-    { id: "messages", label: "Messages", icon: "MessageSquare", badge: 5, href: "/messages", onClick: () => {
-      router.navigate({ to: "/messages" });
-      setCurrentPrimaryRoute("messages");
-    }},
-    { id: "settings", label: "Settings", icon: "Settings", href: "/settings", onClick: () => {
-      router.navigate({ to: "/settings" });
-      setCurrentPrimaryRoute("settings");
-    }},
-    { id: "files", label: "Files", icon: "File", href: "/files", onClick: () => {
-      router.navigate({ to: "/files" });
-      setCurrentPrimaryRoute("files");
-    }},
-    { id: "projects", label: "Projects", icon: "FolderOpen", href: "/projects", onClick: () => {
-      router.navigate({ to: "/projects" });
-      setCurrentPrimaryRoute("projects");
-    }},
-    { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", onClick: () => {
-      router.navigate({ to: "/calendar" });
-      setCurrentPrimaryRoute("calendar");
-    }},
-    { id: "notifications", label: "Notifications", icon: "Bell", badge: 2, href: "/notifications", onClick: () => {
-      router.navigate({ to: "/notifications" });
-      setCurrentPrimaryRoute("notifications");
-    }},
-  ];
-    // Define a type for navigation items with type-safe icon names
-  type NavItem = {
-    id: string;
-    label: string;
-    icon: keyof typeof iconMap;
-    href: string;
-    badge?: number;
-    onClick: () => void;
-  };
-
-  // Define route-specific secondary navigation items
-  const projectSecondaryNavItems: NavItem[] = [
-    { id: "tasks", label: "Tasks", icon: "File", badge: 3, href: "/projects/tasks", onClick: () => router.navigate({ to: "/projects/tasks" }) },
-    { id: "tests", label: "Tests", icon: "FolderOpen", badge: 2, href: "/projects/tests", onClick: () => router.navigate({ to: "/projects/tests" }) }
-  ];
+  // Import navigation items from the navigation config
+  const { primaryNavItems, getSecondaryNavItems } = createNavItems(router, setCurrentPrimaryRoute);
   
-  // Define dashboard secondary navigation items
-  const dashboardSecondaryNavItems: NavItem[] = [
-    { id: "analytics", label: "Analytics", icon: "LineChart", href: "/dashboard/analytics", onClick: () => router.navigate({ to: "/dashboard/analytics" }) },
-    { id: "reports", label: "Reports", icon: "AreaChart", href: "/dashboard/reports", onClick: () => router.navigate({ to: "/dashboard/reports" }) }
-  ];
-  
-  // Determine which secondary items to show based on current route
-  const getSecondaryNavItems = () => {
-    switch(currentPrimaryRoute) {
-      case "projects":
-        return projectSecondaryNavItems;
-      case "dashboard":
-        return dashboardSecondaryNavItems;
-      default:
-        return null;
-    }
-  };
-    const secondaryNavItems = getSecondaryNavItems();
+  const secondaryNavItems = getSecondaryNavItems(currentPrimaryRoute);
   
   // Set initial route based on current path
   useEffect(() => {
@@ -126,7 +62,9 @@ function RootContent() {
 
       document.addEventListener("keydown", down);
       return () => document.removeEventListener("keydown", down);
-    }, []);    // Use our custom hook for handling navigation shortcuts
+    }, []);
+    
+    // Use our custom hook for handling navigation shortcuts
     useNavigationKeyboard({
       isActive: open,
       onNavigate: (itemId: string) => {
@@ -161,7 +99,8 @@ function RootContent() {
       onKeyboardShortcutsOpen: () => {
         console.log("Opening keyboard shortcuts");
         setOpen(false);
-      },      onClose: () => setOpen(false),
+      },
+      onClose: () => setOpen(false),
       items: [...primaryNavItems, ...(secondaryNavItems || [])]
     });
     
