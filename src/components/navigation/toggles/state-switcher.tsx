@@ -1,0 +1,256 @@
+'use client'
+
+import * as React from 'react'
+import { MoreHorizontal } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/navigation/toggles/theme-toggle'
+import { StateToggle } from '@/components/navigation/toggles/state-toggle'
+import { LanguageToggle } from '@/components/navigation/toggles/language-toggle'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import type { Language, NavigationPriority, NavigationState } from '../dynamic-navigation'
+
+interface StateSwitcherProps {
+  state: NavigationState
+  onStateChange?: (newState: NavigationState) => void
+  language?: Language
+  setLanguage?: React.Dispatch<React.SetStateAction<Language>>
+  isMobile?: boolean,
+  variant?: NavigationState | "asLabeledButtonList"
+  priority?: NavigationPriority
+}
+
+export const StateSwitcher: React.FC<StateSwitcherProps> = ({
+  state,
+  onStateChange,
+  language,
+  setLanguage,
+  isMobile = false,
+  variant,
+  priority = "primary",
+}) => {
+  const [isExpanded, setIsExpanded] = React.useState(false)
+  const [hoverTimeout, setHoverTimeout] = React.useState<NodeJS.Timeout | null>(null)
+  const isLeft = priority === "primary"
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    return () => {
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout)
+      }
+    }
+  }, [hoverTimeout])
+
+  if (!onStateChange) return null
+  
+  // Horizontal layout for asLabeledButtonList
+  if (variant === "asLabeledButtonList" && !isMobile) {
+    return (
+      <div className="flex items-center gap-3">
+        <StateToggle 
+          currentState={state}
+          onStateChange={onStateChange}
+          size="small"
+        />
+        <div className="w-px bg-border h-8"></div>
+        {language && setLanguage && (
+          <LanguageToggle
+            language={language}
+            setLanguage={setLanguage}
+            size="small"
+          />
+        )}
+        <div className="w-px bg-border h-8"></div>
+        <ThemeToggle size="small" />
+      </div>
+    )
+  }
+
+  // Mobile expandable variant - positioned based on priority
+  if ((variant === "asButtonList" && isMobile) || (variant === "asLabeledButtonList" && isMobile)) {
+    return (
+      <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-12 w-12 hover:bg-accent"
+            onMouseEnter={() => {
+              if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+              }
+              const timeout = setTimeout(() => {
+                setIsDropdownOpen(true);
+              }, 200);
+              setHoverTimeout(timeout);
+            }}
+          >
+            <MoreHorizontal className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          side={isLeft ? "top" : "top"}
+          align="end"
+          className="p-1"
+          style={{ width: 'max-content', minWidth: 'fit-content' }}
+          sideOffset={5}
+          onMouseEnter={() => {
+            if (hoverTimeout) {
+              clearTimeout(hoverTimeout);
+            }
+            setIsDropdownOpen(true);
+          }}
+          onMouseLeave={() => {
+            if (hoverTimeout) {
+              clearTimeout(hoverTimeout);
+            }
+            const timeout = setTimeout(() => {
+              setIsDropdownOpen(false);
+            }, 300);
+            setHoverTimeout(timeout);
+          }}
+        >
+          <DropdownMenuItem asChild className="p-0">
+            <div className="px-1 py-1">
+              <ThemeToggle size="small" />
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          {language && setLanguage && (
+            <LanguageToggle
+              language={language}
+              setLanguage={setLanguage}
+              size="small"
+              variant="dropdown"
+            />
+          )}
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild className="p-0">
+            <div className="p-1">
+              <StateToggle 
+                currentState={state}
+                onStateChange={(newState) => {
+                  onStateChange(newState)
+                  setIsDropdownOpen(false)
+                }}
+                size="small"
+              />
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  }
+
+  // Expandable variant for desktop asButtonList
+  if (variant === "asButtonList" && !isMobile) {
+    return (
+      <DropdownMenu open={isExpanded} onOpenChange={setIsExpanded}>
+        <DropdownMenuTrigger asChild>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8" 
+            onMouseEnter={() => {
+              // Clear any existing timeout
+              if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+              }
+              // Set a new timeout to show the dropdown after a short delay
+              const timeout = setTimeout(() => {
+                setIsExpanded(true);
+              }, 200);
+              setHoverTimeout(timeout);
+            }}
+          >
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          side={isLeft ? "right" : "left"}
+          align="start"
+          className="p-1"
+          style={{ width: 'max-content', minWidth: 'fit-content' }}
+          sideOffset={5}
+          onMouseEnter={() => {
+            // Clear any existing timeout
+            if (hoverTimeout) {
+              clearTimeout(hoverTimeout);
+            }
+            setIsExpanded(true);
+          }}
+          onMouseLeave={() => {
+            // Clear any existing timeout
+            if (hoverTimeout) {
+              clearTimeout(hoverTimeout);
+            }
+            const timeout = setTimeout(() => {
+              setIsExpanded(false);
+            }, 300);
+            setHoverTimeout(timeout);
+          }}
+        >
+          <DropdownMenuItem asChild className="p-0">
+            <div className="px-1 py-1">
+              <ThemeToggle size="small" />
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          {language && setLanguage && (
+            <>
+              <LanguageToggle
+                language={language}
+                setLanguage={setLanguage}
+                size="small"
+                variant="dropdown"
+              />
+              <DropdownMenuSeparator />
+            </>
+          )}
+          <DropdownMenuItem asChild className="p-0">
+            <div className="p-1">
+              <StateToggle
+                currentState={state}
+                onStateChange={(newState) => {
+                  onStateChange(newState)
+                  setIsExpanded(false)
+                }}
+                size="small"
+              />
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  }
+  
+  // Overlay variant for asButton fullscreen
+  if (variant === "asButton") {
+    return (
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 bg-background/95 backdrop-blur-sm border rounded-full p-2 shadow-lg">
+        <StateToggle 
+          currentState={state}
+          onStateChange={onStateChange}
+        />
+        {language && setLanguage && (
+          <>
+            <div className="w-px bg-border mx-1"></div>
+            <LanguageToggle
+              language={language}
+              setLanguage={setLanguage}
+            />
+          </>
+        )}
+        <div className="w-px bg-border mx-1"></div>
+        <ThemeToggle size="default" />
+      </div>
+    )
+  }
+}
