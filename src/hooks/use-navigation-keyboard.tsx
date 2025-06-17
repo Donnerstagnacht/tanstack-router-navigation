@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { isShortcutMatch } from '@/lib/keyboard-navigation';
+import { isShortcutMatch } from '@/lib/navigation/keyboard-navigation';
 
 interface NavigationItem {
   id: string;

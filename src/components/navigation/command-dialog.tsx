@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Moon, Keyboard } from 'lucide-react';
 import type { NavItem } from '@/lib/navigation/nav-config';
 import { getIconComponent } from '@/lib/icons/icon-map';
-import { getShortcutForItem } from '@/lib/keyboard-navigation';
+import { getShortcutForItem } from '@/lib/navigation/keyboard-navigation';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from '@tanstack/react-router';
 
