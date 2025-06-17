@@ -1,7 +1,4 @@
-'use client';
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
-
 // Define our theme types for better type safety
 export type ThemeType = 'dark' | 'light' | 'system';
 export type SystemThemeType = 'dark' | 'light';

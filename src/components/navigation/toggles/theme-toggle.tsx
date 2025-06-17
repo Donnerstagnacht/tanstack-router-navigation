@@ -1,21 +1,10 @@
-'use client';
-
 import * as React from 'react';
 import { Moon, Sun, Laptop } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/components/navigation/toggles/theme-provider';
 import { useTranslation } from 'react-i18next';
-
-interface ThemeButtonProps {
-  theme: string;
-  currentTheme: string;
-  onClick: () => void;
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  size?: 'default' | 'small';
-}
+import type { Size } from '@/lib/navigation/NavigationTypes';
 
 const ThemeButton = ({
   theme,
@@ -24,7 +13,14 @@ const ThemeButton = ({
   icon: Icon,
   title,
   size = 'default',
-}: ThemeButtonProps) => {
+}: {
+  theme: string;
+  currentTheme: string;
+  onClick: () => void;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  size?: Size;
+}) => {
   const isActive = currentTheme === theme;
 
   return (
@@ -40,13 +36,7 @@ const ThemeButton = ({
   );
 };
 
-export function ThemeToggle({
-  size = 'default',
-  className,
-}: {
-  size?: 'default' | 'small';
-  className?: string;
-}) {
+export function ThemeToggle({ size = 'default', className }: { size?: Size; className?: string }) {
   const { theme, setTheme, isMounted } = useTheme();
   const { t } = useTranslation();
 

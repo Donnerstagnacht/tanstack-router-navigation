@@ -6,20 +6,15 @@ import { Search } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
-type ScreenType = 'mobile' | 'desktop' | 'automatic';
-
-type PriorityType = 'primary' | 'secondary' | 'combined';
-
-interface NavigationDemoProps {
-  onScreenTypeChange?: (screenType: 'mobile' | 'desktop' | 'automatic') => void;
-  onPriorityChange?: (priority: PriorityType) => void;
-}
+import type { PriorityType, ScreenType } from '../lib/navigation/NavigationTypes';
 
 export default function NavigationDemo({
   onScreenTypeChange,
   onPriorityChange,
-}: NavigationDemoProps) {
+}: {
+  onScreenTypeChange?: (screenType: ScreenType) => void;
+  onPriorityChange?: (priority: PriorityType) => void;
+}) {
   const { t } = useTranslation();
   const isMobileDevice = useIsMobile();
   const [screenType, setScreenType] = useState<ScreenType>('automatic');
@@ -55,16 +50,13 @@ export default function NavigationDemo({
       <Card className="mb-8">
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
-            {' '}
             <CardTitle>{t('navigationDemo.title')}</CardTitle>
             <CardDescription>{t('navigationDemo.description')}</CardDescription>
           </div>
           <ThemeToggle />
         </CardHeader>
         <CardContent className="space-y-6">
-          {' '}
           <div>
-            {' '}
             <h3 className="mb-3 text-lg font-medium">{t('navigationDemo.screenType.title')}</h3>
             <div className="flex flex-wrap gap-2">
               <Button
@@ -94,7 +86,6 @@ export default function NavigationDemo({
             </div>
           </div>
           <div className="border-t pt-4">
-            {' '}
             <h3 className="mb-3 text-lg font-medium">{t('navigationDemo.commandPalette.title')}</h3>
             <div>
               <Button
@@ -110,7 +101,6 @@ export default function NavigationDemo({
             </div>
           </div>
           <div className="border-t pt-4">
-            {' '}
             <h3 className="mb-3 text-lg font-medium">{t('navigationDemo.themeSettings.title')}</h3>
             <div className="flex items-center justify-between">
               <div>
@@ -120,9 +110,8 @@ export default function NavigationDemo({
               </div>
               <ThemeToggle />
             </div>
-          </div>{' '}
+          </div>
           <div>
-            {' '}
             <h3 className="mb-3 text-lg font-medium">{t('navigationDemo.priority.title')}</h3>
             <div className="flex gap-2">
               <Button
@@ -144,9 +133,8 @@ export default function NavigationDemo({
                 {t('navigationDemo.priority.combined')}
               </Button>
             </div>
-          </div>{' '}
+          </div>
           <div className="border-t pt-4">
-            {' '}
             <h3 className="mb-3 text-lg font-medium">{t('navigationDemo.currentConfig.title')}</h3>
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{t('navigationDemo.currentConfig.state')}: asButton</Badge>
@@ -159,19 +147,18 @@ export default function NavigationDemo({
             </div>
           </div>
           <div className="border-t pt-4">
-            {' '}
             <h3 className="mb-3 text-lg font-medium">{t('navigationDemo.stateSwitcher.title')}</h3>
             <div className="text-muted-foreground space-y-2 text-sm">
               <p>
-                <strong>{t('navigationDemo.stateSwitcher.asButton.title')}</strong>{' '}
+                <strong>{t('navigationDemo.stateSwitcher.asButton.title')}</strong>
                 {t('navigationDemo.stateSwitcher.asButton.description')}
               </p>
               <p>
-                <strong>{t('navigationDemo.stateSwitcher.asButtonList.title')}</strong>{' '}
+                <strong>{t('navigationDemo.stateSwitcher.asButtonList.title')}</strong>
                 {t('navigationDemo.stateSwitcher.asButtonList.description')}
               </p>
               <p>
-                <strong>{t('navigationDemo.stateSwitcher.asLabeledButtonList.title')}</strong>{' '}
+                <strong>{t('navigationDemo.stateSwitcher.asLabeledButtonList.title')}</strong>
                 {t('navigationDemo.stateSwitcher.asLabeledButtonList.description')}
               </p>
             </div>
@@ -180,7 +167,6 @@ export default function NavigationDemo({
       </Card>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {' '}
         {Array.from({ length: 6 }).map((_, i) => (
           <Card key={i}>
             <CardHeader>

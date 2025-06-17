@@ -1,22 +1,10 @@
-'use client';
-
 import * as React from 'react';
 import { Circle, Menu, AlignLeft } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-
-type NavigationState = 'asButton' | 'asButtonList' | 'asLabeledButtonList';
-
-interface StateButtonProps {
-  state: NavigationState;
-  currentState: NavigationState;
-  onClick: () => void;
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  size?: 'default' | 'small';
-}
+import type { NavigationState, Size } from '@/lib/navigation/NavigationTypes';
 
 const StateButton = ({
   state,
@@ -25,7 +13,14 @@ const StateButton = ({
   icon: Icon,
   title,
   size = 'default',
-}: StateButtonProps) => {
+}: {
+  state: NavigationState;
+  currentState: NavigationState;
+  onClick: () => void;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  size?: Size;
+}) => {
   const isActive = currentState === state;
 
   return (
@@ -49,11 +44,11 @@ export function StateToggle({
 }: {
   currentState: NavigationState;
   onStateChange: (state: NavigationState) => void;
-  size?: 'default' | 'small';
+  size?: Size;
   className?: string;
 }) {
   const { t } = useTranslation();
-  const icons = {
+  const stateIcons = {
     asButton: Circle,
     asButtonList: Menu,
     asLabeledButtonList: AlignLeft,
@@ -61,12 +56,11 @@ export function StateToggle({
 
   return (
     <div className={cn('flex gap-1', className)}>
-      {' '}
       <StateButton
         state="asButton"
         currentState={currentState}
         onClick={() => onStateChange('asButton')}
-        icon={icons.asButton}
+        icon={stateIcons.asButton}
         title={t('navigation.toggles.state.asButton')}
         size={size}
       />
@@ -74,7 +68,7 @@ export function StateToggle({
         state="asButtonList"
         currentState={currentState}
         onClick={() => onStateChange('asButtonList')}
-        icon={icons.asButtonList}
+        icon={stateIcons.asButtonList}
         title={t('navigation.toggles.state.asButtonList')}
         size={size}
       />
@@ -82,7 +76,7 @@ export function StateToggle({
         state="asLabeledButtonList"
         currentState={currentState}
         onClick={() => onStateChange('asLabeledButtonList')}
-        icon={icons.asLabeledButtonList}
+        icon={stateIcons.asLabeledButtonList}
         title={t('navigation.toggles.state.asLabeledButtonList')}
         size={size}
       />

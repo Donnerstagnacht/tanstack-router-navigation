@@ -12,19 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import { Moon, Keyboard } from 'lucide-react';
 import type { NavItem } from '@/lib/navigation/nav-config';
 import { getIconComponent } from '@/lib/icons/icon-map';
-import { getShortcutForItem } from '@/lib/keyboard-navigation';
+import { getShortcutForItem } from '@/lib/navigation/keyboard-navigation';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from '@tanstack/react-router';
-
-interface CommandDialogProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  primaryNavItems: NavItem[];
-  secondaryNavItems: NavItem[] | null;
-  priority: 'primary' | 'secondary' | 'combined';
-  onThemeToggle?: () => void;
-  onKeyboardShortcutsOpen?: () => void;
-}
 
 export function NavigationCommandDialog({
   open,
@@ -34,7 +24,15 @@ export function NavigationCommandDialog({
   priority,
   onThemeToggle,
   onKeyboardShortcutsOpen,
-}: CommandDialogProps) {
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  primaryNavItems: NavItem[];
+  secondaryNavItems: NavItem[] | null;
+  priority: 'primary' | 'secondary' | 'combined';
+  onThemeToggle?: () => void;
+  onKeyboardShortcutsOpen?: () => void;
+}) {
   const { t } = useTranslation();
   const router = useRouter();
 

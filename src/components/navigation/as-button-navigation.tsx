@@ -1,29 +1,11 @@
-import * as React from 'react';
 import { Home, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { StateSwitcher } from '@/components/navigation/toggles/state-switcher';
 import { NavItemList } from '@/components/navigation/nav-items/nav-item-list';
 import { NavUserAvatar } from '@/components/navigation/nav-items/nav-user-avatar';
-import type { NavigationItem, NavigationState } from './dynamic-navigation';
+import type { AsButtonNavigationProps } from '@/lib/navigation/NavigationTypes';
 import { useRouter } from '@tanstack/react-router';
-
-interface AsButtonNavigationProps {
-  items: NavigationItem[];
-  isPrimary: boolean;
-  isMobile: boolean;
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
-  hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
-  state: NavigationState;
-  onStateChange?: (newState: NavigationState) => void;
-  className?: string;
-  authenticated?: boolean;
-  userName?: string;
-  avatarUrl?: string;
-  onUserClick?: () => void;
-}
 
 export function AsButtonNavigation({
   items,
@@ -67,7 +49,6 @@ export function AsButtonNavigation({
           <CloseButton isPrimary={isPrimary} onClose={() => setIsExpanded(false)} />
           <div className="flex h-full items-center justify-center">
             <div className="flex w-full max-w-3xl flex-col items-center px-6">
-              {' '}
               <NavItemList
                 items={items}
                 variant="asButton"
@@ -101,22 +82,19 @@ export function AsButtonNavigation({
   );
 }
 
-// Navigation button component extracted for reuse
-interface NavButtonProps {
-  isPrimary: boolean;
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
-  className?: string;
-  icon?: React.ReactNode;
-}
-
 export function NavButton({
   isPrimary,
   isExpanded,
   setIsExpanded,
   className,
   icon = <Home className="h-6 w-6" />,
-}: NavButtonProps) {
+}: {
+  isPrimary: boolean;
+  isExpanded: boolean;
+  setIsExpanded: (expanded: boolean) => void;
+  className?: string;
+  icon?: React.ReactNode;
+}) {
   return (
     <Button
       variant="default"
@@ -134,17 +112,15 @@ export function NavButton({
   );
 }
 
-// AvatarButton has been refactored into NavUserAvatar component
-// with the "asButton" variant
-
-// Close Button component for overlay
-interface CloseButtonProps {
+export function CloseButton({
+  isPrimary,
+  onClose,
+  className,
+}: {
   isPrimary: boolean;
   onClose: () => void;
   className?: string;
-}
-
-export function CloseButton({ isPrimary, onClose, className }: CloseButtonProps) {
+}) {
   return (
     <Button
       variant="outline"

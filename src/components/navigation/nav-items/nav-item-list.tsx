@@ -3,7 +3,7 @@ import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
-import type { NavigationItem } from '../dynamic-navigation';
+import type { NavigationItem } from '@/lib/navigation/NavigationTypes';
 
 // Helper function to determine if an item is active
 function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: boolean): boolean {

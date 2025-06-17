@@ -1,7 +1,5 @@
+import type { PriorityType, ScreenType } from '@/lib/navigation/NavigationTypes';
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-
-type ScreenType = 'mobile' | 'desktop' | 'automatic';
-type PriorityType = 'primary' | 'secondary' | 'combined';
 
 interface ScreenContextType {
   screen: ScreenType;

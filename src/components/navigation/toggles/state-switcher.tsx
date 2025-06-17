@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 
@@ -13,25 +11,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { Language, NavigationPriority, NavigationState } from '../dynamic-navigation';
+import type { NavigationState, PriorityType } from '@/lib/navigation/NavigationTypes';
 
-interface StateSwitcherProps {
+export const StateSwitcher: React.FC<{
   state: NavigationState;
   onStateChange?: (newState: NavigationState) => void;
-  language?: Language;
-  setLanguage?: React.Dispatch<React.SetStateAction<Language>>;
   isMobile?: boolean;
-  variant?: NavigationState | 'asLabeledButtonList';
-  priority?: NavigationPriority;
-}
-
-export const StateSwitcher: React.FC<StateSwitcherProps> = ({
-  state,
-  onStateChange,
-  isMobile = false,
-  variant,
-  priority = 'primary',
-}) => {
+  variant?: NavigationState;
+  priority?: PriorityType;
+}> = ({ state, onStateChange, isMobile = false, variant, priority = 'primary' }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [hoverTimeout, setHoverTimeout] = React.useState<NodeJS.Timeout | null>(null);
   const isPrimary = priority === 'primary';

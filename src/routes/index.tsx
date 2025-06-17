@@ -48,7 +48,6 @@ function App() {
           </CardHeader>
           <CardContent>
             <ul className="list-disc space-y-2 pl-5">
-              {' '}
               {(t('home.cards.features.items', { returnObjects: true }) as string[]).map(
                 (item: string, index: number) => (
                   <li key={index}>{item}</li>

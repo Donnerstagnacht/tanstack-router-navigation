@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import type { NavigationState } from '../dynamic-navigation';
+import type { NavigationState } from '@/lib/navigation/NavigationTypes';
 
 interface NavUserAvatarProps {
   id?: string;
