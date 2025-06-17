@@ -1,5 +1,6 @@
 import { iconMap } from '@/lib/icons/icon-map';
 import { useTranslation } from 'react-i18next';
+import type { AnyRouter } from '@tanstack/react-router';
 
 // Define a type for navigation items with type-safe icon names
 export interface NavItem {
@@ -13,7 +14,7 @@ export interface NavItem {
 
 // This function factory creates navigation items with router integration
 export const useNavItems = (
-  router: ReturnType<typeof import('@tanstack/react-router').createRouter>,
+  router: AnyRouter, // Use AnyRouter type from TanStack Router
   setCurrentPrimaryRoute?: (route: string) => void
 ) => {
   const { t } = useTranslation();
