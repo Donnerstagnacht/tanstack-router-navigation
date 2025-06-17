@@ -1,6 +1,6 @@
-import type { I18nLocale } from "../en/enHome";
+import type { I18nLocale } from "../en/enTranslation";
 
-const deHome: I18nLocale = {
+const deTranslation: I18nLocale = {
   welcomeTitle: "Willkommen bei Polity",
   welcomeSubtitle: "Eine TanStack Router Demo mit dynamischer Navigation",
   cards: {
@@ -33,4 +33,4 @@ const deHome: I18nLocale = {
   }
 };
 
-export default deHome;
+export default deTranslation;

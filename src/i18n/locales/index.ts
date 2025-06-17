@@ -1,12 +1,12 @@
-import enHome from './en/enHome';
-import deHome from './de/deHome';
+import enTranslation from './en/enTranslation';
+import deTranslation from './de/deTranslation';
 
 const resources = {
   en: {
-    translation: enHome
+    translation: enTranslation
   },
   de: {
-    translation: deHome
+    translation: deTranslation
   }
 };
 
