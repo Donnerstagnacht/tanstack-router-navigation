@@ -141,7 +141,9 @@ export function ThemeProvider({
       <ThemeContext.Provider
         value={{
           theme: 'system',
-          setTheme: () => {},
+          setTheme: () => {
+            console.warn('Theme cannot be set before component is mounted');
+          },
           systemTheme: 'light',
           isDark: false,
           isMounted: false,

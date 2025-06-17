@@ -2,14 +2,14 @@ import { iconMap } from '@/lib/icons/icon-map';
 import { useTranslation } from 'react-i18next';
 
 // Define a type for navigation items with type-safe icon names
-export type NavItem = {
+export interface NavItem {
   id: string;
   label: string;
   icon: keyof typeof iconMap;
   href: string;
   badge?: number;
   onClick?: () => void;
-};
+}
 
 // This function factory creates navigation items with router integration
 export const useNavItems = (
