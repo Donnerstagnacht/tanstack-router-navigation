@@ -1,21 +1,6 @@
 import { useEffect } from 'react';
 import { isShortcutMatch } from '@/lib/navigation/keyboard-navigation';
-
-interface NavigationItem {
-  id: string;
-  label: string;
-  icon?: string;
-  badge?: number | string;
-}
-
-interface UseNavigationKeyboardOptions {
-  isActive: boolean;
-  onNavigate: (itemId: string) => void;
-  onThemeToggle?: () => void;
-  onKeyboardShortcutsOpen?: () => void;
-  onClose?: () => void;
-  items: NavigationItem[];
-}
+import type { NavigationItem } from '@/lib/navigation/NavigationTypes';
 
 /**
  * Hook for handling keyboard shortcuts in navigation
@@ -27,7 +12,14 @@ export function useNavigationKeyboard({
   onKeyboardShortcutsOpen,
   onClose,
   items,
-}: UseNavigationKeyboardOptions) {
+}: {
+  isActive: boolean;
+  onNavigate: (itemId: string) => void;
+  onThemeToggle?: () => void;
+  onKeyboardShortcutsOpen?: () => void;
+  onClose?: () => void;
+  items: NavigationItem[];
+}) {
   useEffect(() => {
     // Only listen for shortcuts when navigation is active
     if (!isActive) return;

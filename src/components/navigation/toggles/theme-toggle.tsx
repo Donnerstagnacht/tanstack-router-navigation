@@ -1,20 +1,10 @@
 import * as React from 'react';
 import { Moon, Sun, Laptop } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/components/navigation/toggles/theme-provider';
 import { useTranslation } from 'react-i18next';
 import type { Size } from '@/lib/navigation/NavigationTypes';
-
-interface ThemeButtonProps {
-  theme: string;
-  currentTheme: string;
-  onClick: () => void;
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  size?: Size;
-}
 
 const ThemeButton = ({
   theme,
@@ -23,7 +13,14 @@ const ThemeButton = ({
   icon: Icon,
   title,
   size = 'default',
-}: ThemeButtonProps) => {
+}: {
+  theme: string;
+  currentTheme: string;
+  onClick: () => void;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  size?: Size;
+}) => {
   const isActive = currentTheme === theme;
 
   return (
