@@ -183,11 +183,9 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
             setHoverTimeout(timeout);
           }}
         >
-          <DropdownMenuItem asChild className="p-0">
-            <div className="px-1 py-1">
-              <ThemeToggle size="small" />
-            </div>
-          </DropdownMenuItem>
+          <div className="px-1 py-1">
+            <ThemeToggle size="small" />
+          </div>
           <DropdownMenuSeparator />
             <>
               <LanguageToggle
@@ -195,7 +193,8 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
                 variant="dropdown"
               />
               <DropdownMenuSeparator />
-            </>          <div className="p-1">
+            </>          
+            <div className="p-1">
             <StateToggle
               currentState={state}
               onStateChange={(newState) => {
