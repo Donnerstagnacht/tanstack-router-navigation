@@ -8,7 +8,12 @@ import {
 
 export type { ThemeProviderProps } from '@/hooks/use-theme';
 
-export function ThemeProvider({ children, ...props }: React.PropsWithChildren<any>) {
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+
+export function ThemeProvider({ children, ...props }: React.PropsWithChildren<ThemeContextType>) {
   return <CustomThemeProvider {...props}>{children}</CustomThemeProvider>;
 }
 

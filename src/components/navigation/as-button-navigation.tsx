@@ -102,13 +102,13 @@ export function AsButtonNavigation({
 }
 
 // Navigation button component extracted for reuse
-type NavButtonProps = {
+interface NavButtonProps {
   isPrimary: boolean;
   isExpanded: boolean;
   setIsExpanded: (expanded: boolean) => void;
   className?: string;
   icon?: React.ReactNode;
-};
+}
 
 export function NavButton({
   isPrimary,

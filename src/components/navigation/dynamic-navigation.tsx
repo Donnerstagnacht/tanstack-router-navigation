@@ -9,15 +9,15 @@ export type NavigationState = 'asButton' | 'asButtonList' | 'asLabeledButtonList
 export type NavigationPriority = 'primary' | 'secondary';
 export type NavigationScreen = 'mobile' | 'desktop' | 'automatic';
 export type Language = 'en' | 'de';
-export type NavigationItem = {
+export interface NavigationItem {
   id: string;
   icon: React.ComponentType<{ className?: string }> | string;
   label: string;
   href?: string;
   onClick?: () => void;
   badge?: number;
-};
-type DynamicNavigationProps = {
+}
+interface DynamicNavigationProps {
   state: NavigationState;
   priority: NavigationPriority;
   screen: NavigationScreen;
@@ -28,7 +28,7 @@ type DynamicNavigationProps = {
   avatarUrl?: string;
   onUserClick?: () => void;
   authenticated?: boolean;
-};
+}
 
 const unauthenticatedItems: NavigationItem[] = [
   { id: 'home', icon: 'Home', label: 'Home', href: '/' },
@@ -59,7 +59,7 @@ export function DynamicNavigation({
       return { ...item, icon: iconMap[item.icon] };
     }
     return item;
-  }) as Array<NavigationItem & { icon: React.ComponentType<{ className?: string }> }>;
+  }) as (NavigationItem & { icon: React.ComponentType<{ className?: string }> })[];
 
   // Use authenticated status to determine which items to show
   const items = authenticated ? processedItems : unauthenticatedItems;

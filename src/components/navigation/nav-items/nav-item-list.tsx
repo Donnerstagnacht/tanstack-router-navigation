@@ -39,7 +39,7 @@ function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: b
         }
       }
     } catch (e) {
-      // Ignore errors from toString conversion
+      console.error('Error parsing onClick route:', e);
     }
   }
 
