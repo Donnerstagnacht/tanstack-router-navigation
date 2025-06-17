@@ -32,6 +32,28 @@ const enTranslation = {
       },
       test: "fdf"
     }
+  },
+  navigation: {
+    primary: {
+      home: "Home",
+      dashboard: "Dashboard",
+      messages: "Messages",
+      settings: "Settings", 
+      files: "Files",
+      projects: "Projects",
+      calendar: "Calendar",
+      notifications: "Notifications"
+    },
+    secondary: {
+      projects: {
+        tasks: "Tasks",
+        tests: "Tests"
+      },
+      dashboard: {
+        analytics: "Analytics",
+        reports: "Reports"
+      }
+    }
   }
 };
 

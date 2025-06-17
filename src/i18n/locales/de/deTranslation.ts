@@ -32,6 +32,28 @@ const deTranslation: I18nLocale = {
       },
       test: "fdf"
     }
+  },
+  navigation: {
+    primary: {
+      home: "Startseite",
+      dashboard: "Dashboard",
+      messages: "Nachrichten",
+      settings: "Einstellungen", 
+      files: "Dateien",
+      projects: "Projekte",
+      calendar: "Kalender",
+      notifications: "Benachrichtigungen"
+    },
+    secondary: {
+      projects: {
+        tasks: "Aufgaben",
+        tests: "Tests"
+      },
+      dashboard: {
+        analytics: "Analytik",
+        reports: "Berichte"
+      }
+    }
   }
 };
 
