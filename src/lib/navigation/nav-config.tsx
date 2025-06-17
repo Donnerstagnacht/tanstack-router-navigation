@@ -1,4 +1,5 @@
 import { iconMap } from '@/lib/icons/icon-map';
+import { useTranslation } from 'react-i18next';
 
 // Define a type for navigation items with type-safe icon names
 export type NavItem = {
@@ -12,21 +13,22 @@ export type NavItem = {
 
 // This function factory creates navigation items with router integration
 export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: string) => void) => {
+  const { t } = useTranslation();
+  
   // Define navigation items for primary navigation with TanStack Router integration
   const primaryNavItems: NavItem[] = [
     { 
       id: "home", 
-      label: "Home", 
+      label: t('navigation.primary.home'), 
       icon: "Home", 
       href: "/", 
       onClick: () => {
         router.navigate({ to: "/" });
         if (setCurrentPrimaryRoute) setCurrentPrimaryRoute("home");
       }
-    },
-    { 
+    },    { 
       id: "dashboard", 
-      label: "Dashboard", 
+      label: t('navigation.primary.dashboard'), 
       icon: "LayoutDashboard", 
       href: "/dashboard", 
       onClick: () => {
@@ -36,7 +38,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "messages", 
-      label: "Messages", 
+      label: t('navigation.primary.messages'), 
       icon: "MessageSquare", 
       badge: 5, 
       href: "/messages", 
@@ -47,7 +49,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "settings", 
-      label: "Settings", 
+      label: t('navigation.primary.settings'), 
       icon: "Settings", 
       href: "/settings", 
       onClick: () => {
@@ -57,7 +59,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "files", 
-      label: "Files", 
+      label: t('navigation.primary.files'), 
       icon: "File", 
       href: "/files", 
       onClick: () => {
@@ -67,7 +69,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "projects", 
-      label: "Projects", 
+      label: t('navigation.primary.projects'), 
       icon: "FolderOpen", 
       href: "/projects", 
       onClick: () => {
@@ -77,7 +79,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "calendar", 
-      label: "Calendar", 
+      label: t('navigation.primary.calendar'), 
       icon: "Calendar", 
       href: "/calendar", 
       onClick: () => {
@@ -87,7 +89,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "notifications", 
-      label: "Notifications", 
+      label: t('navigation.primary.notifications'), 
       icon: "Bell", 
       badge: 2, 
       href: "/notifications", 
@@ -97,12 +99,11 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
       }
     },
   ];
-
   // Define route-specific secondary navigation items
   const projectSecondaryNavItems: NavItem[] = [
     { 
       id: "tasks", 
-      label: "Tasks", 
+      label: t('navigation.secondary.projects.tasks'), 
       icon: "File", 
       badge: 3, 
       href: "/projects/tasks", 
@@ -110,7 +111,7 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
     },
     { 
       id: "tests", 
-      label: "Tests", 
+      label: t('navigation.secondary.projects.tests'), 
       icon: "FolderOpen", 
       badge: 2, 
       href: "/projects/tests", 
@@ -122,14 +123,14 @@ export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: str
   const dashboardSecondaryNavItems: NavItem[] = [
     { 
       id: "analytics", 
-      label: "Analytics", 
+      label: t('navigation.secondary.dashboard.analytics'), 
       icon: "LineChart", 
       href: "/dashboard/analytics", 
       onClick: () => router.navigate({ to: "/dashboard/analytics" }) 
     },
     { 
       id: "reports", 
-      label: "Reports", 
+      label: t('navigation.secondary.dashboard.reports'), 
       icon: "AreaChart", 
       href: "/dashboard/reports", 
       onClick: () => router.navigate({ to: "/dashboard/reports" }) 

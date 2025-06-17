@@ -6,6 +6,7 @@ import { Moon, Sun, Laptop } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useTheme } from '@/components/navigation/toggles/theme-provider'
+import { useTranslation } from 'react-i18next'
 
 interface ThemeButtonProps {
   theme: string
@@ -41,18 +42,18 @@ const ThemeButton = ({
 
 export function ThemeToggle({ size = "default", className }: { size?: "default" | "small", className?: string }) {
   const { theme, setTheme, isMounted } = useTheme()
+  const { t } = useTranslation()
 
   // Set the actual theme or placeholder for SSR
   const currentTheme = isMounted ? (theme || 'system') : 'system'
 
   return (
     <div className={cn("flex gap-1", className)}>
-      <ThemeButton
-        theme="light"
+      <ThemeButton        theme="light"
         currentTheme={currentTheme}
         onClick={() => setTheme('light')}
         icon={Sun}
-        title="Light mode"
+        title={t('navigation.toggles.theme.light')}
         size={size}
       />
       <ThemeButton
@@ -60,7 +61,7 @@ export function ThemeToggle({ size = "default", className }: { size?: "default" 
         currentTheme={currentTheme}
         onClick={() => setTheme('dark')}
         icon={Moon}
-        title="Dark mode"
+        title={t('navigation.toggles.theme.dark')}
         size={size}
       />
       <ThemeButton
@@ -68,7 +69,7 @@ export function ThemeToggle({ size = "default", className }: { size?: "default" 
         currentTheme={currentTheme}
         onClick={() => setTheme('system')}
         icon={Laptop}
-        title="System theme"
+        title={t('navigation.toggles.theme.system')}
         size={size}
       />
     </div>

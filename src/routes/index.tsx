@@ -2,72 +2,72 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from 'react-i18next'
 
 export const Route = createFileRoute('/')({
   component: App,
 })
 
 function App() {
+  const { t } = useTranslation();
+  
   return (
     <div className="container mx-auto p-8">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4">Willkommen bei Polity</h1>
-        <p className="text-lg text-muted-foreground">Eine TanStack Router Demo mit dynamischer Navigation</p>
+        <h1 className="text-4xl font-bold mb-4">{t('home.welcomeTitle')}</h1>
+        <p className="text-lg text-muted-foreground">{t('home.welcomeSubtitle')}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>Navigation Demo</CardTitle>
+            <CardTitle>{t('home.cards.navigation.title')}</CardTitle>
             <CardDescription>
-              Erleben Sie unsere dynamische Navigation mit verschiedenen Layouts
+              {t('home.cards.navigation.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Testen Sie verschiedene Navigationstypen, Prioritäten und Bildschirmkonfigurationen.</p>
+            <p>{t('home.cards.navigation.content')}</p>
           </CardContent>
           <CardFooter>
             <Link to="/settings">
-              <Button>Navigation Demo anzeigen</Button>
+              <Button>{t('home.cards.navigation.button')}</Button>
             </Link>
           </CardFooter>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Features</CardTitle>
+            <CardTitle>{t('home.cards.features.title')}</CardTitle>
             <CardDescription>
-              Hauptfunktionen dieser Anwendung
+              {t('home.cards.features.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Dynamische, konfigurierbare Navigation</li>
-              <li>Reaktive Layouts für mobile und Desktop-Geräte</li>
-              <li>Tastaturnavigation mit Shortcuts</li>
-              <li>Kommandopalette (Drücken Sie ⌘K)</li>
-              <li>Themenwechsel (hell/dunkel)</li>
+            <ul className="list-disc pl-5 space-y-2">              {(t('home.cards.features.items', { returnObjects: true }) as string[]).map((item: string, index: number) => (
+                <li key={index}>{item}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Tech-Stack</CardTitle>
+            <CardTitle>{t('home.cards.techStack.title')}</CardTitle>
             <CardDescription>
-              Verwendete Technologien
+              {t('home.cards.techStack.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <p><strong>Frontend:</strong> React, TanStack Router, Lucide Icons</p>
-              <p><strong>Styling:</strong> Tailwind CSS, Shadcn UI</p>
-              <p><strong>Tooling:</strong> Vite, TypeScript</p>
+              <p><strong>{t('home.cards.techStack.frontend')}</strong> React, TanStack Router, Lucide Icons</p>
+              <p><strong>{t('home.cards.techStack.styling')}</strong> Tailwind CSS, Shadcn UI</p>
+              <p><strong>{t('home.cards.techStack.tooling')}</strong> Vite, TypeScript</p>
             </div>
           </CardContent>
           <CardFooter>
             <Link to="/settings">
-              <Button variant="outline">Demo starten</Button>
+              <Button variant="outline">{t('home.cards.techStack.button')}</Button>
             </Link>
           </CardFooter>
         </Card>

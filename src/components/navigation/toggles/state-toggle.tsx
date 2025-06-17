@@ -5,6 +5,7 @@ import { Circle, Menu, AlignLeft } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 type NavigationState = "asButton" | "asButtonList" | "asLabeledButtonList"
 
@@ -51,6 +52,7 @@ export function StateToggle({
   size?: "default" | "small"
   className?: string 
 }) {
+  const { t } = useTranslation()
   const icons = {
     asButton: Circle,
     asButtonList: Menu,
@@ -58,13 +60,12 @@ export function StateToggle({
   }
 
   return (
-    <div className={cn("flex gap-1", className)}>
-      <StateButton
+    <div className={cn("flex gap-1", className)}>      <StateButton
         state="asButton"
         currentState={currentState}
         onClick={() => onStateChange('asButton')}
         icon={icons.asButton}
-        title="Switch to button view"
+        title={t('navigation.toggles.state.asButton')}
         size={size}
       />
       <StateButton
@@ -72,7 +73,7 @@ export function StateToggle({
         currentState={currentState}
         onClick={() => onStateChange('asButtonList')}
         icon={icons.asButtonList}
-        title="Switch to button list view"
+        title={t('navigation.toggles.state.asButtonList')}
         size={size}
       />
       <StateButton
@@ -80,7 +81,7 @@ export function StateToggle({
         currentState={currentState}
         onClick={() => onStateChange('asLabeledButtonList')}
         icon={icons.asLabeledButtonList}
-        title="Switch to labeled button list view"
+        title={t('navigation.toggles.state.asLabeledButtonList')}
         size={size}
       />
     </div>

@@ -10,7 +10,6 @@ import { LanguageToggle } from '@/components/navigation/toggles/language-toggle'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
@@ -29,8 +28,6 @@ interface StateSwitcherProps {
 export const StateSwitcher: React.FC<StateSwitcherProps> = ({
   state,
   onStateChange,
-  language,
-  setLanguage,
   isMobile = false,
   variant,
   priority = "primary",
@@ -60,13 +57,9 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
           size="small"
         />
         <div className="w-px bg-border h-8"></div>
-        {language && setLanguage && (
-          <LanguageToggle
-            language={language}
-            setLanguage={setLanguage}
-            size="small"
-          />
-        )}
+        <LanguageToggle
+          size="small"
+        />
         <div className="w-px bg-border h-8"></div>
         <ThemeToggle size="small" />
       </div>
@@ -117,33 +110,25 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
             setHoverTimeout(timeout);
           }}
         >
-          <DropdownMenuItem asChild className="p-0">
-            <div className="px-1 py-1">
-              <ThemeToggle size="small" />
-            </div>
-          </DropdownMenuItem>
+          <div className="px-1 py-1">
+            <ThemeToggle size="small" />
+          </div>
           <DropdownMenuSeparator />
-          {language && setLanguage && (
-            <LanguageToggle
-              language={language}
-              setLanguage={setLanguage}
+          <LanguageToggle
+            size="small"
+            variant="dropdown"
+          />
+          <DropdownMenuSeparator />          
+          <div className="p-1">
+            <StateToggle 
+              currentState={state}
+              onStateChange={(newState) => {
+                onStateChange(newState)
+                setIsDropdownOpen(false)
+              }}
               size="small"
-              variant="dropdown"
             />
-          )}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild className="p-0">
-            <div className="p-1">
-              <StateToggle 
-                currentState={state}
-                onStateChange={(newState) => {
-                  onStateChange(newState)
-                  setIsDropdownOpen(false)
-                }}
-                size="small"
-              />
-            </div>
-          </DropdownMenuItem>
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -197,35 +182,27 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
             setHoverTimeout(timeout);
           }}
         >
-          <DropdownMenuItem asChild className="p-0">
-            <div className="px-1 py-1">
-              <ThemeToggle size="small" />
-            </div>
-          </DropdownMenuItem>
+          <div className="px-1 py-1">
+            <ThemeToggle size="small" />
+          </div>
           <DropdownMenuSeparator />
-          {language && setLanguage && (
             <>
               <LanguageToggle
-                language={language}
-                setLanguage={setLanguage}
                 size="small"
                 variant="dropdown"
               />
               <DropdownMenuSeparator />
-            </>
-          )}
-          <DropdownMenuItem asChild className="p-0">
+            </>          
             <div className="p-1">
-              <StateToggle
-                currentState={state}
-                onStateChange={(newState) => {
-                  onStateChange(newState)
-                  setIsExpanded(false)
-                }}
-                size="small"
-              />
-            </div>
-          </DropdownMenuItem>
+            <StateToggle
+              currentState={state}
+              onStateChange={(newState) => {
+                onStateChange(newState)
+                setIsExpanded(false)
+              }}
+              size="small"
+            />
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -239,15 +216,10 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
           currentState={state}
           onStateChange={onStateChange}
         />
-        {language && setLanguage && (
           <>
             <div className="w-px bg-border mx-1"></div>
-            <LanguageToggle
-              language={language}
-              setLanguage={setLanguage}
-            />
+            <LanguageToggle/>
           </>
-        )}
         <div className="w-px bg-border mx-1"></div>
         <ThemeToggle size="default" />
       </div>
