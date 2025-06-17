@@ -47,7 +47,6 @@ export function DynamicNavigation({
   authenticated = true,
 }: DynamicNavigationProps) {
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null)
-  const [language, setLanguage] = React.useState<Language>("en")
   const [isExpanded, setIsExpanded] = React.useState(false)
   const isMobileDevice = useIsMobile()
 
@@ -82,8 +81,6 @@ export function DynamicNavigation({
         userName={userName}
         avatarUrl={avatarUrl}
         onUserClick={onUserClick}
-        language={language}
-        setLanguage={setLanguage}
       />
     )
   }
@@ -104,8 +101,6 @@ export function DynamicNavigation({
         userName={userName}
         avatarUrl={avatarUrl}
         onUserClick={onUserClick}
-        language={language}
-        setLanguage={setLanguage}
       />
     )
   }
@@ -126,8 +121,6 @@ export function DynamicNavigation({
         userName={userName}
         avatarUrl={avatarUrl}
         onUserClick={onUserClick}
-        language={language}
-        setLanguage={setLanguage}
       />
     )
   }

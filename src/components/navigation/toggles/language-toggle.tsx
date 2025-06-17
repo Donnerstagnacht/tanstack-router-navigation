@@ -16,8 +16,8 @@ import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
 
 interface LanguageToggleProps {
-  language: "en" | "de"
-  setLanguage: (lang: "en" | "de") => void
+  language?: "en" | "de"  // Optional now, will use i18n.language as default
+  setLanguage?: (lang: "en" | "de") => void // Optional now, will use i18n.changeLanguage as default
   size?: "default" | "small"
   className?: string
   side?: "top" | "right" | "bottom" | "left"
@@ -26,8 +26,6 @@ interface LanguageToggleProps {
 }
 
 export function LanguageToggle({ 
-  language, 
-  setLanguage, 
   size = "default", 
   className,
   side = "top",
@@ -36,6 +34,9 @@ export function LanguageToggle({
 }: LanguageToggleProps) {
   const [isLanguagePopoverOpen, setIsLanguagePopoverOpen] = React.useState(false)
   const { i18n } = useTranslation()
+  
+  // Use the language from i18n if no prop is provided
+  const language = (i18n.language as "en" | "de")
 
   // Helper function to render the language display
   const renderLanguageDisplay = (lang: "en" | "de") => {
@@ -45,13 +46,10 @@ export function LanguageToggle({
         <span className={cn("text-sm", size === "small" && "text-xs")}>{lang === "en" ? "English" : "Deutsch"}</span>
       </span>
     )
-  }
-  // Custom language setter with toast notification and i18n integration
+  }  // Custom language setter with toast notification and i18n integration
   const handleLanguageChange = (lang: "en" | "de") => {
-    // Apply change through the provided setter
-    setLanguage(lang)
     
-    // Also change the i18n language to keep everything in sync
+    // Always change the i18n language
     i18n.changeLanguage(lang)
     
     // Show notification

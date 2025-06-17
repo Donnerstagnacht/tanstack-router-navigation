@@ -1,9 +1,8 @@
-import * as React from "react"
 import { cn } from "@/lib/utils"
 import { StateSwitcher } from "@/components/navigation/toggles/state-switcher"
 import { NavItemList } from "@/components/navigation/nav-items/nav-item-list"
 import { NavUserAvatar } from "@/components/navigation/nav-items/nav-user-avatar"
-import type { NavigationItem, NavigationState, NavigationPriority, Language } from "./dynamic-navigation"
+import type { NavigationItem, NavigationState, NavigationPriority } from "./dynamic-navigation"
 import { useRouter } from "@tanstack/react-router"
 
 interface AsLabeledButtonListNavigationProps {
@@ -19,8 +18,7 @@ interface AsLabeledButtonListNavigationProps {
   authenticated?: boolean;
   userName?: string;
   avatarUrl?: string;
-  onUserClick?: () => void;language: Language;
-  setLanguage: React.Dispatch<React.SetStateAction<Language>>;
+  onUserClick?: () => void;
 }
 
 export function AsLabeledButtonListNavigation({
@@ -36,9 +34,7 @@ export function AsLabeledButtonListNavigation({
   authenticated,
   userName,
   avatarUrl,
-  onUserClick,
-  language,
-  setLanguage,
+  onUserClick
 }: AsLabeledButtonListNavigationProps) {
   const router = useRouter()
   const currentRoute = router.state.location.pathname
@@ -90,8 +86,6 @@ export function AsLabeledButtonListNavigation({
                 isMobile={isMobile}
                 variant="asLabeledButtonList"
                 priority={priority}
-                language={language}
-                setLanguage={setLanguage}
               />
             </div>
           )}
@@ -139,8 +133,6 @@ export function AsLabeledButtonListNavigation({
             <StateSwitcher
               state={state}
               onStateChange={onStateChange}
-              language={language}
-              setLanguage={setLanguage}
               variant="asLabeledButtonList"
             />
           </div>

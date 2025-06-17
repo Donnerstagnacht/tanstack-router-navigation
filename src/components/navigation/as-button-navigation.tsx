@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { StateSwitcher } from "@/components/navigation/toggles/state-switcher"
 import { NavItemList } from "@/components/navigation/nav-items/nav-item-list"
 import { NavUserAvatar } from "@/components/navigation/nav-items/nav-user-avatar"
-import type { NavigationItem, NavigationState, Language } from "./dynamic-navigation"
+import type { NavigationItem, NavigationState } from "./dynamic-navigation"
 import { useRouter } from "@tanstack/react-router"
 
 interface AsButtonNavigationProps {
@@ -22,8 +22,7 @@ interface AsButtonNavigationProps {
   authenticated?: boolean;
   userName?: string;
   avatarUrl?: string;
-  onUserClick?: () => void;  language: Language;
-  setLanguage: React.Dispatch<React.SetStateAction<Language>>;
+  onUserClick?: () => void;
 }
 
 export function AsButtonNavigation({
@@ -40,9 +39,7 @@ export function AsButtonNavigation({
   authenticated,
   userName,
   avatarUrl,
-  onUserClick,
-  language,
-  setLanguage,
+  onUserClick
 }: AsButtonNavigationProps) {  const router = useRouter()
   const currentRoute = router.state.location.pathname
   
@@ -98,8 +95,6 @@ export function AsButtonNavigation({
             <StateSwitcher
               state={state}
               onStateChange={onStateChange}
-              language={language}
-              setLanguage={setLanguage}
               variant="asButton"
             />
           )}
