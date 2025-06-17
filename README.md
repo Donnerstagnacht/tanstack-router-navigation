@@ -45,6 +45,22 @@ npm run format:check
 
 Prettier is configured to work with VSCode's format on save feature. The configuration is in the `.prettierrc.json` file.
 
+## Code Linting
+
+This project uses [ESLint](https://eslint.org/) with TypeScript support for code linting. You can lint your code by running:
+
+```bash
+npm run lint
+```
+
+To automatically fix linting issues:
+
+```bash
+npm run lint:fix
+```
+
+ESLint is configured to work with VSCode's save actions feature. Linting errors will be automatically fixed when you save files.
+
 ## Shadcn
 
 Add components using the latest version of [Shadcn](https://ui.shadcn.com/).

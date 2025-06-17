@@ -12,7 +12,10 @@ export type NavItem = {
 };
 
 // This function factory creates navigation items with router integration
-export const createNavItems = (router: any, setCurrentPrimaryRoute?: (route: string) => void) => {
+export const useNavItems = (
+  router: ReturnType<typeof import('@tanstack/react-router').createRouter>,
+  setCurrentPrimaryRoute?: (route: string) => void
+) => {
   const { t } = useTranslation();
 
   // Define navigation items for primary navigation with TanStack Router integration

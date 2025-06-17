@@ -7,7 +7,7 @@ import { NavigationCommandDialog } from '@/components/navigation/command-dialog'
 import { useState, useEffect } from 'react';
 import { ScreenProvider, useScreenContext } from '@/contexts/screen-context';
 import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard';
-import { createNavItems } from '@/lib/navigation/nav-config';
+import { useNavItems } from '@/lib/navigation/nav-config';
 
 export const Route = createRootRoute({
   component: () => {
@@ -36,7 +36,7 @@ function RootContent() {
   const [currentPrimaryRoute, setCurrentPrimaryRoute] = useState<string | null>(null);
 
   // Import navigation items from the navigation config
-  const { primaryNavItems, getSecondaryNavItems } = createNavItems(router, setCurrentPrimaryRoute);
+  const { primaryNavItems, getSecondaryNavItems } = useNavItems(router, setCurrentPrimaryRoute);
 
   const secondaryNavItems = getSecondaryNavItems(currentPrimaryRoute);
 
