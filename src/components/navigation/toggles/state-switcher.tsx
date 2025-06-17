@@ -111,29 +111,25 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
             setHoverTimeout(timeout);
           }}
         >
-          <DropdownMenuItem asChild className="p-0">
-            <div className="px-1 py-1">
-              <ThemeToggle size="small" />
-            </div>
-          </DropdownMenuItem>
+          <div className="px-1 py-1">
+            <ThemeToggle size="small" />
+          </div>
           <DropdownMenuSeparator />
           <LanguageToggle
             size="small"
             variant="dropdown"
           />
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild className="p-0">
-            <div className="p-1">
-              <StateToggle 
-                currentState={state}
-                onStateChange={(newState) => {
-                  onStateChange(newState)
-                  setIsDropdownOpen(false)
-                }}
-                size="small"
-              />
-            </div>
-          </DropdownMenuItem>
+          <DropdownMenuSeparator />          
+          <div className="p-1">
+            <StateToggle 
+              currentState={state}
+              onStateChange={(newState) => {
+                onStateChange(newState)
+                setIsDropdownOpen(false)
+              }}
+              size="small"
+            />
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -199,19 +195,16 @@ export const StateSwitcher: React.FC<StateSwitcherProps> = ({
                 variant="dropdown"
               />
               <DropdownMenuSeparator />
-            </>
-          <DropdownMenuItem asChild className="p-0">
-            <div className="p-1">
-              <StateToggle
-                currentState={state}
-                onStateChange={(newState) => {
-                  onStateChange(newState)
-                  setIsExpanded(false)
-                }}
-                size="small"
-              />
-            </div>
-          </DropdownMenuItem>
+            </>          <div className="p-1">
+            <StateToggle
+              currentState={state}
+              onStateChange={(newState) => {
+                onStateChange(newState)
+                setIsExpanded(false)
+              }}
+              size="small"
+            />
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     )
