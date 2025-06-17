@@ -10,7 +10,6 @@ import { LanguageToggle } from '@/components/navigation/toggles/language-toggle'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
