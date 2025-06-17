@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/navigation/toggles/theme-toggle"
 import { Search } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 type ScreenType = "mobile" | "desktop" | "automatic"
 
@@ -16,6 +17,7 @@ interface NavigationDemoProps {
 }
 
 export default function NavigationDemo({ onScreenTypeChange, onPriorityChange }: NavigationDemoProps) {
+  const { t } = useTranslation()
   const isMobileDevice = useIsMobile()
   const [screenType, setScreenType] = useState<ScreenType>("automatic")
   const [actualScreen, setActualScreen] = useState<"mobile" | "desktop">("desktop")
@@ -49,51 +51,48 @@ export default function NavigationDemo({ onScreenTypeChange, onPriorityChange }:
     <div className="container mx-auto p-8">
       <Card className="mb-8">
         <CardHeader className="flex flex-row items-center justify-between">
-          <div>
-            <CardTitle>Dynamic Navigation Demo</CardTitle>
+          <div>            <CardTitle>{t('navigationDemo.title')}</CardTitle>
             <CardDescription>
-              Test different navigation configurations
+              {t('navigationDemo.description')}
             </CardDescription>
           </div>
           <ThemeToggle />
         </CardHeader>
-        <CardContent className="space-y-6">          <div>
-            <h3 className="text-lg font-medium mb-3">Screen Type</h3>
+        <CardContent className="space-y-6">          <div>            <h3 className="text-lg font-medium mb-3">{t('navigationDemo.screenType.title')}</h3>
             <div className="flex gap-2 flex-wrap">
               <Button 
                 variant={screenType === "mobile" ? "default" : "outline"} 
                 onClick={() => handleScreenTypeChange("mobile")}
               >
-                Mobile
+                {t('navigationDemo.screenType.mobile')}
               </Button>
               <Button 
                 variant={screenType === "desktop" ? "default" : "outline"}
                 onClick={() => handleScreenTypeChange("desktop")}
               >
-                Desktop
+                {t('navigationDemo.screenType.desktop')}
               </Button>
               <Button 
                 variant={screenType === "automatic" ? "default" : "outline"}
                 onClick={() => handleScreenTypeChange("automatic")}
               >
-                Automatic
+                {t('navigationDemo.screenType.automatic')}
               </Button>
             </div>
             <div className="text-sm text-muted-foreground mt-2 flex items-center">
               <Badge variant="outline" className="mr-2">{screenType}</Badge>
-              <span>Switches between mobile and desktop based on screen width</span>
+              <span>{t('navigationDemo.screenType.description')}</span>
             </div>
           </div>
 
-          <div className="pt-4 border-t">
-            <h3 className="text-lg font-medium mb-3">Command Palette</h3>
+          <div className="pt-4 border-t">            <h3 className="text-lg font-medium mb-3">{t('navigationDemo.commandPalette.title')}</h3>
             <div>
               <Button 
                 variant="outline" 
                 className="w-full justify-start text-sm text-muted-foreground"
               >
                 <Search className="mr-2 h-4 w-4" />
-                <span>Search commands...</span>
+                <span>{t('navigationDemo.commandPalette.placeholder')}</span>
                 <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
                   <span className="text-xs">⌘</span>K
                 </kbd>
@@ -101,75 +100,69 @@ export default function NavigationDemo({ onScreenTypeChange, onPriorityChange }:
             </div>
           </div>
 
-          <div className="pt-4 border-t">
-            <h3 className="text-lg font-medium mb-3">Theme Settings</h3>
+          <div className="pt-4 border-t">            <h3 className="text-lg font-medium mb-3">{t('navigationDemo.themeSettings.title')}</h3>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">
-                  The theme automatically syncs with your system preference. You can also manually set it.
+                  {t('navigationDemo.themeSettings.description')}
                 </p>
               </div>
               <ThemeToggle />
             </div>
-          </div>          <div>
-            <h3 className="text-lg font-medium mb-3">Priority</h3>
+          </div>          <div>            <h3 className="text-lg font-medium mb-3">{t('navigationDemo.priority.title')}</h3>
             <div className="flex gap-2">
               <Button 
                 variant={priority === "primary" ? "default" : "outline"}
                 onClick={() => handlePriorityChange("primary")}
               >
-                Primary
+                {t('navigationDemo.priority.primary')}
               </Button>
               <Button 
                 variant={priority === "secondary" ? "default" : "outline"}
                 onClick={() => handlePriorityChange("secondary")}
               >
-                Secondary
+                {t('navigationDemo.priority.secondary')}
               </Button>
               <Button 
                 variant={priority === "combined" ? "default" : "outline"}
                 onClick={() => handlePriorityChange("combined")}
               >
-                Combined
+                {t('navigationDemo.priority.combined')}
               </Button>
             </div>
-          </div>          <div className="pt-4 border-t">
-            <h3 className="text-lg font-medium mb-3">Current Configuration</h3>
+          </div>          <div className="pt-4 border-t">            <h3 className="text-lg font-medium mb-3">{t('navigationDemo.currentConfig.title')}</h3>
             <div className="flex gap-2 flex-wrap">
-              <Badge variant="secondary">State: asButton</Badge>
-              <Badge variant="secondary">Priority: {priority}</Badge>
-              <Badge variant="secondary">Screen: {actualScreen}</Badge>
+              <Badge variant="secondary">{t('navigationDemo.currentConfig.state')}: asButton</Badge>
+              <Badge variant="secondary">{t('navigationDemo.currentConfig.priority')}: {priority}</Badge>
+              <Badge variant="secondary">{t('navigationDemo.currentConfig.screen')}: {actualScreen}</Badge>
             </div>
           </div>
 
-          <div className="pt-4 border-t">
-            <h3 className="text-lg font-medium mb-3">State Switcher Behavior</h3>
+          <div className="pt-4 border-t">            <h3 className="text-lg font-medium mb-3">{t('navigationDemo.stateSwitcher.title')}</h3>
             <div className="text-sm text-muted-foreground space-y-2">
               <p>
-                <strong>asButton:</strong> State icons appear horizontally in the fullscreen overlay
+                <strong>{t('navigationDemo.stateSwitcher.asButton.title')}</strong> {t('navigationDemo.stateSwitcher.asButton.description')}
               </p>
               <p>
-                <strong>asButtonList:</strong> "More" icon that expands to show state icons on hover/tap
+                <strong>{t('navigationDemo.stateSwitcher.asButtonList.title')}</strong> {t('navigationDemo.stateSwitcher.asButtonList.description')}
               </p>
               <p>
-                <strong>asLabeledButtonList:</strong> State icons displayed horizontally in footer
+                <strong>{t('navigationDemo.stateSwitcher.asLabeledButtonList.title')}</strong> {t('navigationDemo.stateSwitcher.asLabeledButtonList.description')}
               </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">        {Array.from({ length: 6 }).map((_, i) => (
           <Card key={i}>
             <CardHeader>
-              <CardTitle>Sample Content {i + 1}</CardTitle>
-              <CardDescription>This content demonstrates how the navigation affects page layout</CardDescription>
+              <CardTitle>{t('navigationDemo.sampleContent.title')} {i + 1}</CardTitle>
+              <CardDescription>{t('navigationDemo.sampleContent.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua.
+                {t('navigationDemo.sampleContent.content')}
               </p>
             </CardContent>
           </Card>

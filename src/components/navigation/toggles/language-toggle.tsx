@@ -34,16 +34,16 @@ export function LanguageToggle({
 }: LanguageToggleProps) {
   const [isLanguagePopoverOpen, setIsLanguagePopoverOpen] = React.useState(false)
   const { i18n } = useTranslation()
-  
-  // Use the language from i18n if no prop is provided
+    // Use the language from i18n if no prop is provided
   const language = (i18n.language as "en" | "de")
+  const { t } = useTranslation()
 
   // Helper function to render the language display
   const renderLanguageDisplay = (lang: "en" | "de") => {
     return (
       <span className="flex items-center gap-2">
         <span className={cn("text-base", size === "small" && "text-sm")}>{lang === "en" ? "🇺🇸" : "🇩🇪"}</span>
-        <span className={cn("text-sm", size === "small" && "text-xs")}>{lang === "en" ? "English" : "Deutsch"}</span>
+        <span className={cn("text-sm", size === "small" && "text-xs")}>{lang === "en" ? t('navigation.toggles.language.english') : t('navigation.toggles.language.german')}</span>
       </span>
     )
   }  // Custom language setter with toast notification and i18n integration
@@ -51,14 +51,13 @@ export function LanguageToggle({
     
     // Always change the i18n language
     i18n.changeLanguage(lang)
-    
-    // Show notification
+      // Show notification
     toast.success(
-      `${lang === "en" ? "Language changed to English" : "Sprache geändert zu Deutsch"}`, 
+      lang === "en" ? t('navigation.toggles.language.changeSuccess') : "Sprache geändert zu Deutsch", 
       {
-        description: `${lang === "en" 
-          ? "Your language preference has been updated to English." 
-          : "Ihre Spracheinstellung wurde zu Deutsch aktualisiert."}`,
+        description: lang === "en" 
+          ? t('navigation.toggles.language.changeDescription')
+          : "Ihre Spracheinstellung wurde zu Deutsch aktualisiert.",
         icon: lang === "en" ? "🇺🇸" : "🇩🇪",
       }
     )
@@ -78,9 +77,8 @@ export function LanguageToggle({
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => handleLanguageChange("de")}>
               {renderLanguageDisplay("de")}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem disabled>More languages...</DropdownMenuItem>
+            </DropdownMenuItem>            <DropdownMenuSeparator />
+            <DropdownMenuItem disabled>{t('navigation.toggles.language.moreLanguages')}</DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuPortal>
       </DropdownMenuSub>
@@ -95,7 +93,7 @@ export function LanguageToggle({
           variant="ghost"
           size="icon"
           className={cn("h-8 w-8", size === "small" && "h-6 w-6", className)}
-          title="Change language"
+          title={t('navigation.toggles.language.title')}
           onMouseEnter={() => setIsLanguagePopoverOpen(true)}
         >
           <span className={cn("text-sm", size === "small" && "text-xs")}>{language === "en" ? "🇺🇸" : "🇩🇪"}</span>

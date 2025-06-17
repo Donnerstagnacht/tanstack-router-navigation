@@ -3,14 +3,10 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { ThemeProvider } from '@/components/navigation/toggles/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { DynamicNavigation } from '@/components/navigation/dynamic-navigation'
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from '@/components/ui/command'
-import { Badge } from '@/components/ui/badge'
+import { NavigationCommandDialog } from '@/components/navigation/command-dialog'
 import { useState, useEffect } from 'react'
 import { ScreenProvider, useScreenContext } from '@/contexts/screen-context'
-import { Moon, Keyboard } from 'lucide-react'
-import { getShortcutForItem } from '@/lib/keyboard-navigation'
 import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard'
-import { getIconComponent } from '@/lib/icons/icon-map'
 import { createNavItems } from '@/lib/navigation/nav-config'
 
 export const Route = createRootRoute({
@@ -168,92 +164,20 @@ function RootContent() {
                   onUserClick={() => console.log("User profile clicked")}
                   navigationItems={secondaryNavItems}
                 />
-              )}
-
-              <main className={`transition-all duration-300 ${getMarginClass()}`}>
+              )}              <main className={`transition-all duration-300 ${getMarginClass()}`}>
                 <Outlet />
               </main>
-
+              
               {/* Command Dialog for global search */}
-              <CommandDialog open={open} onOpenChange={setOpen}>
-                <CommandInput placeholder="Type a command or search..." />
-                <CommandList>
-                  <CommandEmpty>No results found.</CommandEmpty>
-                  <CommandGroup heading="Primary Navigation">                    {primaryNavItems.map((item) => {
-                      const IconComponent = getIconComponent(item.icon);
-                      return (                        <CommandItem 
-                          key={item.id}
-                          onSelect={() => {
-                            console.log(`Navigating to ${item.label}`);
-                            // Navigate to the appropriate route using TanStack Router
-                            if (item.onClick) {
-                              item.onClick();
-                            } else {
-                              const route = item.id === 'home' ? '/' : `/${item.id}`;
-                              router.navigate({ to: route });
-                            }
-                            setOpen(false);
-                          }}
-                        >
-                          <div className="flex items-center">
-                            <IconComponent className="mr-2 h-4 w-4" />
-                            <span>{item.label}</span>
-                            {item.badge && (
-                              <Badge className="ml-2" variant="secondary">{item.badge}</Badge>
-                            )}
-                          </div>
-                          <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>                  {priority === "combined" && secondaryNavItems && (
-                    <>
-                      <CommandSeparator />
-                      <CommandGroup heading="Secondary Navigation">
-                        {secondaryNavItems.map((item) => {
-                          const IconComponent = getIconComponent(item.icon);
-                          return (                            
-                          <CommandItem 
-                              key={item.id}
-                              onSelect={() => {
-                                console.log(`Navigating to ${item.label}`);
-                                // Navigate to the appropriate route using TanStack Router
-                                if (item.onClick) {
-                                  item.onClick();
-                                } else {
-                                  router.navigate({ to: item.href });
-                                }
-                                setOpen(false);
-                              }}
-                            >
-                              <div className="flex items-center">
-                                <IconComponent className="mr-2 h-4 w-4" />
-                                <span>{item.label}</span>
-                                {item.badge && (
-                                  <Badge className="ml-2" variant="secondary">{item.badge}</Badge>
-                                )}
-                              </div>
-                              <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
-                            </CommandItem>
-                          );
-                        })}
-                      </CommandGroup>
-                    </>
-                  )}
-                  <CommandSeparator />
-                  <CommandGroup heading="Settings">
-                    <CommandItem onSelect={() => console.log("Changing theme")}>
-                      <Moon className="mr-2 h-4 w-4" />
-                      Change theme
-                      <CommandShortcut>{getShortcutForItem("theme").display}</CommandShortcut>
-                    </CommandItem>
-                    <CommandItem onSelect={() => console.log("Opening keyboard shortcuts")}>
-                      <Keyboard className="mr-2 h-4 w-4" />
-                      Keyboard shortcuts
-                      <CommandShortcut>{getShortcutForItem("keyboard").display}</CommandShortcut>
-                    </CommandItem>                  </CommandGroup>
-                </CommandList>
-              </CommandDialog>
+              <NavigationCommandDialog
+                open={open}
+                setOpen={setOpen}
+                primaryNavItems={primaryNavItems}
+                secondaryNavItems={secondaryNavItems}
+                priority={priority}
+                onThemeToggle={() => console.log("Changing theme")}
+                onKeyboardShortcutsOpen={() => console.log("Opening keyboard shortcuts")}
+              />
             </div>
     );
 }

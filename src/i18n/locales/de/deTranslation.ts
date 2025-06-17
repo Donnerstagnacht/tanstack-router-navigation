@@ -53,6 +53,91 @@ const deTranslation: I18nLocale = {
         analytics: "Analytik",
         reports: "Berichte"
       }
+    },
+    toggles: {
+      theme: {
+        title: "Theme",
+        light: "Licht-Modus",
+        dark: "Dunkel-Modus",
+        system: "System-Theme"
+      },
+      language: {
+        title: "Sprache ändern",
+        english: "English",
+        german: "Deutsch",
+        moreLanguages: "Weitere Sprachen...",
+        changeSuccess: "Sprache geändert zu Deutsch",
+        changeDescription: "Ihre Spracheinstellung wurde zu Deutsch aktualisiert."
+      },
+      state: {
+        asButton: "Button-Ansicht",
+        asButtonList: "Button-Listen-Ansicht",
+        asLabeledButtonList: "Beschriftete Button-Listen-Ansicht"
+      }
+    }
+  },
+  navigationDemo: {
+    title: "Dynamische Navigations-Demo",
+    description: "Testen Sie verschiedene Navigations-Konfigurationen",
+    screenType: {
+      title: "Bildschirmtyp",
+      mobile: "Mobil",
+      desktop: "Desktop",
+      automatic: "Automatisch",
+      description: "Wechselt zwischen mobilem und Desktop-Modus basierend auf der Bildschirmbreite"
+    },
+    commandPalette: {
+      title: "Befehlspalette",
+      placeholder: "Befehle suchen..."
+    },
+    themeSettings: {
+      title: "Theme-Einstellungen",
+      description: "Das Theme synchronisiert automatisch mit Ihrer Systemeinstellung. Sie können es auch manuell ändern."
+    },
+    priority: {
+      title: "Priorität",
+      primary: "Primär",
+      secondary: "Sekundär",
+      combined: "Kombiniert"
+    },
+    currentConfig: {
+      title: "Aktuelle Konfiguration",
+      state: "Status",
+      priority: "Priorität",
+      screen: "Bildschirm"
+    },
+    stateSwitcher: {
+      title: "Status-Wechsler Verhalten",
+      asButton: {
+        title: "asButton:",
+        description: "Status-Icons erscheinen horizontal im Vollbildoverlay"
+      },
+      asButtonList: {
+        title: "asButtonList:",
+        description: "\"Mehr\"-Symbol, das bei Hover/Tap Status-Icons anzeigt"
+      },
+      asLabeledButtonList: {
+        title: "asLabeledButtonList:",
+        description: "Status-Icons werden horizontal in der Fußzeile angezeigt"
+      }
+    },
+    sampleContent: {
+      title: "Beispielinhalt",
+      description: "Dieser Inhalt demonstriert, wie die Navigation das Seitenlayout beeinflusst",
+      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+  },
+  commandDialog: {
+    placeholder: "Geben Sie einen Befehl ein oder suchen Sie...",
+    noResults: "Keine Ergebnisse gefunden.",
+    groups: {
+      primaryNavigation: "Primäre Navigation",
+      secondaryNavigation: "Sekundäre Navigation",
+      settings: "Einstellungen"
+    },
+    items: {
+      changeTheme: "Theme ändern",
+      keyboardShortcuts: "Tastenkürzel"
     }
   }
 };
