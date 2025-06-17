@@ -3,10 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/navigation/toggles/theme-toggle';
 import { Search } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { PriorityType, ScreenType } from '../lib/navigation/NavigationTypes';
+import { useScreenContext } from '@/contexts/screen-context';
 
 export default function NavigationDemo({
   onScreenTypeChange,
@@ -16,7 +16,7 @@ export default function NavigationDemo({
   onPriorityChange?: (priority: PriorityType) => void;
 }) {
   const { t } = useTranslation();
-  const isMobileDevice = useIsMobile();
+  const { isMobile } = useScreenContext();
   const [screenType, setScreenType] = useState<ScreenType>('automatic');
   const [actualScreen, setActualScreen] = useState<'mobile' | 'desktop'>('desktop');
   const [priority, setPriority] = useState<PriorityType>('combined');
@@ -40,11 +40,11 @@ export default function NavigationDemo({
   // Update actual screen type based on screenType selection and device
   useEffect(() => {
     if (screenType === 'automatic') {
-      setActualScreen(isMobileDevice ? 'mobile' : 'desktop');
+      setActualScreen(isMobile ? 'mobile' : 'desktop');
     } else {
       setActualScreen(screenType);
     }
-  }, [screenType, isMobileDevice]);
+  }, [screenType, isMobile]);
   return (
     <div className="container mx-auto p-8">
       <Card className="mb-8">

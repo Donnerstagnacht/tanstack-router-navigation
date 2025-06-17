@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { iconMap } from '@/lib/icons/icon-map';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { AsButtonNavigation } from '@/components/navigation/as-button-navigation';
 import { AsButtonListNavigation } from '@/components/navigation/as-button-list-navigation';
 import { AsLabeledButtonListNavigation } from '@/components/navigation/as-labeled-button-list-navigation';
@@ -11,6 +10,7 @@ import type {
   ScreenType,
 } from '@/lib/navigation/NavigationTypes';
 import { unauthenticatedItems } from '../../lib/navigation/unauthenticatedItems';
+import { useScreenContext } from '@/contexts/screen-context';
 
 export function DynamicNavigation({
   state,
@@ -37,10 +37,10 @@ export function DynamicNavigation({
 }) {
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
   const [isExpanded, setIsExpanded] = React.useState(false);
-  const isMobileDevice = useIsMobile();
+  const { isMobile } = useScreenContext();
 
   const isPrimary = priority === 'primary';
-  const isMobile = screen === 'mobile' || (screen === 'automatic' && isMobileDevice);
+  const isMobileDevice = screen === 'mobile' || (screen === 'automatic' && isMobile);
 
   // Use the centralized icon map from lib/icons/icon-map
   // Process navigation items to ensure icon is a component using the centralized icon map
@@ -59,7 +59,7 @@ export function DynamicNavigation({
       <AsButtonNavigation
         items={items}
         isPrimary={isPrimary}
-        isMobile={isMobile}
+        isMobile={isMobileDevice}
         isExpanded={isExpanded}
         setIsExpanded={setIsExpanded}
         hoveredItem={hoveredItem}
@@ -80,7 +80,7 @@ export function DynamicNavigation({
       <AsButtonListNavigation
         items={items}
         isPrimary={isPrimary}
-        isMobile={isMobile}
+        isMobile={isMobileDevice}
         hoveredItem={hoveredItem}
         setHoveredItem={setHoveredItem}
         state={state}
@@ -100,7 +100,7 @@ export function DynamicNavigation({
       <AsLabeledButtonListNavigation
         items={items}
         isPrimary={isPrimary}
-        isMobile={isMobile}
+        isMobile={isMobileDevice}
         hoveredItem={hoveredItem}
         setHoveredItem={setHoveredItem}
         state={state}
