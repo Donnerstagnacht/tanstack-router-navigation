@@ -1,1 +1,1 @@
-npx lint-staged && echo -e "\033[32m✓ All tests successful\033[0m"
+npx lint-staged && echo -e "\033[32m✓ All commit steps successful\033[0m"
