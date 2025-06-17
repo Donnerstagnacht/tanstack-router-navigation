@@ -62,7 +62,7 @@ function RootContent() {
     
     // Use our custom hook for handling navigation shortcuts
     useNavigationKeyboard({
-      isActive: open,
+      isActive: true,
       onNavigate: (itemId: string) => {
         const allItems = [...primaryNavItems, ...(secondaryNavItems || [])];
         const item = allItems.find(item => item.id === itemId);
