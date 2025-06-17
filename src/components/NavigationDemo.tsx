@@ -6,15 +6,11 @@ import { Search } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
-type ScreenType = 'mobile' | 'desktop' | 'automatic';
-
-type PriorityType = 'primary' | 'secondary' | 'combined';
-
-interface NavigationDemoProps {
-  onScreenTypeChange?: (screenType: 'mobile' | 'desktop' | 'automatic') => void;
-  onPriorityChange?: (priority: PriorityType) => void;
-}
+import type {
+  NavigationDemoProps,
+  PriorityType,
+  ScreenType,
+} from '../lib/navigation/NavigationTypes';
 
 export default function NavigationDemo({
   onScreenTypeChange,
