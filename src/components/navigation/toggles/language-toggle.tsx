@@ -13,10 +13,11 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 interface LanguageToggleProps {
   language: "en" | "de"
-  setLanguage: React.Dispatch<React.SetStateAction<"en" | "de">>
+  setLanguage: (lang: "en" | "de") => void
   size?: "default" | "small"
   className?: string
   side?: "top" | "right" | "bottom" | "left"
@@ -34,6 +35,7 @@ export function LanguageToggle({
   variant = "popover"
 }: LanguageToggleProps) {
   const [isLanguagePopoverOpen, setIsLanguagePopoverOpen] = React.useState(false)
+  const { i18n } = useTranslation()
 
   // Helper function to render the language display
   const renderLanguageDisplay = (lang: "en" | "de") => {
@@ -44,15 +46,21 @@ export function LanguageToggle({
       </span>
     )
   }
-
-  // Custom language setter with toast notification
+  // Custom language setter with toast notification and i18n integration
   const handleLanguageChange = (lang: "en" | "de") => {
+    // Apply change through the provided setter
     setLanguage(lang)
     
+    // Also change the i18n language to keep everything in sync
+    i18n.changeLanguage(lang)
+    
+    // Show notification
     toast.success(
-      `Language changed to ${lang === "en" ? "English" : "Deutsch"}`, 
+      `${lang === "en" ? "Language changed to English" : "Sprache geändert zu Deutsch"}`, 
       {
-        description: `Your language preference has been updated to ${lang === "en" ? "English" : "Deutsch"}.`,
+        description: `${lang === "en" 
+          ? "Your language preference has been updated to English." 
+          : "Ihre Spracheinstellung wurde zu Deutsch aktualisiert."}`,
         icon: lang === "en" ? "🇺🇸" : "🇩🇪",
       }
     )
