@@ -1,5 +1,5 @@
-import enTranslation from './en';
-import deTranslation from './de';
+import enTranslation from './en/en';
+import deTranslation from './de/de';
 
 const resources = {
   en: {

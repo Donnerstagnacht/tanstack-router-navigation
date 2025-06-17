@@ -1,4 +1,4 @@
-import type { I18nLocale } from "./en";
+import type { I18nLocale } from "../en/en";
 
 const deTranslation: I18nLocale = {
   welcomeTitle: "Willkommen bei Polity",
