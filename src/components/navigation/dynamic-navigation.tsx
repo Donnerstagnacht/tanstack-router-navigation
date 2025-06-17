@@ -4,35 +4,13 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { AsButtonNavigation } from '@/components/navigation/as-button-navigation';
 import { AsButtonListNavigation } from '@/components/navigation/as-button-list-navigation';
 import { AsLabeledButtonListNavigation } from '@/components/navigation/as-labeled-button-list-navigation';
-
-export type NavigationState = 'asButton' | 'asButtonList' | 'asLabeledButtonList';
-export type NavigationPriority = 'primary' | 'secondary';
-export type NavigationScreen = 'mobile' | 'desktop' | 'automatic';
-export type Language = 'en' | 'de';
-export interface NavigationItem {
-  id: string;
-  icon: React.ComponentType<{ className?: string }> | string;
-  label: string;
-  href?: string;
-  onClick?: () => void;
-  badge?: number;
-}
-interface DynamicNavigationProps {
-  state: NavigationState;
-  priority: NavigationPriority;
-  screen: NavigationScreen;
-  navigationItems: NavigationItem[];
-  className?: string;
-  onStateChange?: (newState: NavigationState) => void;
-  userName?: string;
-  avatarUrl?: string;
-  onUserClick?: () => void;
-  authenticated?: boolean;
-}
-
-const unauthenticatedItems: NavigationItem[] = [
-  { id: 'home', icon: 'Home', label: 'Home', href: '/' },
-];
+import type {
+  NavigationItem,
+  NavigationState,
+  PriorityType,
+  ScreenType,
+} from '@/lib/navigation/NavigationTypes';
+import { unauthenticatedItems } from './unauthenticatedItems';
 
 export function DynamicNavigation({
   state,
@@ -45,7 +23,18 @@ export function DynamicNavigation({
   avatarUrl = '/placeholder-user.jpg',
   onUserClick: onUserClick,
   authenticated = true,
-}: DynamicNavigationProps) {
+}: {
+  state: NavigationState;
+  priority: PriorityType;
+  screen: ScreenType;
+  navigationItems: NavigationItem[];
+  className?: string;
+  onStateChange?: (newState: NavigationState) => void;
+  userName?: string;
+  avatarUrl?: string;
+  onUserClick?: () => void;
+  authenticated?: boolean;
+}) {
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
   const [isExpanded, setIsExpanded] = React.useState(false);
   const isMobileDevice = useIsMobile();

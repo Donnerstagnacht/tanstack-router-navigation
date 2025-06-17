@@ -13,7 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { Language, NavigationPriority, NavigationState } from '../dynamic-navigation';
+import type { Language } from '../dynamic-navigation';
+import type { NavigationPriority } from '@/lib/navigation/NavigationTypes';
+import type { NavigationState } from '@/lib/navigation/NavigationTypes';
 
 interface StateSwitcherProps {
   state: NavigationState;

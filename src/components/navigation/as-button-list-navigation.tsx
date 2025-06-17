@@ -2,24 +2,8 @@ import { cn } from '@/lib/utils';
 import { StateSwitcher } from '@/components/navigation/toggles/state-switcher';
 import { NavItemList } from '@/components/navigation/nav-items/nav-item-list';
 import { NavUserAvatar } from '@/components/navigation/nav-items/nav-user-avatar';
-import type { NavigationItem, NavigationState, NavigationPriority } from './dynamic-navigation';
 import { useRouter } from '@tanstack/react-router';
-
-interface AsButtonListNavigationProps {
-  items: NavigationItem[];
-  isPrimary: boolean;
-  isMobile: boolean;
-  hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
-  state: NavigationState;
-  onStateChange?: (newState: NavigationState) => void;
-  priority: NavigationPriority;
-  className?: string;
-  authenticated?: boolean;
-  userName?: string;
-  avatarUrl?: string;
-  onUserClick?: () => void;
-}
+import type { ListNavigationProps } from '@/lib/navigation/NavigationTypes';
 
 export function AsButtonListNavigation({
   items,
@@ -35,7 +19,7 @@ export function AsButtonListNavigation({
   userName,
   avatarUrl,
   onUserClick,
-}: AsButtonListNavigationProps) {
+}: ListNavigationProps) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
   if (isMobile) {
@@ -48,7 +32,6 @@ export function AsButtonListNavigation({
           className
         )}
       >
-        {' '}
         <div className="flex items-center py-2">
           {/* Scrollable navigation items */}
           <NavItemList
@@ -74,7 +57,7 @@ export function AsButtonListNavigation({
               variant="asButtonList"
               isMobile={isMobile}
             />
-          )}{' '}
+          )}
           {/* Fixed Expandable State Switcher - Only shown for primary navigation */}
           {onStateChange && isPrimary && (
             <div className="flex items-center gap-2 px-2">
@@ -104,7 +87,6 @@ export function AsButtonListNavigation({
       {isPrimary ? (
         // Primary Navigation (links) - with vertical scrolling
         <>
-          {' '}
           <div className="scrollbar-hide flex-1 overflow-y-auto py-4">
             <NavItemList
               items={items}
@@ -118,7 +100,6 @@ export function AsButtonListNavigation({
           </div>
           <div className="flex-shrink-0 border-t">
             <div className="flex flex-col items-center gap-2 p-2">
-              {' '}
               {/* User Avatar */}
               {authenticated && userName && (
                 <NavUserAvatar

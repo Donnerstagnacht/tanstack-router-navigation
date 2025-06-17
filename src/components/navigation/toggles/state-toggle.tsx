@@ -61,7 +61,6 @@ export function StateToggle({
 
   return (
     <div className={cn('flex gap-1', className)}>
-      {' '}
       <StateButton
         state="asButton"
         currentState={currentState}

@@ -2,24 +2,8 @@ import { cn } from '@/lib/utils';
 import { StateSwitcher } from '@/components/navigation/toggles/state-switcher';
 import { NavItemList } from '@/components/navigation/nav-items/nav-item-list';
 import { NavUserAvatar } from '@/components/navigation/nav-items/nav-user-avatar';
-import type { NavigationItem, NavigationState, NavigationPriority } from './dynamic-navigation';
 import { useRouter } from '@tanstack/react-router';
-
-interface AsLabeledButtonListNavigationProps {
-  items: NavigationItem[];
-  isPrimary: boolean;
-  isMobile: boolean;
-  hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
-  state: NavigationState;
-  onStateChange?: (newState: NavigationState) => void;
-  priority: NavigationPriority;
-  className?: string;
-  authenticated?: boolean;
-  userName?: string;
-  avatarUrl?: string;
-  onUserClick?: () => void;
-}
+import type { ListNavigationProps } from '@/lib/navigation/NavigationTypes';
 
 export function AsLabeledButtonListNavigation({
   items,
@@ -35,7 +19,7 @@ export function AsLabeledButtonListNavigation({
   userName,
   avatarUrl,
   onUserClick,
-}: AsLabeledButtonListNavigationProps) {
+}: ListNavigationProps) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
   if (isMobile) {
@@ -103,7 +87,6 @@ export function AsLabeledButtonListNavigation({
     >
       {/* Main navigation items with vertical scrolling */}
       <div className="scrollbar-hide flex-1 overflow-y-auto p-4">
-        {' '}
         <NavItemList
           items={items}
           variant="asLabeledButtonList"
@@ -117,7 +100,6 @@ export function AsLabeledButtonListNavigation({
 
       {/* Footer section with single divider at the top */}
       <div className="flex-shrink-0 border-t">
-        {' '}
         {/* User avatar and name - positioned right below the divider */}
         {authenticated && userName && isPrimary && (
           <NavUserAvatar
@@ -129,7 +111,7 @@ export function AsLabeledButtonListNavigation({
             variant="asLabeledButtonList"
             isMobile={false}
           />
-        )}{' '}
+        )}
         {/* State Switcher - Only shown for primary navigation (no additional border) */}
         {onStateChange && isPrimary && (
           <div className="px-4 pb-4">

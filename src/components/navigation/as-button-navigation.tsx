@@ -5,25 +5,8 @@ import { Button } from '@/components/ui/button';
 import { StateSwitcher } from '@/components/navigation/toggles/state-switcher';
 import { NavItemList } from '@/components/navigation/nav-items/nav-item-list';
 import { NavUserAvatar } from '@/components/navigation/nav-items/nav-user-avatar';
-import type { NavigationItem, NavigationState } from './dynamic-navigation';
+import type { AsButtonNavigationProps } from '@/lib/navigation/NavigationTypes';
 import { useRouter } from '@tanstack/react-router';
-
-interface AsButtonNavigationProps {
-  items: NavigationItem[];
-  isPrimary: boolean;
-  isMobile: boolean;
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
-  hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
-  state: NavigationState;
-  onStateChange?: (newState: NavigationState) => void;
-  className?: string;
-  authenticated?: boolean;
-  userName?: string;
-  avatarUrl?: string;
-  onUserClick?: () => void;
-}
 
 export function AsButtonNavigation({
   items,
@@ -67,7 +50,6 @@ export function AsButtonNavigation({
           <CloseButton isPrimary={isPrimary} onClose={() => setIsExpanded(false)} />
           <div className="flex h-full items-center justify-center">
             <div className="flex w-full max-w-3xl flex-col items-center px-6">
-              {' '}
               <NavItemList
                 items={items}
                 variant="asButton"

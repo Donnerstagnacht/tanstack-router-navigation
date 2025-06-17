@@ -85,7 +85,7 @@ export function LanguageToggle({
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => handleLanguageChange('de')}>
               {renderLanguageDisplay('de')}
-            </DropdownMenuItem>{' '}
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem disabled>
               {t('navigation.toggles.language.moreLanguages')}
