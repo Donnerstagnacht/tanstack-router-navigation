@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -14,16 +12,8 @@ import {
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
-
-interface LanguageToggleProps {
-  language?: 'en' | 'de'; // Optional now, will use i18n.language as default
-  setLanguage?: (lang: 'en' | 'de') => void; // Optional now, will use i18n.changeLanguage as default
-  size?: 'default' | 'small';
-  className?: string;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  sideOffset?: number;
-  variant?: 'popover' | 'dropdown';
-}
+import type { Language } from '@/i18n/i18n';
+import type { Size } from '@/lib/navigation/NavigationTypes';
 
 export function LanguageToggle({
   size = 'default',
@@ -31,15 +21,20 @@ export function LanguageToggle({
   side = 'top',
   sideOffset = 8,
   variant = 'popover',
-}: LanguageToggleProps) {
+}: {
+  size?: Size;
+  className?: string;
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  sideOffset?: number;
+  variant?: 'popover' | 'dropdown';
+}) {
   const [isLanguagePopoverOpen, setIsLanguagePopoverOpen] = React.useState(false);
   const { i18n } = useTranslation();
-  // Use the language from i18n if no prop is provided
-  const language = i18n.language as 'en' | 'de';
+  const language = i18n.language as Language;
   const { t } = useTranslation();
 
   // Helper function to render the language display
-  const renderLanguageDisplay = (lang: 'en' | 'de') => {
+  const renderLanguageDisplay = (lang: Language) => {
     return (
       <span className="flex items-center gap-2">
         <span className={cn('text-base', size === 'small' && 'text-sm')}>
@@ -53,7 +48,7 @@ export function LanguageToggle({
       </span>
     );
   }; // Custom language setter with toast notification and i18n integration
-  const handleLanguageChange = (lang: 'en' | 'de') => {
+  const handleLanguageChange = (lang: Language) => {
     // Always change the i18n language
     i18n.changeLanguage(lang);
     // Show notification

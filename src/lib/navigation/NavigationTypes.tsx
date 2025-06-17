@@ -1,10 +1,10 @@
-import * as React from 'react';
-
 export type ScreenType = 'mobile' | 'desktop' | 'automatic';
 
 export type PriorityType = 'primary' | 'secondary' | 'combined';
 
 export type NavigationState = 'asButton' | 'asButtonList' | 'asLabeledButtonList';
+
+export type Size = 'default' | 'small';
 
 export interface NavigationItem {
   id: string;

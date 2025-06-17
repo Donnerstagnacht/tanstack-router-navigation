@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Home, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -83,22 +82,19 @@ export function AsButtonNavigation({
   );
 }
 
-// Navigation button component extracted for reuse
-interface NavButtonProps {
-  isPrimary: boolean;
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
-  className?: string;
-  icon?: React.ReactNode;
-}
-
 export function NavButton({
   isPrimary,
   isExpanded,
   setIsExpanded,
   className,
   icon = <Home className="h-6 w-6" />,
-}: NavButtonProps) {
+}: {
+  isPrimary: boolean;
+  isExpanded: boolean;
+  setIsExpanded: (expanded: boolean) => void;
+  className?: string;
+  icon?: React.ReactNode;
+}) {
   return (
     <Button
       variant="default"
@@ -116,17 +112,15 @@ export function NavButton({
   );
 }
 
-// AvatarButton has been refactored into NavUserAvatar component
-// with the "asButton" variant
-
-// Close Button component for overlay
-interface CloseButtonProps {
+export function CloseButton({
+  isPrimary,
+  onClose,
+  className,
+}: {
   isPrimary: boolean;
   onClose: () => void;
   className?: string;
-}
-
-export function CloseButton({ isPrimary, onClose, className }: CloseButtonProps) {
+}) {
   return (
     <Button
       variant="outline"

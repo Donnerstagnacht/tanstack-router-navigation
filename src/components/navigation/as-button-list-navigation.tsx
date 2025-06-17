@@ -22,6 +22,7 @@ export function AsButtonListNavigation({
 }: ListNavigationProps) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
+
   if (isMobile) {
     // Mobile: Bottom bar (primary) or Top bar (secondary) with carousel + expandable more menu
     return (

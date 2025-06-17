@@ -10,7 +10,7 @@ import type {
   PriorityType,
   ScreenType,
 } from '@/lib/navigation/NavigationTypes';
-import { unauthenticatedItems } from './unauthenticatedItems';
+import { unauthenticatedItems } from '../../lib/navigation/unauthenticatedItems';
 
 export function DynamicNavigation({
   state,
@@ -41,6 +41,7 @@ export function DynamicNavigation({
 
   const isPrimary = priority === 'primary';
   const isMobile = screen === 'mobile' || (screen === 'automatic' && isMobileDevice);
+
   // Use the centralized icon map from lib/icons/icon-map
   // Process navigation items to ensure icon is a component using the centralized icon map
   const processedItems = navigationItems.map(item => {
@@ -48,7 +49,7 @@ export function DynamicNavigation({
       return { ...item, icon: iconMap[item.icon] };
     }
     return item;
-  }) as (NavigationItem & { icon: React.ComponentType<{ className?: string }> })[];
+  });
 
   // Use authenticated status to determine which items to show
   const items = authenticated ? processedItems : unauthenticatedItems;
