@@ -1,77 +1,77 @@
-import * as React from 'react'
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
-import { cn } from '@/lib/utils'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import type { NavigationItem } from '../dynamic-navigation'
+import * as React from 'react';
+import { Badge } from '../../ui/badge';
+import { Button } from '../../ui/button';
+import { cn } from '@/lib/utils';
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
+import type { NavigationItem } from '../dynamic-navigation';
 
 // Helper function to determine if an item is active
 function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: boolean): boolean {
-  if (!currentRoute) return false
-  
+  if (!currentRoute) return false;
+
   // Direct match with href if available
   if (item.href && currentRoute === item.href) {
-    return true
+    return true;
   }
-  
+
   // Check if current route is a child of this item's route
   // For example: if item.href is '/projects' and currentRoute is '/projects/tasks'
   // Only apply this check when isPrimary is true
   if (isPrimary && item.href && currentRoute.startsWith(item.href + '/')) {
-    return true
+    return true;
   }
-  
+
   // Extract route from onClick function string representation
   if (item.onClick) {
     try {
-      const onClickStr = item.onClick.toString()
+      const onClickStr = item.onClick.toString();
       // Look for navigation patterns like "navigate({ to: '/route' })" or "router.navigate({ to: '/route' })"
-      const routeMatch = onClickStr.match(/to:\s*['"]([^'"]+)['"]\s*}/)
+      const routeMatch = onClickStr.match(/to:\s*['"]([^'"]+)['"]\s*}/);
       if (routeMatch) {
-        const route = routeMatch[1]
+        const route = routeMatch[1];
         // Exact match
         if (route === currentRoute) {
-          return true
+          return true;
         }
         // Child route match - only apply when isPrimary is true
         if (isPrimary && currentRoute.startsWith(route + '/')) {
-          return true
+          return true;
         }
       }
     } catch (e) {
       // Ignore errors from toString conversion
     }
   }
-  
+
   // ID-based matching as fallback (for common routes like 'home' -> '/')
   if (item.id === 'home' && currentRoute === '/') {
-    return true
+    return true;
   }
-  
+
   // Match route name with ID (exact match)
-  const routePath = currentRoute.startsWith('/') ? currentRoute.slice(1) : currentRoute
+  const routePath = currentRoute.startsWith('/') ? currentRoute.slice(1) : currentRoute;
   if (routePath === item.id) {
-    return true
+    return true;
   }
-  
+
   // Child route matching with ID - only apply when isPrimary is true
   // For example: if item.id is 'projects' and currentRoute is '/projects/tasks'
   if (isPrimary && routePath.startsWith(item.id + '/')) {
-    return true
+    return true;
   }
-  
-  return false
+
+  return false;
 }
 
 interface NavItemListProps {
-  items: NavigationItem[]
-  variant: 'asButton' | 'asButtonList' | 'asLabeledButtonList'
-  isMobile: boolean
-  isPrimary: boolean  // Used for determining popover position and other layout decisions
-  hoveredItem: string | null
-  setHoveredItem: (id: string | null) => void
-  className?: string
-  currentRoute?: string  // Path of the current route to highlight active item
+  items: NavigationItem[];
+  variant: 'asButton' | 'asButtonList' | 'asLabeledButtonList';
+  isMobile: boolean;
+  isPrimary: boolean; // Used for determining popover position and other layout decisions
+  hoveredItem: string | null;
+  setHoveredItem: (id: string | null) => void;
+  className?: string;
+  currentRoute?: string; // Path of the current route to highlight active item
 }
 
 export function NavItemList({
@@ -82,49 +82,54 @@ export function NavItemList({
   hoveredItem,
   setHoveredItem,
   className,
-  currentRoute
+  currentRoute,
 }: NavItemListProps) {
-  
   // For debugging - log the current route
   React.useEffect(() => {
     console.log('Variant:', variant, 'Current route:', currentRoute || 'undefined');
-    items.forEach((item) => {
+    items.forEach(item => {
       const isActive = isItemActive(item, currentRoute, isPrimary);
-      console.log(`Item ${item.id}:`, { 
-        isActive, 
+      console.log(`Item ${item.id}:`, {
+        isActive,
         href: item.href || 'not set',
         currentRoute,
-        onClick: item.onClick ? 'defined' : 'not defined'
+        onClick: item.onClick ? 'defined' : 'not defined',
       });
     });
   }, [currentRoute, items, variant, isPrimary]);
-  
+
   // asButton variant - Grid layout of large buttons used in overlay
   if (variant === 'asButton') {
     return (
-      <div className="overflow-y-auto scrollbar-hide max-h-[70vh]">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-max gap-8 w-full p-4">
+      <div className="scrollbar-hide max-h-[70vh] overflow-y-auto">
+        <div className="grid w-full auto-rows-max grid-cols-2 gap-8 p-4 sm:grid-cols-3 md:grid-cols-4">
           {/* Use different layout for fewer items */}
           {items.length <= 4 ? (
             <div className="col-span-full flex flex-wrap justify-center gap-8">
-              {items.map((item) => (
+              {items.map(item => (
                 <Button
                   key={item.id}
-                  variant="ghost"                  
+                  variant="ghost"
                   className={cn(
-                    "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
-                    isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
+                    'hover:bg-accent relative h-24 w-24 flex-shrink-0 flex-col gap-2',
+                    isItemActive(item, currentRoute, isPrimary) &&
+                      'bg-accent text-accent-foreground'
                   )}
                   onClick={() => {
                     if (item.onClick) item.onClick();
                     setHoveredItem(null); // Reset hover state after click
                   }}
                 >
-                  <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
+                  <item.icon
+                    className={cn(
+                      'h-8 w-8',
+                      isItemActive(item, currentRoute, isPrimary) && 'text-primary'
+                    )}
+                  />
                   <span className="text-sm">{item.label}</span>
                   {item.badge && (
-                    <Badge 
-                      className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
+                    <Badge
+                      className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center p-0"
                       variant="default"
                     >
                       {item.badge}
@@ -135,24 +140,29 @@ export function NavItemList({
             </div>
           ) : (
             // Original layout for 5+ items
-            items.map((item) => (
+            items.map(item => (
               <Button
                 key={item.id}
                 variant="ghost"
                 className={cn(
-                  "h-24 w-24 flex-col gap-2 hover:bg-accent flex-shrink-0 relative",
-                  isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
+                  'hover:bg-accent relative h-24 w-24 flex-shrink-0 flex-col gap-2',
+                  isItemActive(item, currentRoute, isPrimary) && 'bg-accent text-accent-foreground'
                 )}
                 onClick={() => {
                   if (item.onClick) item.onClick();
                   setHoveredItem(null); // Reset hover state after click
                 }}
               >
-                <item.icon className={cn("h-8 w-8", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
+                <item.icon
+                  className={cn(
+                    'h-8 w-8',
+                    isItemActive(item, currentRoute, isPrimary) && 'text-primary'
+                  )}
+                />
                 <span className="text-sm">{item.label}</span>
                 {item.badge && (
-                  <Badge 
-                    className="absolute top-2 right-4 h-5 w-5 p-0 flex items-center justify-center" 
+                  <Badge
+                    className="absolute top-2 right-4 flex h-5 w-5 items-center justify-center p-0"
                     variant="default"
                   >
                     {item.badge}
@@ -163,23 +173,24 @@ export function NavItemList({
           )}
         </div>
       </div>
-    )
+    );
   }
-  
+
   // asButtonList variant - Mobile: Horizontal scrolling buttons with popovers
   if (variant === 'asButtonList' && isMobile) {
     return (
-      <div className="flex-1 overflow-x-auto scrollbar-hide">
-        <div className="flex items-center justify-center gap-1 px-2 min-w-max">
-          {items.map((item) => (
+      <div className="scrollbar-hide flex-1 overflow-x-auto">
+        <div className="flex min-w-max items-center justify-center gap-1 px-2">
+          {items.map(item => (
             <Popover key={item.id} open={hoveredItem === item.id}>
               <PopoverTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
                   className={cn(
-                    "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
-                    isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
+                    'hover:bg-accent relative h-12 w-12 flex-shrink-0',
+                    isItemActive(item, currentRoute, isPrimary) &&
+                      'bg-accent text-accent-foreground'
                   )}
                   onClick={() => {
                     if (item.onClick) item.onClick();
@@ -190,10 +201,15 @@ export function NavItemList({
                   onTouchStart={() => setHoveredItem(item.id)}
                   onTouchEnd={() => setHoveredItem(null)}
                 >
-                  <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
+                  <item.icon
+                    className={cn(
+                      'h-5 w-5',
+                      isItemActive(item, currentRoute, isPrimary) && 'text-primary'
+                    )}
+                  />
                   {item.badge && (
-                    <Badge 
-                      className="absolute -top-0 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
+                    <Badge
+                      className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center p-0"
                       variant="default"
                     >
                       {item.badge}
@@ -208,22 +224,22 @@ export function NavItemList({
           ))}
         </div>
       </div>
-    )
+    );
   }
-  
+
   // asButtonList variant - Desktop: Vertical sidebar with icon buttons and popovers
   if (variant === 'asButtonList' && !isMobile) {
     return (
-      <div className={cn("flex flex-col items-center gap-2", className)}>
-        {items.map((item) => (
+      <div className={cn('flex flex-col items-center gap-2', className)}>
+        {items.map(item => (
           <Popover key={item.id} open={hoveredItem === item.id}>
             <PopoverTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "h-12 w-12 hover:bg-accent flex-shrink-0 relative",
-                  isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
+                  'hover:bg-accent relative h-12 w-12 flex-shrink-0',
+                  isItemActive(item, currentRoute, isPrimary) && 'bg-accent text-accent-foreground'
                 )}
                 onClick={() => {
                   if (item.onClick) item.onClick();
@@ -232,10 +248,15 @@ export function NavItemList({
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
+                <item.icon
+                  className={cn(
+                    'h-5 w-5',
+                    isItemActive(item, currentRoute, isPrimary) && 'text-primary'
+                  )}
+                />
                 {item.badge && (
-                  <Badge 
-                    className="absolute -top-0 -right-1 h-5 w-5 p-0 flex items-center justify-center" 
+                  <Badge
+                    className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center p-0"
                     variant="default"
                   >
                     {item.badge}
@@ -243,27 +264,31 @@ export function NavItemList({
                 )}
               </Button>
             </PopoverTrigger>
-            <PopoverContent side={isPrimary ? "right" : "left"} className="w-auto p-2" sideOffset={8}>
+            <PopoverContent
+              side={isPrimary ? 'right' : 'left'}
+              className="w-auto p-2"
+              sideOffset={8}
+            >
               <span className="text-sm font-medium">{item.label}</span>
             </PopoverContent>
           </Popover>
         ))}
       </div>
-    )
+    );
   }
 
   // asLabeledButtonList variant - Mobile: Horizontal scrolling buttons with labels
   if (variant === 'asLabeledButtonList' && isMobile) {
     return (
-      <div className="flex-1 overflow-x-auto scrollbar-hide">
-        <div className="flex items-center justify-center gap-1 px-2 min-w-max">
-          {items.map((item) => (            
+      <div className="scrollbar-hide flex-1 overflow-x-auto">
+        <div className="flex min-w-max items-center justify-center gap-1 px-2">
+          {items.map(item => (
             <Button
               key={item.id}
               variant="ghost"
               className={cn(
-                "flex h-16 min-w-16 flex-col gap-1 hover:bg-accent px-2 flex-shrink-0",
-                isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
+                'hover:bg-accent flex h-16 min-w-16 flex-shrink-0 flex-col gap-1 px-2',
+                isItemActive(item, currentRoute, isPrimary) && 'bg-accent text-accent-foreground'
               )}
               onClick={() => {
                 if (item.onClick) item.onClick();
@@ -273,35 +298,42 @@ export function NavItemList({
               onMouseLeave={() => setHoveredItem(null)}
             >
               <div className="relative">
-                <item.icon className={cn("h-5 w-5 flex-shrink-0", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
+                <item.icon
+                  className={cn(
+                    'h-5 w-5 flex-shrink-0',
+                    isItemActive(item, currentRoute, isPrimary) && 'text-primary'
+                  )}
+                />
                 {item.badge && (
-                  <Badge 
-                    className="absolute -top-3 -right-5 h-5 w-5 p-0 flex items-center justify-center" 
+                  <Badge
+                    className="absolute -top-3 -right-5 flex h-5 w-5 items-center justify-center p-0"
                     variant="default"
                   >
                     {item.badge}
                   </Badge>
                 )}
               </div>
-              <span className="text-xs text-center leading-tight whitespace-nowrap">{item.label}</span>
+              <span className="text-center text-xs leading-tight whitespace-nowrap">
+                {item.label}
+              </span>
             </Button>
           ))}
         </div>
       </div>
-    )
+    );
   }
 
   // asLabeledButtonList variant - Desktop: Full sidebar with icons and labels
   if (variant === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="flex flex-col gap-2">
-        {items.map((item) => (          
-          <Button 
-            key={item.id} 
-            variant="ghost" 
+        {items.map(item => (
+          <Button
+            key={item.id}
+            variant="ghost"
             className={cn(
-              "justify-start gap-3 h-12 px-3 flex-shrink-0",
-              isItemActive(item, currentRoute, isPrimary) && "bg-accent text-accent-foreground"
+              'h-12 flex-shrink-0 justify-start gap-3 px-3',
+              isItemActive(item, currentRoute, isPrimary) && 'bg-accent text-accent-foreground'
             )}
             onClick={() => {
               if (item.onClick) item.onClick();
@@ -310,7 +342,12 @@ export function NavItemList({
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <item.icon className={cn("h-5 w-5", isItemActive(item, currentRoute, isPrimary) && "text-primary")} />
+            <item.icon
+              className={cn(
+                'h-5 w-5',
+                isItemActive(item, currentRoute, isPrimary) && 'text-primary'
+              )}
+            />
             <span>{item.label}</span>
             {item.badge && (
               <Badge className="ml-auto" variant="default">
@@ -320,8 +357,8 @@ export function NavItemList({
           </Button>
         ))}
       </div>
-    )
+    );
   }
 
-  return null
+  return null;
 }

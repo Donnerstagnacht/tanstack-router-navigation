@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import * as React from 'react'
-import { Circle, Menu, AlignLeft } from 'lucide-react'
+import * as React from 'react';
+import { Circle, Menu, AlignLeft } from 'lucide-react';
 
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
-type NavigationState = "asButton" | "asButtonList" | "asLabeledButtonList"
+type NavigationState = 'asButton' | 'asButtonList' | 'asLabeledButtonList';
 
 interface StateButtonProps {
-  state: NavigationState
-  currentState: NavigationState
-  onClick: () => void
-  icon: React.ComponentType<{ className?: string }>
-  title: string
-  size?: "default" | "small"
+  state: NavigationState;
+  currentState: NavigationState;
+  onClick: () => void;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  size?: 'default' | 'small';
 }
 
 const StateButton = ({
@@ -24,43 +24,45 @@ const StateButton = ({
   onClick,
   icon: Icon,
   title,
-  size = "default",
+  size = 'default',
 }: StateButtonProps) => {
-  const isActive = currentState === state
+  const isActive = currentState === state;
 
   return (
     <Button
-      variant={isActive ? "default" : "ghost"}
+      variant={isActive ? 'default' : 'ghost'}
       size="icon"
-      className={cn("h-8 w-8", size === "small" && "h-6 w-6")}
+      className={cn('h-8 w-8', size === 'small' && 'h-6 w-6')}
       onClick={onClick}
       title={title}
     >
-      <Icon className={cn("h-4 w-4", size === "small" && "h-3 w-3")} />
+      <Icon className={cn('h-4 w-4', size === 'small' && 'h-3 w-3')} />
     </Button>
-  )
-}
+  );
+};
 
-export function StateToggle({ 
+export function StateToggle({
   currentState,
-  onStateChange, 
-  size = "default", 
-  className 
-}: { 
-  currentState: NavigationState
-  onStateChange: (state: NavigationState) => void
-  size?: "default" | "small"
-  className?: string 
+  onStateChange,
+  size = 'default',
+  className,
+}: {
+  currentState: NavigationState;
+  onStateChange: (state: NavigationState) => void;
+  size?: 'default' | 'small';
+  className?: string;
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const icons = {
     asButton: Circle,
     asButtonList: Menu,
     asLabeledButtonList: AlignLeft,
-  }
+  };
 
   return (
-    <div className={cn("flex gap-1", className)}>      <StateButton
+    <div className={cn('flex gap-1', className)}>
+      {' '}
+      <StateButton
         state="asButton"
         currentState={currentState}
         onClick={() => onStateChange('asButton')}
@@ -85,5 +87,5 @@ export function StateToggle({
         size={size}
       />
     </div>
-  )
+  );
 }

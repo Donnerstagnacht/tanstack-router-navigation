@@ -3,11 +3,11 @@ import deTranslation from './de/deTranslation';
 
 const resources = {
   en: {
-    translation: enTranslation
+    translation: enTranslation,
   },
   de: {
-    translation: deTranslation
-  }
+    translation: deTranslation,
+  },
 };
 
 export default resources;

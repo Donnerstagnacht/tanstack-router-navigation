@@ -1,20 +1,20 @@
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
-import type { NavigationState } from "../dynamic-navigation"
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import type { NavigationState } from '../dynamic-navigation';
 
 interface NavUserAvatarProps {
-  id?: string
-  userName: string
-  avatarUrl?: string
-  onClick?: () => void
-  hoveredItem: string | null
-  setHoveredItem: (item: string | null) => void
-  variant?: NavigationState
-  isMobile?: boolean
-  className?: string
-  onUserClick?: () => void
+  id?: string;
+  userName: string;
+  avatarUrl?: string;
+  onClick?: () => void;
+  hoveredItem: string | null;
+  setHoveredItem: (item: string | null) => void;
+  variant?: NavigationState;
+  isMobile?: boolean;
+  className?: string;
+  onUserClick?: () => void;
 }
 
 export function NavUserAvatar({
@@ -31,15 +31,18 @@ export function NavUserAvatar({
 }: NavUserAvatarProps) {
   // Handle backwards compatibility
   const clickHandler = onClick || onUserClick;
-  
+
   // If no id is provided, use a default based on variant
-  const popoverId = id || (isMobile ? "user-avatar-mobile" : "user-avatar");
-  
-  if (variant === "asButton") {
+  const popoverId = id || (isMobile ? 'user-avatar-mobile' : 'user-avatar');
+
+  if (variant === 'asButton') {
     return (
       <Button
         variant="ghost"
-        className={cn("h-24 flex items-center justify-center gap-4 hover:bg-accent w-fit", className)}
+        className={cn(
+          'hover:bg-accent flex h-24 w-fit items-center justify-center gap-4',
+          className
+        )}
         onClick={clickHandler}
       >
         <Avatar className="h-12 w-12">
@@ -50,18 +53,18 @@ export function NavUserAvatar({
       </Button>
     );
   }
-  
-  if(variant === "asButtonList") {
+
+  if (variant === 'asButtonList') {
     return (
       <Popover open={hoveredItem === popoverId}>
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            size={isMobile ? "icon" : undefined}
+            size={isMobile ? 'icon' : undefined}
             className={cn(
-              isMobile 
-                ? "h-12 w-12 hover:bg-accent flex-shrink-0" 
-                : "w-full flex justify-center items-center h-12",
+              isMobile
+                ? 'hover:bg-accent h-12 w-12 flex-shrink-0'
+                : 'flex h-12 w-full items-center justify-center',
               className
             )}
             onClick={clickHandler}
@@ -69,7 +72,7 @@ export function NavUserAvatar({
             onMouseLeave={() => setHoveredItem(null)}
             {...(isMobile && {
               onTouchStart: () => setHoveredItem(popoverId),
-              onTouchEnd: () => setHoveredItem(null)
+              onTouchEnd: () => setHoveredItem(null),
             })}
           >
             <Avatar className="h-8 w-8">
@@ -78,25 +81,21 @@ export function NavUserAvatar({
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent 
-          side={isMobile ? "top" : "right"} 
-          className="w-auto p-2" 
-          sideOffset={8}
-        >
+        <PopoverContent side={isMobile ? 'top' : 'right'} className="w-auto p-2" sideOffset={8}>
           <span className="text-sm font-medium">{userName}</span>
         </PopoverContent>
       </Popover>
-    )
-  }  
-  
-  if (variant === "asLabeledButtonList" && isMobile) {
+    );
+  }
+
+  if (variant === 'asLabeledButtonList' && isMobile) {
     return (
       <Popover open={hoveredItem === popoverId}>
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
             size="icon"
-            className={cn("h-12 w-12 hover:bg-accent flex-shrink-0", className)}
+            className={cn('hover:bg-accent h-12 w-12 flex-shrink-0', className)}
             onClick={clickHandler}
             onMouseEnter={() => setHoveredItem(popoverId)}
             onMouseLeave={() => setHoveredItem(null)}
@@ -109,23 +108,19 @@ export function NavUserAvatar({
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent 
-          side="top" 
-          className="w-auto p-2" 
-          sideOffset={8}
-        >
+        <PopoverContent side="top" className="w-auto p-2" sideOffset={8}>
           <span className="text-sm font-medium">{userName}</span>
         </PopoverContent>
       </Popover>
     );
   }
-  
-  if (variant === "asLabeledButtonList" && !isMobile) {
+
+  if (variant === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="px-4">
         <Button
           variant="ghost"
-          className={cn("w-full justify-start gap-3 h-12 pl-3 mt-2", className)}
+          className={cn('mt-2 h-12 w-full justify-start gap-3 pl-3', className)}
           onClick={clickHandler}
         >
           <Avatar className="h-8 w-8">
@@ -138,4 +133,3 @@ export function NavUserAvatar({
     );
   }
 }
-
