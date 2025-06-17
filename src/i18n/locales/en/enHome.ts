@@ -1,6 +1,6 @@
 import type { DeepReplace } from "@/lib/utils";
 
-const enTranslation = {
+const enHome = {
   welcomeTitle: "Welcome to Polity",
   welcomeSubtitle: "A TanStack Router Demo with Dynamic Navigation",
   cards: {
@@ -33,7 +33,7 @@ const enTranslation = {
   }
 };
 
-export default enTranslation;
+export default enHome;
 
-export type I18nLocale = DeepReplace<typeof enTranslation, [string, string]>;
+export type I18nLocale = DeepReplace<typeof enHome, [string, string]>;
 
