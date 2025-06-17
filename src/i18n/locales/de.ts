@@ -1,4 +1,6 @@
-const deTranslation = {
+import type { I18nLocale } from "./en";
+
+const deTranslation: I18nLocale = {
   welcomeTitle: "Willkommen bei Polity",
   welcomeSubtitle: "Eine TanStack Router Demo mit dynamischer Navigation",
   cards: {
@@ -26,7 +28,8 @@ const deTranslation = {
       styling: "Styling:",
       tooling: "Tooling:",
       button: "Demo starten"
-    }
+    },
+    test: "fdf"
   }
 };
 

@@ -1,3 +1,5 @@
+import type { DeepReplace } from "@/lib/utils";
+
 const enTranslation = {
   welcomeTitle: "Welcome to Polity",
   welcomeSubtitle: "A TanStack Router Demo with Dynamic Navigation",
@@ -26,8 +28,12 @@ const enTranslation = {
       styling: "Styling:",
       tooling: "Tooling:",
       button: "Start Demo"
-    }
+    },
+    test: "fdf"
   }
 };
 
 export default enTranslation;
+
+export type I18nLocale = DeepReplace<typeof enTranslation, [string, string]>;
+
