@@ -105,28 +105,52 @@ function RootContent() {
       const isEffectivelyMobile = screen === "mobile" || (screen === "automatic" && isMobileDevice);
       const isEffectivelyDesktop = screen === "desktop" || (screen === "automatic" && !isMobileDevice);
       
+      // Check if secondary navigation items exist
+      const hasSecondaryNav = secondaryNavItems && secondaryNavItems.length > 0;
+      // Check if secondary nav should be visible based on priority
+      const isSecondaryNavVisible = hasSecondaryNav && (priority === "secondary" || priority === "combined");
+      const isPrimaryNavVisible = priority === "primary" || priority === "combined";
+      
       // Mobile navigation
       if (isEffectivelyMobile && (state === "asButtonList" || state === "asLabeledButtonList")) {
-        if (priority === "combined") {
+        if (priority === "combined" && hasSecondaryNav) {
           return "mt-20 mb-20"; // Space for both bars
         }
-        return priority === "primary" ? "mb-20" : "mt-20" // Bottom space for primary, top space for secondary
+        
+        // Only add top margin if secondary nav exists and is visible
+        const topMargin = isSecondaryNavVisible ? "mt-20" : "";
+        // Only add bottom margin if primary nav is visible
+        const bottomMargin = isPrimaryNavVisible ? "mb-20" : "";
+        
+        return `${topMargin} ${bottomMargin}`.trim();
       }
 
       // Desktop side navigation
       if (isEffectivelyDesktop) {
         if (state === "asButton") return "";
         if (state === "asButtonList") {
-          if (priority === "combined") {
+          if (priority === "combined" && hasSecondaryNav) {
             return "ml-16 mr-16"; // Space for both side bars
           }
-          return priority === "primary" ? "ml-16" : "mr-16";
+          
+          // Only add right margin if secondary nav exists and is visible
+          const rightMargin = isSecondaryNavVisible ? "mr-16" : "";
+          // Only add left margin if primary nav is visible
+          const leftMargin = isPrimaryNavVisible ? "ml-16" : "";
+          
+          return `${leftMargin} ${rightMargin}`.trim();
         }
         if (state === "asLabeledButtonList") {
-          if (priority === "combined") {
+          if (priority === "combined" && hasSecondaryNav) {
             return "ml-64 mr-64"; // Space for both labeled side bars
           }
-          return priority === "primary" ? "ml-64" : "mr-64";
+          
+          // Only add right margin if secondary nav exists and is visible
+          const rightMargin = isSecondaryNavVisible ? "mr-64" : "";
+          // Only add left margin if primary nav is visible
+          const leftMargin = isPrimaryNavVisible ? "ml-64" : "";
+          
+          return `${leftMargin} ${rightMargin}`.trim();
         }
       }
 
@@ -164,7 +188,8 @@ function RootContent() {
                   onUserClick={() => console.log("User profile clicked")}
                   navigationItems={secondaryNavItems}
                 />
-              )}              <main className={`transition-all duration-300 ${getMarginClass()}`}>
+              )}              
+              <main className={`transition-all duration-300 ${getMarginClass()}`}>
                 <Outlet />
               </main>
               
