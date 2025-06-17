@@ -1,5 +1,5 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from 'react';
+import { cn } from '@/lib/utils';
 
 interface VisuallyHiddenProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
@@ -13,26 +13,26 @@ const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenProps>(
       <span
         ref={ref}
         className={cn(
-          "absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0",
-          "clip-path-[inset(50%)]",
+          'absolute h-px w-px overflow-hidden border-0 p-0 whitespace-nowrap',
+          'clip-path-[inset(50%)]',
           className
         )}
         style={{
-          clip: "rect(0 0 0 0)",
-          clipPath: "inset(50%)",
-          height: "1px",
-          width: "1px",
-          margin: "-1px",
-          overflow: "hidden",
+          clip: 'rect(0 0 0 0)',
+          clipPath: 'inset(50%)',
+          height: '1px',
+          width: '1px',
+          margin: '-1px',
+          overflow: 'hidden',
           padding: 0,
-          position: "absolute",
-          whiteSpace: "nowrap",
+          position: 'absolute',
+          whiteSpace: 'nowrap',
         }}
         {...props}
       />
-    )
+    );
   }
-)
-VisuallyHidden.displayName = "VisuallyHidden"
+);
+VisuallyHidden.displayName = 'VisuallyHidden';
 
-export { VisuallyHidden }
+export { VisuallyHidden };

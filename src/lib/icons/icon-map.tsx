@@ -1,26 +1,26 @@
-import React from 'react'
+import React from 'react';
 import {
-  Search, 
-  Home, 
-  Settings, 
-  User, 
-  Mail, 
-  Bell, 
-  Heart, 
-  Bookmark, 
-  LayoutDashboard, 
-  File, 
-  FolderOpen, 
-  Calendar, 
-  MessageSquare, 
+  Search,
+  Home,
+  Settings,
+  User,
+  Mail,
+  Bell,
+  Heart,
+  Bookmark,
+  LayoutDashboard,
+  File,
+  FolderOpen,
+  Calendar,
+  MessageSquare,
   Moon,
   Keyboard,
   Laptop,
   Sun,
   LineChart,
   FileText,
-  AreaChart
-} from 'lucide-react'
+  AreaChart,
+} from 'lucide-react';
 
 /**
  * Centralized icon mapping for the application
@@ -46,8 +46,8 @@ export const iconMap: Record<string, React.ComponentType<{ className?: string }>
   Keyboard,
   LineChart,
   FileText,
-  AreaChart
-}
+  AreaChart,
+};
 
 /**
  * Helper function to get the correct icon component by name
@@ -55,5 +55,5 @@ export const iconMap: Record<string, React.ComponentType<{ className?: string }>
  * @returns The corresponding icon component or a fallback
  */
 export function getIconComponent(iconName: string) {
-  return iconMap[iconName] || Search // Fallback to Search icon if the name doesn't match
+  return iconMap[iconName] || Search; // Fallback to Search icon if the name doesn't match
 }

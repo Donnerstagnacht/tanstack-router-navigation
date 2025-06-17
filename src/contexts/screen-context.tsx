@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-type ScreenType = "mobile" | "desktop" | "automatic";
-type PriorityType = "primary" | "secondary" | "combined";
+type ScreenType = 'mobile' | 'desktop' | 'automatic';
+type PriorityType = 'primary' | 'secondary' | 'combined';
 
 interface ScreenContextType {
   screen: ScreenType;
@@ -17,8 +17,8 @@ export const ScreenContext = createContext<ScreenContextType | undefined>(undefi
 const MOBILE_BREAKPOINT = 768;
 
 export function ScreenProvider({ children }: { children: ReactNode }) {
-  const [screen, setScreen] = useState<ScreenType>("automatic");
-  const [priority, setPriority] = useState<PriorityType>("combined");
+  const [screen, setScreen] = useState<ScreenType>('automatic');
+  const [priority, setPriority] = useState<PriorityType>('combined');
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
@@ -28,32 +28,35 @@ export function ScreenProvider({ children }: { children: ReactNode }) {
     const onChange = () => {
       const mobile = window.innerWidth < MOBILE_BREAKPOINT;
       setIsMobile(mobile);
-      
+
       // Automatisch screen type setzen wenn "automatic" gewählt ist
-      if (screen === "automatic") {
+      if (screen === 'automatic') {
         // Screen type wird durch isMobile bestimmt, aber nicht direkt gesetzt
         // um die "automatic" Einstellung zu behalten
       }
     };
-    
+
     // Initiale Werte setzen
     setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    
-    mql.addEventListener("change", onChange);
-    return () => mql.removeEventListener("change", onChange);
+
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
   }, [screen]);
   // Berechne den aktuellen effektiven screen type
-  const getEffectiveScreen = () => screen === "automatic" ? (isMobile ? "mobile" : "desktop") : screen;
+  const getEffectiveScreen = () =>
+    screen === 'automatic' ? (isMobile ? 'mobile' : 'desktop') : screen;
 
   return (
-    <ScreenContext.Provider value={{
-      screen,
-      setScreen,
-      priority,
-      setPriority,
-      isMobile,
-      effectiveScreen: getEffectiveScreen(),
-    }}>
+    <ScreenContext.Provider
+      value={{
+        screen,
+        setScreen,
+        priority,
+        setPriority,
+        isMobile,
+        effectiveScreen: getEffectiveScreen(),
+      }}
+    >
       {children}
     </ScreenContext.Provider>
   );
