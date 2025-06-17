@@ -14,37 +14,37 @@ function App() {
   return (
     <div className="container mx-auto p-8">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4">{t('welcomeTitle')}</h1>
-        <p className="text-lg text-muted-foreground">{t('welcomeSubtitle')}</p>
+        <h1 className="text-4xl font-bold mb-4">{t('home.welcomeTitle')}</h1>
+        <p className="text-lg text-muted-foreground">{t('home.welcomeSubtitle')}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>{t('cards.navigation.title')}</CardTitle>
+            <CardTitle>{t('home.cards.navigation.title')}</CardTitle>
             <CardDescription>
-              {t('cards.navigation.description')}
+              {t('home.cards.navigation.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p>{t('cards.navigation.content')}</p>
+            <p>{t('home.cards.navigation.content')}</p>
           </CardContent>
           <CardFooter>
             <Link to="/settings">
-              <Button>{t('cards.navigation.button')}</Button>
+              <Button>{t('home.cards.navigation.button')}</Button>
             </Link>
           </CardFooter>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>{t('cards.features.title')}</CardTitle>
+            <CardTitle>{t('home.cards.features.title')}</CardTitle>
             <CardDescription>
-              {t('cards.features.description')}
+              {t('home.cards.features.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="list-disc pl-5 space-y-2">              {(t('cards.features.items', { returnObjects: true }) as string[]).map((item: string, index: number) => (
+            <ul className="list-disc pl-5 space-y-2">              {(t('home.cards.features.items', { returnObjects: true }) as string[]).map((item: string, index: number) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
@@ -53,21 +53,21 @@ function App() {
 
         <Card>
           <CardHeader>
-            <CardTitle>{t('cards.techStack.title')}</CardTitle>
+            <CardTitle>{t('home.cards.techStack.title')}</CardTitle>
             <CardDescription>
-              {t('cards.techStack.description')}
+              {t('home.cards.techStack.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <p><strong>{t('cards.techStack.frontend')}</strong> React, TanStack Router, Lucide Icons</p>
-              <p><strong>{t('cards.techStack.styling')}</strong> Tailwind CSS, Shadcn UI</p>
-              <p><strong>{t('cards.techStack.tooling')}</strong> Vite, TypeScript</p>
+              <p><strong>{t('home.cards.techStack.frontend')}</strong> React, TanStack Router, Lucide Icons</p>
+              <p><strong>{t('home.cards.techStack.styling')}</strong> Tailwind CSS, Shadcn UI</p>
+              <p><strong>{t('home.cards.techStack.tooling')}</strong> Vite, TypeScript</p>
             </div>
           </CardContent>
           <CardFooter>
             <Link to="/settings">
-              <Button variant="outline">{t('cards.techStack.button')}</Button>
+              <Button variant="outline">{t('home.cards.techStack.button')}</Button>
             </Link>
           </CardFooter>
         </Card>
