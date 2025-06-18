@@ -18,9 +18,6 @@ export function DynamicNavigation({
   navigationItems = navItemsUnauthenticated,
   className = '',
   onStateChange: onStateChange,
-  userName: userName,
-  avatarUrl = '/placeholder-user.jpg',
-  onUserClick: onUserClick,
   authenticated = true,
 }: {
   state: NavigationState;
@@ -29,9 +26,6 @@ export function DynamicNavigation({
   navigationItems: NavigationItem[];
   className?: string;
   onStateChange?: (newState: NavigationState) => void;
-  userName?: string;
-  avatarUrl?: string;
-  onUserClick?: () => void;
   authenticated?: boolean;
 }) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -58,9 +52,6 @@ export function DynamicNavigation({
         onStateChange={onStateChange}
         className={className}
         authenticated={authenticated}
-        userName={userName}
-        avatarUrl={avatarUrl}
-        onUserClick={onUserClick}
       />
     );
   }
@@ -78,9 +69,6 @@ export function DynamicNavigation({
         priority={priority}
         className={className}
         authenticated={authenticated}
-        userName={userName}
-        avatarUrl={avatarUrl}
-        onUserClick={onUserClick}
       />
     );
   }
@@ -98,9 +86,6 @@ export function DynamicNavigation({
         priority={priority}
         className={className}
         authenticated={authenticated}
-        userName={userName}
-        avatarUrl={avatarUrl}
-        onUserClick={onUserClick}
       />
     );
   }

@@ -16,9 +16,6 @@ export function AsButtonListNavigation({
   priority,
   className,
   authenticated,
-  userName,
-  avatarUrl,
-  onUserClick,
 }: ListNavigationProps) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
@@ -47,12 +44,9 @@ export function AsButtonListNavigation({
           {/* Divider */}
           {isPrimary && <div className={cn('bg-border mx-2 w-px', isPrimary ? 'h-8' : 'h-8')} />}
           {/* User Avatar - For Mobile (positioned left of the state switcher) */}
-          {authenticated && userName && isPrimary && (
+          {authenticated && isPrimary && (
             <NavUserAvatar
               id="user-avatar-mobile"
-              userName={userName}
-              avatarUrl={avatarUrl}
-              onClick={onUserClick}
               hoveredItem={hoveredItem}
               setHoveredItem={setHoveredItem}
               variant="asButtonList"
@@ -102,12 +96,9 @@ export function AsButtonListNavigation({
           <div className="flex-shrink-0 border-t">
             <div className="flex flex-col items-center gap-2 p-2">
               {/* User Avatar */}
-              {authenticated && userName && (
+              {authenticated && (
                 <NavUserAvatar
                   id="user-avatar"
-                  userName={userName}
-                  avatarUrl={avatarUrl}
-                  onClick={onUserClick}
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}
                   isMobile={isMobile}

@@ -21,7 +21,6 @@ export function AsButtonNavigation({
   authenticated,
   userName,
   avatarUrl,
-  onUserClick,
 }: AsButtonNavigationProps) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
@@ -63,7 +62,6 @@ export function AsButtonNavigation({
                 <NavUserAvatar
                   userName={userName}
                   avatarUrl={avatarUrl}
-                  onClick={onUserClick}
                   className="mt-8"
                   variant="asButton"
                   hoveredItem={hoveredItem}

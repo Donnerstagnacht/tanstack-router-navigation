@@ -14,27 +14,94 @@ import { getIconComponent } from '@/navigation/nav-items/icon-map.tsx';
 import { getShortcutForItem } from '@/navigation/nav-keyboard/keyboard-navigation.ts';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
+import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
+import { useScreenStore } from '@/global-state/screen.store.tsx';
 import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 
+// Custom hook to handle command dialog keyboard shortcut
+export function useCommandDialogShortcut(setOpen: (open: boolean) => void, isOpen: boolean) {
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      // Ctrl+K or Cmd+K to toggle command dialog
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen(!isOpen); // Toggle based on current state
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, [setOpen, isOpen]);
+}
+
 export function NavigationCommandDialog({
-  open,
-  setOpen,
   primaryNavItems,
   secondaryNavItems,
   priority,
-  onThemeToggle,
-  onKeyboardShortcutsOpen,
 }: {
-  open: boolean;
-  setOpen: (open: boolean) => void;
   primaryNavItems: NavigationItem[];
   secondaryNavItems: NavigationItem[] | null;
   priority: 'primary' | 'secondary' | 'combined';
-  onThemeToggle?: () => void;
-  onKeyboardShortcutsOpen?: () => void;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
+
+  const [open, setOpen] = useState(false);
+
+  // Aktiviere den Keyboard-Shortcut direkt in der Komponente
+  useCommandDialogShortcut(setOpen, open);
+
+  // Definiere die Callback-Funktionen für Navigation und Dialoge
+  const onThemeToggle = () => {
+    // Implement theme toggle logic here
+    setOpen(false);
+  };
+
+  const onKeyboardShortcutsOpen = () => {
+    // Implement logic to open keyboard shortcuts dialog
+    setOpen(false);
+  };
+
+  // Verwende den Navigation-Keyboard-Hook direkt in der Komponente
+  // Import setPriority für die Navigation-Priorisierung
+  const { setPriority } = useScreenStore();
+
+  useNavigationKeyboard({
+    isActive: true,
+    onNavigate: (navId: string) => {
+      const navItems = [...primaryNavItems, ...(secondaryNavItems || [])];
+      const navItem = navItems.find(navItem => navItem.id === navId);
+      if (navItem) {
+        // Navigate to the appropriate route using TanStack Router
+        if (navItem.onClick) {
+          navItem.onClick();
+        } else {
+          const route = navId === 'home' ? '/' : `/${navId}`;
+          router.navigate({ to: route });
+        }
+
+        // Toggle priority based on navigation item if it exists in both
+        const inPrimary = primaryNavItems.some(primaryNavItem => primaryNavItem.id === navItem.id);
+        const inSecondary = secondaryNavItems
+          ? secondaryNavItems.some(secondaryNavItem => secondaryNavItem.id === navItem.id)
+          : false;
+
+        if (inPrimary && !inSecondary) {
+          setPriority('primary');
+        } else if (inSecondary && !inPrimary) {
+          setPriority('secondary');
+        }
+
+        setOpen(false);
+      }
+    },
+    onThemeToggle,
+    onKeyboardShortcutsOpen,
+    onClose: () => setOpen(false),
+    items: [...primaryNavItems, ...(secondaryNavItems || [])],
+  });
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>

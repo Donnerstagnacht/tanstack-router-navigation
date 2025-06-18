@@ -28,8 +28,6 @@ export interface BaseNavigationProps {
   onStateChange?: (newState: NavigationState) => void;
   className?: string;
   authenticated?: boolean;
-  userName?: string;
-  avatarUrl?: string;
   onUserClick?: () => void;
 }
 

@@ -6,29 +6,26 @@ import type { NavigationState } from '@/navigation/types/navigation.types.tsx';
 
 export function NavUserAvatar({
   id,
-  userName,
-  avatarUrl,
-  onClick,
   hoveredItem,
   setHoveredItem,
   variant,
   className,
   isMobile,
-  onUserClick,
 }: {
   id?: string;
-  userName: string;
-  avatarUrl?: string;
-  onClick?: () => void;
   hoveredItem: string | null;
   setHoveredItem: (item: string | null) => void;
   variant?: NavigationState;
   isMobile?: boolean;
   className?: string;
-  onUserClick?: () => void;
 }) {
   // Handle backwards compatibility
-  const clickHandler = onClick || onUserClick;
+  const clickHandler = () => {
+    console.log('User avatar clicked');
+  };
+
+  const avatarUrl = '/placeholder-user.jpg';
+  const userName = 'John Doe';
 
   // If no id is provided, use a default based on variant
   const popoverId = id || (isMobile ? 'user-avatar-mobile' : 'user-avatar');
