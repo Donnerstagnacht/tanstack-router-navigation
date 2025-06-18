@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   AreaChart,
   Bell,
@@ -21,12 +20,9 @@ import {
   Sun,
   User,
 } from 'lucide-react';
+import type { ComponentType } from 'react';
 
-/**
- * Centralized icon mapping for the application
- * Maps string icon names to their corresponding Lucide React components
- */
-export const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+export const iconMap = {
   Home,
   Settings,
   User,
@@ -47,13 +43,15 @@ export const iconMap: Record<string, React.ComponentType<{ className?: string }>
   LineChart,
   FileText,
   AreaChart,
-};
+} as const;
+
+export type IconName = keyof typeof iconMap;
 
 /**
  * Helper function to get the correct icon component by name
- * @param iconName The name of the icon to retrieve
- * @returns The corresponding icon component or a fallback
+ * @param iconName The name of the icon to retrieve (must be a key in iconMap)
+ * @returns The corresponding icon component or a search icon as fallback
  */
-export function getIconComponent(iconName: string) {
-  return iconMap[iconName] || Search; // Fallback to Search icon if the name doesn't match
+export function getIconComponent(iconName: IconName): ComponentType<{ className?: string }> {
+  return iconMap[iconName] || Search;
 }

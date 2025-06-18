@@ -4,36 +4,36 @@ import { Toaster } from '@/components/ui/sonner';
 import { DynamicNavigation } from '@/navigation/dynamic-navigation.tsx';
 import { NavigationCommandDialog } from '@/navigation/command-dialog.tsx';
 import { useEffect, useState } from 'react';
-import { ScreenProvider, useScreenContext } from '@/contexts/screen-context';
+import { useScreenResponsiveDetector, useScreen } from '@/global-state/screen.store.tsx';
 import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
 import { useNavItems } from '@/navigation/nav-items/nav-items-authenticated.tsx';
 import { useThemeInitializer } from '@/global-state/theme.store.tsx';
+import type { NavigationState } from '@/navigation/types/navigation.types';
 
 export const Route = createRootRoute({
   component: () => {
-    // Initialisiere das Theme direkt in der Root-Komponente
+    // Initialize theme and screen responsive detection
     useThemeInitializer({ defaultTheme: 'system', storageKey: 'theme' });
+    useScreenResponsiveDetector();
 
     return (
-      <ScreenProvider>
+      <>
         <RootContent />
         <Toaster richColors position="top-right" />
         <TanStackRouterDevtools />
-      </ScreenProvider>
+      </>
     );
   },
 });
 
 function RootContent() {
   // State for navigation configuration
-  const [state, setState] = useState<'asButton' | 'asButtonList' | 'asLabeledButtonList'>(
-    'asButtonList'
-  );
+  const [state, setState] = useState<NavigationState>('asButtonList');
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-  // Get screen and priority from context
-  const { screen, priority, setPriority } = useScreenContext();
+  const { screen, priority, setPriority, effectiveScreen } = useScreen();
+
   // Track current route to determine which secondary nav items to display
+  const router = useRouter();
   const [currentPrimaryRoute, setCurrentPrimaryRoute] = useState<string | null>(null);
 
   // Import navigation items from the navigation config
@@ -106,10 +106,9 @@ function RootContent() {
   });
 
   const getMarginClass = () => {
-    const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
-    const isEffectivelyMobile = screen === 'mobile' || (screen === 'automatic' && isMobileDevice);
-    const isEffectivelyDesktop =
-      screen === 'desktop' || (screen === 'automatic' && !isMobileDevice);
+    // Use effectiveScreen to determine layout
+    const isEffectivelyMobile = effectiveScreen === 'mobile';
+    const isEffectivelyDesktop = effectiveScreen === 'desktop';
 
     // Check if secondary navigation items exist
     const hasSecondaryNav = secondaryNavItems && secondaryNavItems.length > 0;

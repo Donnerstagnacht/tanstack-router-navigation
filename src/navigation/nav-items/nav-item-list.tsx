@@ -4,6 +4,8 @@ import { cn } from '@/i18n/i18n.types.ts';
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover.tsx';
 import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 import { useEffect } from 'react';
+import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
+import React from 'react';
 
 // Helper function to determine if an item is active
 function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: boolean): boolean {
@@ -120,12 +122,12 @@ export function NavItemList({
                     setHoveredItem(null); // Reset hover state after click
                   }}
                 >
-                  <item.icon
-                    className={cn(
+                  {React.createElement(iconMap[item.icon], {
+                    className: cn(
                       'h-8 w-8',
                       isItemActive(item, currentRoute, isPrimary) && 'text-primary'
-                    )}
-                  />
+                    ),
+                  })}
                   <span className="text-sm">{item.label}</span>
                   {item.badge && (
                     <Badge
@@ -153,12 +155,12 @@ export function NavItemList({
                   setHoveredItem(null); // Reset hover state after click
                 }}
               >
-                <item.icon
-                  className={cn(
+                {React.createElement(iconMap[item.icon], {
+                  className: cn(
                     'h-8 w-8',
                     isItemActive(item, currentRoute, isPrimary) && 'text-primary'
-                  )}
-                />
+                  ),
+                })}
                 <span className="text-sm">{item.label}</span>
                 {item.badge && (
                   <Badge
@@ -201,12 +203,12 @@ export function NavItemList({
                   onTouchStart={() => setHoveredItem(item.id)}
                   onTouchEnd={() => setHoveredItem(null)}
                 >
-                  <item.icon
-                    className={cn(
+                  {React.createElement(iconMap[item.icon], {
+                    className: cn(
                       'h-5 w-5',
                       isItemActive(item, currentRoute, isPrimary) && 'text-primary'
-                    )}
-                  />
+                    ),
+                  })}
                   {item.badge && (
                     <Badge
                       className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center p-0"
@@ -248,12 +250,12 @@ export function NavItemList({
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <item.icon
-                  className={cn(
+                {React.createElement(iconMap[item.icon], {
+                  className: cn(
                     'h-5 w-5',
                     isItemActive(item, currentRoute, isPrimary) && 'text-primary'
-                  )}
-                />
+                  ),
+                })}
                 {item.badge && (
                   <Badge
                     className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center p-0"
@@ -298,12 +300,13 @@ export function NavItemList({
               onMouseLeave={() => setHoveredItem(null)}
             >
               <div className="relative">
-                <item.icon
-                  className={cn(
+                {' '}
+                {React.createElement(iconMap[item.icon], {
+                  className: cn(
                     'h-5 w-5 flex-shrink-0',
                     isItemActive(item, currentRoute, isPrimary) && 'text-primary'
-                  )}
-                />
+                  ),
+                })}
                 {item.badge && (
                   <Badge
                     className="absolute -top-3 -right-5 flex h-5 w-5 items-center justify-center p-0"
@@ -342,12 +345,12 @@ export function NavItemList({
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <item.icon
-              className={cn(
+            {React.createElement(iconMap[item.icon], {
+              className: cn(
                 'h-5 w-5',
                 isItemActive(item, currentRoute, isPrimary) && 'text-primary'
-              )}
-            />
+              ),
+            })}
             <span>{item.label}</span>
             {item.badge && (
               <Badge className="ml-auto" variant="default">

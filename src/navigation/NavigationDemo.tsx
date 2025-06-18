@@ -12,7 +12,7 @@ import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { PriorityType, ScreenType } from './types/navigation.types.tsx';
-import { useScreenContext } from '@/contexts/screen-context.tsx';
+import { useScreenStore } from '@/global-state/screen.store.tsx';
 
 export default function NavigationDemo({
   onScreenTypeChange,
@@ -22,7 +22,7 @@ export default function NavigationDemo({
   onPriorityChange?: (priority: PriorityType) => void;
 }) {
   const { t } = useTranslation();
-  const { isMobile } = useScreenContext();
+  const isMobile = useScreenStore(state => state.isMobile);
   const [screenType, setScreenType] = useState<ScreenType>('automatic');
   const [actualScreen, setActualScreen] = useState<'mobile' | 'desktop'>('desktop');
   const [priority, setPriority] = useState<PriorityType>('combined');

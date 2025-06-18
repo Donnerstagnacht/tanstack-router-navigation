@@ -1,4 +1,3 @@
-import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
 import { AsButtonNavigation } from '@/navigation/as-button-navigation.tsx';
 import { AsButtonListNavigation } from '@/navigation/as-button-list-navigation.tsx';
 import { AsLabeledButtonListNavigation } from '@/navigation/as-labeled-button-list-navigation.tsx';
@@ -9,8 +8,8 @@ import type {
   ScreenType,
 } from '@/navigation/types/navigation.types.tsx';
 import { navItemsUnauthenticated } from './nav-items/nav-items-unauthenticated.tsx';
-import { useScreenContext } from '@/contexts/screen-context.tsx';
 import { useState } from 'react';
+import { useScreenStore } from '@/global-state/screen.store.tsx';
 
 export function DynamicNavigation({
   state,
@@ -37,22 +36,13 @@ export function DynamicNavigation({
 }) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
-  const { isMobile } = useScreenContext();
+  const isMobile = useScreenStore(state => state.isMobile);
 
   const isPrimary = priority === 'primary';
   const isMobileDevice = screen === 'mobile' || (screen === 'automatic' && isMobile);
 
-  // Use the centralized icon map from lib/icons/icon-map
-  // Process navigation items to ensure icon is a component using the centralized icon map
-  const processedItems = navigationItems.map(item => {
-    if (typeof item.icon === 'string' && iconMap[item.icon]) {
-      return { ...item, icon: iconMap[item.icon] };
-    }
-    return item;
-  });
-
   // Use authenticated status to determine which items to show
-  const items = authenticated ? processedItems : navItemsUnauthenticated;
+  const items = authenticated ? navigationItems : navItemsUnauthenticated;
 
   if (state === 'asButton') {
     return (

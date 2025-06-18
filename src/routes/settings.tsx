@@ -1,21 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router';
 import NavigationDemo from '../navigation/NavigationDemo.tsx';
-import { useScreenContext } from '../contexts/screen-context';
+import { useScreenStore } from '@/global-state/screen.store.tsx';
 
 export const Route = createFileRoute('/settings')({
   component: Settings,
 });
 
 function Settings() {
-  const screenContext = useScreenContext();
+  const screenStore = useScreenStore();
 
   return (
     <NavigationDemo
       onScreenTypeChange={screenType => {
-        screenContext.setScreen(screenType);
+        screenStore.setScreen(screenType);
       }}
       onPriorityChange={priorityType => {
-        screenContext.setPriority(priorityType);
+        screenStore.setPriority(priorityType);
       }}
     />
   );

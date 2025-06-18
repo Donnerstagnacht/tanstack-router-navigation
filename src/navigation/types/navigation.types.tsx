@@ -1,4 +1,4 @@
-import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
+import type { IconName } from '../nav-items/icon-map';
 
 export type ScreenType = 'mobile' | 'desktop' | 'automatic';
 
@@ -10,7 +10,7 @@ export type Size = 'default' | 'small';
 
 export interface NavigationItem {
   id: string;
-  icon: keyof typeof iconMap;
+  icon: IconName;
   label: string;
   href?: string;
   onClick?: () => void;

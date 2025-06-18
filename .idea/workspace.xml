@@ -5,78 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af919d9d-e07e-4bff-ad76-c0c0359139df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/NavigationDemo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/NavigationDemo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/as-button-list-navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/as-button-list-navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/as-button-navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/as-button-navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/as-labeled-button-list-navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/as-labeled-button-list-navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/command-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/command-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/dynamic-navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/dynamic-navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/nav-items/nav-item-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-items/nav-item-list.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/nav-items/nav-user-avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-items/nav-user-avatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/toggles/language-toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/toggles/language-toggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/toggles/state-switcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/toggles/state-switcher.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/toggles/state-toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/toggles/state-toggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navigation/toggles/theme-toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/toggles/theme-toggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/accordion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/alert-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/alert-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/alert.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/alert.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/avatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/badge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/badge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/breadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/breadcrumb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/calendar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/calendar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/carousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/carousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/chart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/chart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/checkbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/checkbox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/command.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/command.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/context-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/context-menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/drawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/dropdown-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/dropdown-menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/hover-card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/hover-card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/input-otp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/input-otp.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/label.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/menubar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/menubar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/pagination.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/popover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/popover.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/progress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/progress.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/radio-group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/radio-group.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/resizable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/resizable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/scroll-area.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/scroll-area.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/select.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/separator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/separator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/sheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/skeleton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/slider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/sonner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/sonner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/switch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/switch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/tabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/tabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/textarea.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/theme-toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/theme-toggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toast.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/toast.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toaster.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/toaster.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toggle-group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/toggle-group.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/toggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/tooltip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/tooltip.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/visually-hidden.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/visually-hidden.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/screen-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/screen-context.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/theme.store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/global-state/theme.store.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/use-navigation-keyboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-keyboard/use-navigation-keyboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/use-toast.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/global-state/use-toast.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/locales/en/enTranslation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/locales/en/enTranslation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/icons/icon-map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-items/icon-map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/navigation/NavigationTypes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/types/navigation.types.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/navigation/keyboard-navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-keyboard/keyboard-navigation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/navigation/nav-config.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-items/nav-items-authenticated.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/navigation/unauthenticatedItems.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/nav-items/nav-items-unauthenticated.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/i18n.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contexts/screen-context.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/__root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/__root.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/settings.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,23 +36,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "plate-js",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\react\\polity\\node_modules\\prettier",
-    "ts.external.directory.path": "C:\\react\\polity\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;plate-js&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\react\\polity\\node_modules\\prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\react\\polity\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\react\polity\src\global-state" />
@@ -152,6 +82,7 @@
       <workItem from="1750241826299" duration="117000" />
       <workItem from="1750241978220" duration="78000" />
       <workItem from="1750242063667" duration="1384000" />
+      <workItem from="1750243575138" duration="685000" />
     </task>
     <servers />
   </component>
