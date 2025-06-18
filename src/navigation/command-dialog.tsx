@@ -48,7 +48,6 @@ export function NavigationCommandDialog({
               <CommandItem
                 key={item.id}
                 onSelect={() => {
-                  console.log(`Navigating to ${item.label}`);
                   // Navigate to the appropriate route using TanStack Router
                   if (item.onClick) {
                     item.onClick();
@@ -84,7 +83,6 @@ export function NavigationCommandDialog({
                   <CommandItem
                     key={item.id}
                     onSelect={() => {
-                      console.log(`Navigating to ${item.label}`);
                       // Navigate to the appropriate route using TanStack Router
                       if (item.onClick) {
                         item.onClick();
@@ -115,7 +113,6 @@ export function NavigationCommandDialog({
         <CommandGroup heading={t('commandDialog.groups.settings')}>
           <CommandItem
             onSelect={() => {
-              console.log('Changing theme');
               if (onThemeToggle) onThemeToggle();
               setOpen(false);
             }}
@@ -126,7 +123,6 @@ export function NavigationCommandDialog({
           </CommandItem>
           <CommandItem
             onSelect={() => {
-              console.log('Opening keyboard shortcuts');
               if (onKeyboardShortcutsOpen) onKeyboardShortcutsOpen();
               setOpen(false);
             }}

@@ -2,8 +2,7 @@ import { Badge } from '../../components/ui/badge.tsx';
 import { Button } from '../../components/ui/button.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover.tsx';
-import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
-import { useEffect } from 'react';
+import type { NavigationItem, NavigationState } from '@/navigation/types/navigation.types.tsx';
 import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
 import React from 'react';
 
@@ -56,24 +55,12 @@ function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: b
     return true;
   }
 
-  // Child route matching with ID - only apply when isPrimary is true
-  // For example: if item.id is 'projects' and currentRoute is '/projects/tasks'
+  // Child route matching with ID - only apply when isPrimary is trues
   if (isPrimary && routePath.startsWith(item.id + '/')) {
     return true;
   }
 
   return false;
-}
-
-interface NavItemListProps {
-  items: NavigationItem[];
-  variant: 'asButton' | 'asButtonList' | 'asLabeledButtonList';
-  isMobile: boolean;
-  isPrimary: boolean; // Used for determining popover position and other layout decisions
-  hoveredItem: string | null;
-  setHoveredItem: (id: string | null) => void;
-  className?: string;
-  currentRoute?: string; // Path of the current route to highlight active item
 }
 
 export function NavItemList({
@@ -85,21 +72,16 @@ export function NavItemList({
   setHoveredItem,
   className,
   currentRoute,
-}: NavItemListProps) {
-  // For debugging - log the current route
-  useEffect(() => {
-    console.log('Variant:', variant, 'Current route:', currentRoute || 'undefined');
-    items.forEach(item => {
-      const isActive = isItemActive(item, currentRoute, isPrimary);
-      console.log(`Item ${item.id}:`, {
-        isActive,
-        href: item.href || 'not set',
-        currentRoute,
-        onClick: item.onClick ? 'defined' : 'not defined',
-      });
-    });
-  }, [currentRoute, items, variant, isPrimary]);
-
+}: {
+  items: NavigationItem[];
+  variant: NavigationState;
+  isMobile: boolean;
+  isPrimary: boolean;
+  hoveredItem: string | null;
+  setHoveredItem: (id: string | null) => void;
+  className?: string;
+  currentRoute?: string;
+}) {
   // asButton variant - Grid layout of large buttons used in overlay
   if (variant === 'asButton') {
     return (

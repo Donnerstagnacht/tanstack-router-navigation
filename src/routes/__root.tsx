@@ -66,25 +66,24 @@ function RootContent() {
   // Use our custom hook for handling navigation shortcuts
   useNavigationKeyboard({
     isActive: true,
-    onNavigate: (itemId: string) => {
-      const allItems = [...primaryNavItems, ...(secondaryNavItems || [])];
-      const item = allItems.find(item => item.id === itemId);
-      if (item) {
-        console.log(`Navigating to ${item.label}`);
+    onNavigate: (navId: string) => {
+      const navItems = [...primaryNavItems, ...(secondaryNavItems || [])];
+      const navItem = navItems.find(navItem => navItem.id === navId);
+      if (navItem) {
         setOpen(false);
 
         // Navigate to the appropriate route using TanStack Router
-        if (item.onClick) {
-          item.onClick();
+        if (navItem.onClick) {
+          navItem.onClick();
         } else {
-          const route = itemId === 'home' ? '/' : `/${itemId}`;
+          const route = navId === 'home' ? '/' : `/${navId}`;
           router.navigate({ to: route });
         }
 
         // Toggle priority based on navigation item if it exists in both
-        const inPrimary = primaryNavItems.some(i => i.id === item.id);
+        const inPrimary = primaryNavItems.some(primaryNavItem => primaryNavItem.id === navItem.id);
         const inSecondary = secondaryNavItems
-          ? secondaryNavItems.some(i => i.id === item.id)
+          ? secondaryNavItems.some(secondaryNavItem => secondaryNavItem.id === navItem.id)
           : false;
         if (inPrimary && !inSecondary) {
           setPriority('primary');
@@ -94,11 +93,9 @@ function RootContent() {
       }
     },
     onThemeToggle: () => {
-      console.log('Changing theme');
       setOpen(false);
     },
     onKeyboardShortcutsOpen: () => {
-      console.log('Opening keyboard shortcuts');
       setOpen(false);
     },
     onClose: () => setOpen(false),

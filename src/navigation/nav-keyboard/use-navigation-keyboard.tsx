@@ -15,9 +15,9 @@ export function useNavigationKeyboard({
 }: {
   isActive: boolean;
   onNavigate: (itemId: string) => void;
-  onThemeToggle?: () => void;
-  onKeyboardShortcutsOpen?: () => void;
-  onClose?: () => void;
+  onThemeToggle: () => void;
+  onKeyboardShortcutsOpen: () => void;
+  onClose: () => void;
   items: NavigationItem[];
 }) {
   useEffect(() => {
