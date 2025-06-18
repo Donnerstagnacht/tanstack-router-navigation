@@ -11,7 +11,6 @@ interface ScreenState {
   screen: ScreenType;
   priority: PriorityType;
   isMobile: boolean;
-  effectiveScreen: ScreenType;
 }
 
 // Define the store actions interface
@@ -23,17 +22,11 @@ interface ScreenActions {
 
 // Create the screen store with zustand and immer
 export const useScreenStore = create<ScreenState & ScreenActions>()(
-  immer((set, get) => ({
+  immer(set => ({
     // Initial state
     screen: 'automatic',
     priority: 'combined',
     isMobile: false,
-
-    // Computed property that calculates the effective screen type
-    get effectiveScreen() {
-      const { screen, isMobile } = get();
-      return screen === 'automatic' ? (isMobile ? 'mobile' : 'desktop') : screen;
-    },
 
     // Actions
     setScreen: screenType => {
@@ -82,26 +75,4 @@ export function useScreenResponsiveDetector(): void {
     // Cleanup on unmount
     return () => mql.removeEventListener('change', onChange);
   }, [setIsMobile]);
-}
-
-/**
- * Hook that provides a convenient way to access all screen values
- * and computed properties in a single object
- */
-export function useScreen() {
-  const screen = useScreenStore(state => state.screen);
-  const setScreen = useScreenStore(state => state.setScreen);
-  const priority = useScreenStore(state => state.priority);
-  const setPriority = useScreenStore(state => state.setPriority);
-  const isMobile = useScreenStore(state => state.isMobile);
-  const effectiveScreen = useScreenStore(state => state.effectiveScreen);
-
-  return {
-    screen,
-    setScreen,
-    priority,
-    setPriority,
-    isMobile,
-    effectiveScreen,
-  };
 }

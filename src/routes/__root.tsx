@@ -4,11 +4,11 @@ import { Toaster } from '@/components/ui/sonner';
 import { DynamicNavigation } from '@/navigation/dynamic-navigation.tsx';
 import { NavigationCommandDialog } from '@/navigation/command-dialog.tsx';
 import { useEffect, useState } from 'react';
-import { useScreenResponsiveDetector, useScreen } from '@/global-state/screen.store.tsx';
+import { useScreenResponsiveDetector, useScreenStore } from '@/global-state/screen.store.tsx';
 import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
 import { useNavItems } from '@/navigation/nav-items/nav-items-authenticated.tsx';
 import { useThemeInitializer } from '@/global-state/theme.store.tsx';
-import type { NavigationState } from '@/navigation/types/navigation.types';
+import type { NavigationItem, NavigationState } from '@/navigation/types/navigation.types';
 
 export const Route = createRootRoute({
   component: () => {
@@ -30,7 +30,10 @@ function RootContent() {
   // State for navigation configuration
   const [state, setState] = useState<NavigationState>('asButtonList');
   const [open, setOpen] = useState(false);
-  const { screen, priority, setPriority, effectiveScreen } = useScreen();
+  const { screen, priority, setPriority, isMobile } = useScreenStore();
+
+  console.log('screen:', screen);
+  console.log('isMobile:', isMobile);
 
   // Track current route to determine which secondary nav items to display
   const router = useRouter();
@@ -41,27 +44,9 @@ function RootContent() {
 
   const secondaryNavItems = getSecondaryNavItems(currentPrimaryRoute);
 
-  // Set initial route based on current path
-  useEffect(() => {
-    const path = window.location.pathname;
-    const route = path === '/' ? 'home' : path.split('/')[1];
-    setCurrentPrimaryRoute(route);
-  }, []);
-
-  // Add command dialog open effect with keyboard shortcut
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      // Ctrl+K or Cmd+K to toggle command dialog
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(open => !open);
-        return;
-      }
-    };
-
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
-  }, []);
+  // Use custom hooks for initial route and keyboard shortcuts
+  useInitialRoute(setCurrentPrimaryRoute);
+  useCommandDialogShortcut(setOpen);
 
   // Use our custom hook for handling navigation shortcuts
   useNavigationKeyboard({
@@ -102,64 +87,6 @@ function RootContent() {
     items: [...primaryNavItems, ...(secondaryNavItems || [])],
   });
 
-  const getMarginClass = () => {
-    // Use effectiveScreen to determine layout
-    const isEffectivelyMobile = effectiveScreen === 'mobile';
-    const isEffectivelyDesktop = effectiveScreen === 'desktop';
-
-    // Check if secondary navigation items exist
-    const hasSecondaryNav = secondaryNavItems && secondaryNavItems.length > 0;
-    // Check if secondary nav should be visible based on priority
-    const isSecondaryNavVisible =
-      hasSecondaryNav && (priority === 'secondary' || priority === 'combined');
-    const isPrimaryNavVisible = priority === 'primary' || priority === 'combined';
-
-    // Mobile navigation
-    if (isEffectivelyMobile && (state === 'asButtonList' || state === 'asLabeledButtonList')) {
-      if (priority === 'combined' && hasSecondaryNav) {
-        return 'mt-20 mb-20'; // Space for both bars
-      }
-
-      // Only add top margin if secondary nav exists and is visible
-      const topMargin = isSecondaryNavVisible ? 'mt-20' : '';
-      // Only add bottom margin if primary nav is visible
-      const bottomMargin = isPrimaryNavVisible ? 'mb-20' : '';
-
-      return `${topMargin} ${bottomMargin}`.trim();
-    }
-
-    // Desktop side navigation
-    if (isEffectivelyDesktop) {
-      if (state === 'asButton') return '';
-      if (state === 'asButtonList') {
-        if (priority === 'combined' && hasSecondaryNav) {
-          return 'ml-16 mr-16'; // Space for both side bars
-        }
-
-        // Only add right margin if secondary nav exists and is visible
-        const rightMargin = isSecondaryNavVisible ? 'mr-16' : '';
-        // Only add left margin if primary nav is visible
-        const leftMargin = isPrimaryNavVisible ? 'ml-16' : '';
-
-        return `${leftMargin} ${rightMargin}`.trim();
-      }
-      if (state === 'asLabeledButtonList') {
-        if (priority === 'combined' && hasSecondaryNav) {
-          return 'ml-64 mr-64'; // Space for both labeled side bars
-        }
-
-        // Only add right margin if secondary nav exists and is visible
-        const rightMargin = isSecondaryNavVisible ? 'mr-64' : '';
-        // Only add left margin if primary nav is visible
-        const leftMargin = isPrimaryNavVisible ? 'ml-64' : '';
-
-        return `${leftMargin} ${rightMargin}`.trim();
-      }
-    }
-
-    return '';
-  };
-
   return (
     <div className="bg-background min-h-screen">
       {(priority === 'primary' || priority === 'combined') && (
@@ -192,7 +119,14 @@ function RootContent() {
           navigationItems={secondaryNavItems}
         />
       )}
-      <main className={`transition-all duration-300 ${getMarginClass()}`}>
+      <main
+        className={`transition-all duration-300 ${getMarginClass({
+          isMobile,
+          state,
+          priority,
+          secondaryNavItems,
+        })}`}
+      >
         <Outlet />
       </main>
 
@@ -208,4 +142,97 @@ function RootContent() {
       />
     </div>
   );
+}
+
+// Custom hook to set initial route based on window location
+function useInitialRoute(
+  setCurrentPrimaryRoute: React.Dispatch<React.SetStateAction<string | null>>
+) {
+  useEffect(() => {
+    const path = window.location.pathname;
+    const route = path === '/' ? 'home' : path.split('/')[1];
+    setCurrentPrimaryRoute(route);
+  }, [setCurrentPrimaryRoute]);
+}
+
+// Custom hook to handle command dialog keyboard shortcut
+function useCommandDialogShortcut(setOpen: React.Dispatch<React.SetStateAction<boolean>>) {
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      // Ctrl+K or Cmd+K to toggle command dialog
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen(open => !open);
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, [setOpen]);
+}
+
+// Function to calculate the margin classes based on navigation state and screen
+function getMarginClass({
+  isMobile,
+  state,
+  priority,
+  secondaryNavItems,
+}: {
+  isMobile: boolean;
+  state: NavigationState;
+  priority: string;
+  secondaryNavItems: NavigationItem[] | null;
+}) {
+  console.log('called getMarginClass with:', {
+    isMobile,
+    state,
+    priority,
+    secondaryNavItems,
+  });
+
+  // Check if secondary navigation items exist
+  const hasSecondaryNav = secondaryNavItems && secondaryNavItems.length > 0;
+  // Check if secondary nav should be visible based on priority
+  const isSecondaryNavVisible =
+    hasSecondaryNav && (priority === 'secondary' || priority === 'combined');
+  const isPrimaryNavVisible = priority === 'primary' || priority === 'combined';
+
+  // Mobile navigation
+  if (isMobile && (state === 'asButtonList' || state === 'asLabeledButtonList')) {
+    if (priority === 'combined' && hasSecondaryNav) {
+      return 'mt-16 mb-20'; // Space for both bars
+    }
+  }
+
+  // Desktop side navigation
+  if (!isMobile) {
+    if (state === 'asButton') return '';
+    if (state === 'asButtonList') {
+      if (priority === 'combined' && hasSecondaryNav) {
+        return 'ml-16 mr-16'; // Space for both side bars
+      }
+
+      // Only add right margin if secondary nav exists and is visible
+      const rightMargin = isSecondaryNavVisible ? 'mr-16' : '';
+      // Only add left margin if primary nav is visible
+      const leftMargin = isPrimaryNavVisible ? 'ml-16' : '';
+
+      return `${leftMargin} ${rightMargin}`.trim();
+    }
+    if (state === 'asLabeledButtonList') {
+      if (priority === 'combined' && hasSecondaryNav) {
+        return 'ml-64 mr-64'; // Space for both labeled side bars
+      }
+
+      // Only add right margin if secondary nav exists and is visible
+      const rightMargin = isSecondaryNavVisible ? 'mr-64' : '';
+      // Only add left margin if primary nav is visible
+      const leftMargin = isPrimaryNavVisible ? 'ml-64' : '';
+
+      return `${leftMargin} ${rightMargin}`.trim();
+    }
+  }
+
+  return '';
 }
