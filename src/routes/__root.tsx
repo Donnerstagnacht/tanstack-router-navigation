@@ -1,9 +1,9 @@
-import { Outlet, createRootRoute, useRouter } from '@tanstack/react-router';
+import { createRootRoute, Outlet, useRouter } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { Toaster } from '@/components/ui/sonner';
 import { DynamicNavigation } from '@/navigation/dynamic-navigation.tsx';
 import { NavigationCommandDialog } from '@/navigation/command-dialog.tsx';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ScreenProvider, useScreenContext } from '@/contexts/screen-context';
 import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
 import { useNavItems } from '@/navigation/nav-items/nav-items-authenticated.tsx';

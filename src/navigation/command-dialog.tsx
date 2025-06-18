@@ -9,7 +9,7 @@ import {
   CommandShortcut,
 } from '@/components/ui/command.tsx';
 import { Badge } from '@/components/ui/badge.tsx';
-import { Moon, Keyboard } from 'lucide-react';
+import { Keyboard, Moon } from 'lucide-react';
 import { getIconComponent } from '@/navigation/nav-items/icon-map.tsx';
 import { getShortcutForItem } from '@/navigation/nav-keyboard/keyboard-navigation.ts';
 import { useTranslation } from 'react-i18next';

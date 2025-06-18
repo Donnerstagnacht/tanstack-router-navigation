@@ -1,4 +1,4 @@
-import { Moon, Sun, Laptop } from 'lucide-react';
+import { Laptop, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
 import { useThemeStore } from '@/global-state/theme.store.tsx';
