@@ -1,21 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import type { NavigationState } from '@/lib/navigation/NavigationTypes';
-
-interface NavUserAvatarProps {
-  id?: string;
-  userName: string;
-  avatarUrl?: string;
-  onClick?: () => void;
-  hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
-  variant?: NavigationState;
-  isMobile?: boolean;
-  className?: string;
-  onUserClick?: () => void;
-}
+import { Button } from '@/components/ui/button.tsx';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx';
+import { cn } from '@/i18n/i18n.types.ts';
+import type { NavigationState } from '@/navigation/types/navigation.types.tsx';
 
 export function NavUserAvatar({
   id,
@@ -28,7 +15,18 @@ export function NavUserAvatar({
   className,
   isMobile,
   onUserClick,
-}: NavUserAvatarProps) {
+}: {
+  id?: string;
+  userName: string;
+  avatarUrl?: string;
+  onClick?: () => void;
+  hoveredItem: string | null;
+  setHoveredItem: (item: string | null) => void;
+  variant?: NavigationState;
+  isMobile?: boolean;
+  className?: string;
+  onUserClick?: () => void;
+}) {
   // Handle backwards compatibility
   const clickHandler = onClick || onUserClick;
 

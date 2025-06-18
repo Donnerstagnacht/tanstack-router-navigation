@@ -1,4 +1,4 @@
-import type { PriorityType, ScreenType } from '@/lib/navigation/NavigationTypes';
+import type { PriorityType, ScreenType } from '@/navigation/types/navigation.types.tsx';
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 interface ScreenContextType {

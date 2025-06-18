@@ -5,13 +5,7 @@
  * in the navigation system.
  */
 
-/**
- * Shortcut representation with display text and keys array
- */
-export interface KeyboardShortcut {
-  display: string;
-  keys: string[];
-}
+import type { KeyboardShortcut } from '@/navigation/types/navigation.types.tsx';
 
 /**
  * Maps navigation item IDs to keyboard shortcuts

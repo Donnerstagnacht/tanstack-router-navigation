@@ -1,16 +1,16 @@
 import { MoreHorizontal } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/navigation/toggles/theme-toggle';
-import { StateToggle } from '@/components/navigation/toggles/state-toggle';
-import { LanguageToggle } from '@/components/navigation/toggles/language-toggle';
+import { Button } from '@/components/ui/button.tsx';
+import { ThemeToggle } from '@/navigation/toggles/theme-toggle.tsx';
+import { StateToggle } from '@/navigation/toggles/state-toggle.tsx';
+import { LanguageToggle } from '@/navigation/toggles/language-toggle.tsx';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import type { NavigationState, PriorityType } from '@/lib/navigation/NavigationTypes';
+} from '@/components/ui/dropdown-menu.tsx';
+import type { NavigationState, PriorityType } from '@/navigation/types/navigation.types.tsx';
 import { useEffect, useState } from 'react';
 
 export const StateSwitcher: React.FC<{

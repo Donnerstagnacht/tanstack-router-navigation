@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@/components/ui/button.tsx';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx';
 import {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
@@ -7,12 +7,12 @@ import {
   DropdownMenuSubContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+} from '@/components/ui/dropdown-menu.tsx';
+import { cn } from '@/i18n/i18n.types.ts';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
-import type { Language } from '@/i18n/i18n';
-import type { Size } from '@/lib/navigation/NavigationTypes';
+import type { Language } from '@/i18n/i18n.ts';
+import type { Size } from '@/navigation/types/navigation.types.tsx';
 import { useState } from 'react';
 
 export function LanguageToggle({

@@ -1,10 +1,10 @@
 import { Home, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { StateSwitcher } from '@/components/navigation/toggles/state-switcher';
-import { NavItemList } from '@/components/navigation/nav-items/nav-item-list';
-import { NavUserAvatar } from '@/components/navigation/nav-items/nav-user-avatar';
-import type { AsButtonNavigationProps } from '@/lib/navigation/NavigationTypes';
+import { cn } from '@/i18n/i18n.types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
+import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
+import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
+import type { AsButtonNavigationProps } from '@/navigation/types/navigation.types.tsx';
 import { useRouter } from '@tanstack/react-router';
 
 export function AsButtonNavigation({

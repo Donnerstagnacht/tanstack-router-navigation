@@ -1,8 +1,8 @@
-import { Badge } from '../../ui/badge';
-import { Button } from '../../ui/button';
-import { cn } from '@/lib/utils';
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
-import type { NavigationItem } from '@/lib/navigation/NavigationTypes';
+import { Badge } from '../../components/ui/badge.tsx';
+import { Button } from '../../components/ui/button.tsx';
+import { cn } from '@/i18n/i18n.types.ts';
+import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover.tsx';
+import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 import { useEffect } from 'react';
 
 // Helper function to determine if an item is active

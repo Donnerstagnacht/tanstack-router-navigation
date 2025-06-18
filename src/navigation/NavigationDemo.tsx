@@ -1,12 +1,18 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ThemeToggle } from '@/components/navigation/toggles/theme-toggle';
+import { Button } from '@/components/ui/button.tsx';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card.tsx';
+import { Badge } from '@/components/ui/badge.tsx';
+import { ThemeToggle } from '@/navigation/toggles/theme-toggle.tsx';
 import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { PriorityType, ScreenType } from '../lib/navigation/NavigationTypes';
-import { useScreenContext } from '@/contexts/screen-context';
+import type { PriorityType, ScreenType } from './types/navigation.types.tsx';
+import { useScreenContext } from '@/contexts/screen-context.tsx';
 
 export default function NavigationDemo({
   onScreenTypeChange,

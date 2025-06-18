@@ -1,16 +1,6 @@
-import { iconMap } from '@/lib/icons/icon-map';
 import { useTranslation } from 'react-i18next';
 import type { AnyRouter } from '@tanstack/react-router';
-
-// Define a type for navigation items with type-safe icon names
-export interface NavItem {
-  id: string;
-  label: string;
-  icon: keyof typeof iconMap;
-  href: string;
-  badge?: number;
-  onClick?: () => void;
-}
+import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 
 // This function factory creates navigation items with router integration
 export const useNavItems = (
@@ -20,7 +10,7 @@ export const useNavItems = (
   const { t } = useTranslation();
 
   // Define navigation items for primary navigation with TanStack Router integration
-  const primaryNavItems: NavItem[] = [
+  const primaryNavItems: NavigationItem[] = [
     {
       id: 'home',
       label: t('navigation.primary.home'),
@@ -105,7 +95,7 @@ export const useNavItems = (
     },
   ];
   // Define route-specific secondary navigation items
-  const projectSecondaryNavItems: NavItem[] = [
+  const projectSecondaryNavItems: NavigationItem[] = [
     {
       id: 'tasks',
       label: t('navigation.secondary.projects.tasks'),
@@ -125,7 +115,7 @@ export const useNavItems = (
   ];
 
   // Define dashboard secondary navigation items
-  const dashboardSecondaryNavItems: NavItem[] = [
+  const dashboardSecondaryNavItems: NavigationItem[] = [
     {
       id: 'analytics',
       label: t('navigation.secondary.dashboard.analytics'),

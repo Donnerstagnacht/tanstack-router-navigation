@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import NavigationDemo from '../components/NavigationDemo';
+import NavigationDemo from '../navigation/NavigationDemo.tsx';
 import { useScreenContext } from '../contexts/screen-context';
 
 export const Route = createFileRoute('/settings')({

@@ -1,13 +1,13 @@
 import { Outlet, createRootRoute, useRouter } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { Toaster } from '@/components/ui/sonner';
-import { DynamicNavigation } from '@/components/navigation/dynamic-navigation';
-import { NavigationCommandDialog } from '@/components/navigation/command-dialog';
+import { DynamicNavigation } from '@/navigation/dynamic-navigation.tsx';
+import { NavigationCommandDialog } from '@/navigation/command-dialog.tsx';
 import { useState, useEffect } from 'react';
 import { ScreenProvider, useScreenContext } from '@/contexts/screen-context';
-import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard';
-import { useNavItems } from '@/lib/navigation/nav-config';
-import { useThemeInitializer } from '@/hooks/theme.store';
+import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
+import { useNavItems } from '@/navigation/nav-items/nav-items-authenticated.tsx';
+import { useThemeInitializer } from '@/global-state/theme.store.tsx';
 
 export const Route = createRootRoute({
   component: () => {

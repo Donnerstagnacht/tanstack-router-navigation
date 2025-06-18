@@ -1,8 +1,8 @@
 import { Circle, Menu, AlignLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button.tsx';
+import { cn } from '@/i18n/i18n.types.ts';
 import { useTranslation } from 'react-i18next';
-import type { NavigationState, Size } from '@/lib/navigation/NavigationTypes';
+import type { NavigationState, Size } from '@/navigation/types/navigation.types.tsx';
 
 const StateButton = ({
   state,

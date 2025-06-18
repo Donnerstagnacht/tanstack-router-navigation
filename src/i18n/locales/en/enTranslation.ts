@@ -1,4 +1,4 @@
-import type { DeepReplace } from '@/lib/utils';
+import type { DeepReplace } from '@/i18n/i18n.types.ts';
 
 const enTranslation = {
   home: {

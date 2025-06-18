@@ -7,14 +7,14 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from '@/components/ui/command';
-import { Badge } from '@/components/ui/badge';
+} from '@/components/ui/command.tsx';
+import { Badge } from '@/components/ui/badge.tsx';
 import { Moon, Keyboard } from 'lucide-react';
-import type { NavItem } from '@/lib/navigation/nav-config';
-import { getIconComponent } from '@/lib/icons/icon-map';
-import { getShortcutForItem } from '@/lib/navigation/keyboard-navigation';
+import { getIconComponent } from '@/navigation/nav-items/icon-map.tsx';
+import { getShortcutForItem } from '@/navigation/nav-keyboard/keyboard-navigation.ts';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from '@tanstack/react-router';
+import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 
 export function NavigationCommandDialog({
   open,
@@ -27,8 +27,8 @@ export function NavigationCommandDialog({
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
-  primaryNavItems: NavItem[];
-  secondaryNavItems: NavItem[] | null;
+  primaryNavItems: NavigationItem[];
+  secondaryNavItems: NavigationItem[] | null;
   priority: 'primary' | 'secondary' | 'combined';
   onThemeToggle?: () => void;
   onKeyboardShortcutsOpen?: () => void;

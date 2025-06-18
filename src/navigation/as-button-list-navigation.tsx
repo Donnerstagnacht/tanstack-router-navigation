@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils';
-import { StateSwitcher } from '@/components/navigation/toggles/state-switcher';
-import { NavItemList } from '@/components/navigation/nav-items/nav-item-list';
-import { NavUserAvatar } from '@/components/navigation/nav-items/nav-user-avatar';
+import { cn } from '@/i18n/i18n.types.ts';
+import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
+import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
+import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
 import { useRouter } from '@tanstack/react-router';
-import type { ListNavigationProps } from '@/lib/navigation/NavigationTypes';
+import type { ListNavigationProps } from '@/navigation/types/navigation.types.tsx';
 
 export function AsButtonListNavigation({
   items,

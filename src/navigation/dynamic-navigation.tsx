@@ -1,22 +1,22 @@
-import { iconMap } from '@/lib/icons/icon-map';
-import { AsButtonNavigation } from '@/components/navigation/as-button-navigation';
-import { AsButtonListNavigation } from '@/components/navigation/as-button-list-navigation';
-import { AsLabeledButtonListNavigation } from '@/components/navigation/as-labeled-button-list-navigation';
+import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
+import { AsButtonNavigation } from '@/navigation/as-button-navigation.tsx';
+import { AsButtonListNavigation } from '@/navigation/as-button-list-navigation.tsx';
+import { AsLabeledButtonListNavigation } from '@/navigation/as-labeled-button-list-navigation.tsx';
 import type {
   NavigationItem,
   NavigationState,
   PriorityType,
   ScreenType,
-} from '@/lib/navigation/NavigationTypes';
-import { unauthenticatedItems } from '../../lib/navigation/unauthenticatedItems';
-import { useScreenContext } from '@/contexts/screen-context';
+} from '@/navigation/types/navigation.types.tsx';
+import { navItemsUnauthenticated } from './nav-items/nav-items-unauthenticated.tsx';
+import { useScreenContext } from '@/contexts/screen-context.tsx';
 import { useState } from 'react';
 
 export function DynamicNavigation({
   state,
   priority,
   screen,
-  navigationItems = unauthenticatedItems,
+  navigationItems = navItemsUnauthenticated,
   className = '',
   onStateChange: onStateChange,
   userName: userName,
@@ -52,7 +52,7 @@ export function DynamicNavigation({
   });
 
   // Use authenticated status to determine which items to show
-  const items = authenticated ? processedItems : unauthenticatedItems;
+  const items = authenticated ? processedItems : navItemsUnauthenticated;
 
   if (state === 'asButton') {
     return (

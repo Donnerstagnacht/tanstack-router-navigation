@@ -1,3 +1,5 @@
+import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
+
 export type ScreenType = 'mobile' | 'desktop' | 'automatic';
 
 export type PriorityType = 'primary' | 'secondary' | 'combined';
@@ -8,7 +10,7 @@ export type Size = 'default' | 'small';
 
 export interface NavigationItem {
   id: string;
-  icon: React.ComponentType<{ className?: string }> | string;
+  icon: keyof typeof iconMap;
   label: string;
   href?: string;
   onClick?: () => void;
@@ -41,3 +43,11 @@ export type AsButtonNavigationProps = BaseNavigationProps & {
 export type ListNavigationProps = BaseNavigationProps & {
   priority: PriorityType;
 };
+
+/**
+ * Shortcut representation with display text and keys array
+ */
+export interface KeyboardShortcut {
+  display: string;
+  keys: string[];
+}
