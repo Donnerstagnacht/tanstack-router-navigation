@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { iconMap } from '@/lib/icons/icon-map';
 import { AsButtonNavigation } from '@/components/navigation/as-button-navigation';
 import { AsButtonListNavigation } from '@/components/navigation/as-button-list-navigation';
@@ -11,6 +10,7 @@ import type {
 } from '@/lib/navigation/NavigationTypes';
 import { unauthenticatedItems } from '../../lib/navigation/unauthenticatedItems';
 import { useScreenContext } from '@/contexts/screen-context';
+import { useState } from 'react';
 
 export function DynamicNavigation({
   state,
@@ -35,8 +35,8 @@ export function DynamicNavigation({
   onUserClick?: () => void;
   authenticated?: boolean;
 }) {
-  const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
-  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { isMobile } = useScreenContext();
 
   const isPrimary = priority === 'primary';

@@ -1,6 +1,4 @@
-import * as React from 'react';
 import { Circle, Menu, AlignLeft } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';

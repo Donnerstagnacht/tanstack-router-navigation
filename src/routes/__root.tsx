@@ -1,6 +1,5 @@
 import { Outlet, createRootRoute, useRouter } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { ThemeProvider } from '@/components/navigation/toggles/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { DynamicNavigation } from '@/components/navigation/dynamic-navigation';
 import { NavigationCommandDialog } from '@/components/navigation/command-dialog';
@@ -8,17 +7,19 @@ import { useState, useEffect } from 'react';
 import { ScreenProvider, useScreenContext } from '@/contexts/screen-context';
 import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard';
 import { useNavItems } from '@/lib/navigation/nav-config';
+import { useThemeInitializer } from '@/hooks/theme.store';
 
 export const Route = createRootRoute({
   component: () => {
+    // Initialisiere das Theme direkt in der Root-Komponente
+    useThemeInitializer({ defaultTheme: 'system', storageKey: 'theme' });
+
     return (
-      <ThemeProvider defaultTheme="system" storageKey="theme">
-        <ScreenProvider>
-          <RootContent />
-          <Toaster richColors position="top-right" />
-          <TanStackRouterDevtools />
-        </ScreenProvider>
-      </ThemeProvider>
+      <ScreenProvider>
+        <RootContent />
+        <Toaster richColors position="top-right" />
+        <TanStackRouterDevtools />
+      </ScreenProvider>
     );
   },
 });

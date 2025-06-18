@@ -1,8 +1,7 @@
-import * as React from 'react';
 import { Moon, Sun, Laptop } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/components/navigation/toggles/theme-provider';
+import { useThemeStore } from '@/hooks/theme.store';
 import { useTranslation } from 'react-i18next';
 import type { Size } from '@/lib/navigation/NavigationTypes';
 
@@ -37,7 +36,9 @@ const ThemeButton = ({
 };
 
 export function ThemeToggle({ size = 'default', className }: { size?: Size; className?: string }) {
-  const { theme, setTheme, isMounted } = useTheme();
+  const theme = useThemeStore(state => state.theme);
+  const setTheme = useThemeStore(state => state.setTheme);
+  const isMounted = useThemeStore(state => state.isMounted);
   const { t } = useTranslation();
 
   // Set the actual theme or placeholder for SSR

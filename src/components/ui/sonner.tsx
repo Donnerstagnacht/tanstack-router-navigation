@@ -1,10 +1,10 @@
-import { useTheme } from '@/hooks/use-theme';
+import { useThemeStore } from '@/hooks/theme.store';
 import { Toaster as Sonner } from 'sonner';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
+  const theme = useThemeStore(state => state.theme);
 
   return (
     <Sonner

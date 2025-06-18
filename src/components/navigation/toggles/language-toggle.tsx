@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
@@ -14,6 +13,7 @@ import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import type { Language } from '@/i18n/i18n';
 import type { Size } from '@/lib/navigation/NavigationTypes';
+import { useState } from 'react';
 
 export function LanguageToggle({
   size = 'default',
@@ -28,7 +28,7 @@ export function LanguageToggle({
   sideOffset?: number;
   variant?: 'popover' | 'dropdown';
 }) {
-  const [isLanguagePopoverOpen, setIsLanguagePopoverOpen] = React.useState(false);
+  const [isLanguagePopoverOpen, setIsLanguagePopoverOpen] = useState(false);
   const { i18n } = useTranslation();
   const language = i18n.language as Language;
   const { t } = useTranslation();

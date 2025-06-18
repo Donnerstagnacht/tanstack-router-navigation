@@ -6,10 +6,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useTheme } from '@/components/navigation/toggles/theme-provider';
+import { useThemeStore } from '@/hooks/theme.store';
 
 export function ThemeToggle() {
-  const { theme, setTheme, isDark } = useTheme();
+  const theme = useThemeStore(state => state.theme);
+  const setTheme = useThemeStore(state => state.setTheme);
+  const isDark = useThemeStore(state => state.isDark);
 
   return (
     <DropdownMenu>

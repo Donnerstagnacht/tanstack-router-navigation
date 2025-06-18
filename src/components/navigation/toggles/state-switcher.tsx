@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -12,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import type { NavigationState, PriorityType } from '@/lib/navigation/NavigationTypes';
+import { useEffect, useState } from 'react';
 
 export const StateSwitcher: React.FC<{
   state: NavigationState;
@@ -20,12 +20,12 @@ export const StateSwitcher: React.FC<{
   variant?: NavigationState;
   priority?: PriorityType;
 }> = ({ state, onStateChange, isMobile = false, variant, priority = 'primary' }) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-  const [hoverTimeout, setHoverTimeout] = React.useState<NodeJS.Timeout | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const isPrimary = priority === 'primary';
-  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       if (hoverTimeout) {
         clearTimeout(hoverTimeout);

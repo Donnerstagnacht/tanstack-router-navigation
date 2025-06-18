@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 import type { NavigationItem } from '@/lib/navigation/NavigationTypes';
+import { useEffect } from 'react';
 
 // Helper function to determine if an item is active
 function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: boolean): boolean {
@@ -85,7 +85,7 @@ export function NavItemList({
   currentRoute,
 }: NavItemListProps) {
   // For debugging - log the current route
-  React.useEffect(() => {
+  useEffect(() => {
     console.log('Variant:', variant, 'Current route:', currentRoute || 'undefined');
     items.forEach(item => {
       const isActive = isItemActive(item, currentRoute, isPrimary);
