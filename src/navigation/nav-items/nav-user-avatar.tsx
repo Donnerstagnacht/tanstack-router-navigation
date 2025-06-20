@@ -3,22 +3,22 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
 import type { NavigationView } from '@/navigation/types/navigation.types.tsx';
+import { useState } from 'react';
+import { useAuthStore } from '@/global-state/auth.store';
 
 export function NavUserAvatar({
   id,
-  hoveredItem,
-  setHoveredItem,
-  navigationView: variant,
+  navigationView,
   className,
   isMobile,
 }: {
   id?: string;
-  hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
   navigationView?: NavigationView;
   isMobile?: boolean;
   className?: string;
 }) {
+  const authenticated = useAuthStore(state => state.isAuthenticated);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   // Handle backwards compatibility
   const clickHandler = () => {
     console.log('User avatar clicked');
@@ -30,7 +30,11 @@ export function NavUserAvatar({
   // If no id is provided, use a default based on variant
   const popoverId = id || (isMobile ? 'user-avatar-mobile' : 'user-avatar');
 
-  if (variant === 'asButton') {
+  if (!authenticated) {
+    return null;
+  }
+
+  if (navigationView === 'asButton') {
     return (
       <Button
         variant="ghost"
@@ -49,7 +53,7 @@ export function NavUserAvatar({
     );
   }
 
-  if (variant === 'asButtonList') {
+  if (navigationView === 'asButtonList') {
     return (
       <Popover open={hoveredItem === popoverId}>
         <PopoverTrigger asChild>
@@ -83,7 +87,7 @@ export function NavUserAvatar({
     );
   }
 
-  if (variant === 'asLabeledButtonList' && isMobile) {
+  if (navigationView === 'asLabeledButtonList' && isMobile) {
     return (
       <Popover open={hoveredItem === popoverId}>
         <PopoverTrigger asChild>
@@ -110,7 +114,7 @@ export function NavUserAvatar({
     );
   }
 
-  if (variant === 'asLabeledButtonList' && !isMobile) {
+  if (navigationView === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="px-4">
         <Button

@@ -44,7 +44,7 @@ export const Route = createRootRoute({
 
 function Layout() {
   const { screenType, isMobileScreen } = useScreenStore();
-  const { navigationType, navigationView, setNavigationView } = useNavigationStore();
+  const { navigationType, navigationView } = useNavigationStore();
   const { primaryNavItems, secondaryNavItems } = useNavigation();
   const { isAuthenticated } = useAuthStore();
 
@@ -61,10 +61,6 @@ function Layout() {
           navigationView={navigationView}
           navigationItems={navigationItems}
           screenType={screenType}
-          authenticated={isAuthenticated}
-          onStateChange={newState => {
-            setNavigationView(newState);
-          }}
         />
       )}
       {isAuthenticated &&
@@ -75,10 +71,6 @@ function Layout() {
             navigationView={navigationView}
             navigationItems={secondaryNavItems}
             screenType={screenType}
-            authenticated={isAuthenticated}
-            onStateChange={newState => {
-              setNavigationView(newState);
-            }}
           />
         )}
       <main

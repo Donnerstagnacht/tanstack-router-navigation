@@ -2,22 +2,15 @@ import { cn } from '@/i18n/i18n.types.ts';
 import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
-import { useRouter } from '@tanstack/react-router';
 import { Separator } from '@/components/ui/separator';
-import type { NavigationProps, NavigationActions } from './types/navigation.types';
+import type { NavigationProps } from './types/navigation.types';
 
 export function AsButtonListNavigation({
   navigationItems,
   navigationView,
   navigationType,
   isMobile,
-  hoveredItem,
-  authenticated,
-  onStateChange,
-  setHoveredItem,
-}: NavigationProps & NavigationActions) {
-  const router = useRouter();
-  const currentRoute = router.state.location.pathname;
+}: NavigationProps) {
   const isPrimary = navigationType === 'primary';
 
   if (isMobile) {
@@ -31,19 +24,13 @@ export function AsButtonListNavigation({
         <div className="flex items-center py-2">
           <NavItemList
             navigationItems={navigationItems}
-            navigationView="asButtonList"
             isMobile={isMobile}
-            hoveredItem={hoveredItem}
             isPrimary={isPrimary}
-            currentRoute={currentRoute}
-            setHoveredItem={setHoveredItem}
           />
           {isPrimary && <Separator orientation="vertical" className="mx-2 h-8" />}
-          {authenticated && isPrimary && (
+          {isPrimary && (
             <NavUserAvatar
               id="user-avatar-mobile"
-              hoveredItem={hoveredItem}
-              setHoveredItem={setHoveredItem}
               navigationView="asButtonList"
               isMobile={isMobile}
             />
@@ -52,9 +39,7 @@ export function AsButtonListNavigation({
             <div className="flex items-center gap-2 px-2">
               <StateSwitcher
                 state={navigationView}
-                onStateChange={onStateChange}
                 isMobile={isMobile}
-                navigationView="asButtonList"
                 navigationType={navigationType}
               />
             </div>
@@ -77,50 +62,27 @@ export function AsButtonListNavigation({
           <div className="scrollbar-hide flex-1 overflow-y-auto py-4">
             <NavItemList
               navigationItems={navigationItems}
-              navigationView="asButtonList"
               isMobile={isMobile}
               isPrimary={isPrimary}
-              hoveredItem={hoveredItem}
-              setHoveredItem={setHoveredItem}
-              currentRoute={currentRoute}
             />
           </div>
           <div className="flex-shrink-0 border-t">
             <div className="flex flex-col items-center gap-2 p-2">
-              {authenticated && (
-                <NavUserAvatar
-                  id="user-avatar"
-                  hoveredItem={hoveredItem}
-                  setHoveredItem={setHoveredItem}
+              <NavUserAvatar id="user-avatar" isMobile={isMobile} navigationView="asButtonList" />
+
+              <div className="flex flex-col items-center gap-2">
+                <StateSwitcher
+                  state={navigationView}
                   isMobile={isMobile}
-                  navigationView="asButtonList"
+                  navigationType={navigationType}
                 />
-              )}
-              {onStateChange && (
-                <div className="flex flex-col items-center gap-2">
-                  <StateSwitcher
-                    state={navigationView}
-                    isMobile={isMobile}
-                    onStateChange={onStateChange}
-                    navigationView="asButtonList"
-                    navigationType={navigationType}
-                  />
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </>
       ) : (
         <div className="scrollbar-hide flex-1 overflow-y-auto py-4">
-          <NavItemList
-            navigationItems={navigationItems}
-            navigationView="asButtonList"
-            isMobile={false}
-            isPrimary={isPrimary}
-            hoveredItem={hoveredItem}
-            setHoveredItem={setHoveredItem}
-            currentRoute={currentRoute}
-          />
+          <NavItemList navigationItems={navigationItems} isMobile={false} isPrimary={isPrimary} />
         </div>
       )}
     </div>

@@ -20,15 +20,8 @@ export interface NavigationItem {
 export interface NavigationProps {
   navigationItems: NavigationItem[];
   isMobile: boolean;
-  hoveredItem: string | null;
   navigationView: NavigationView;
   navigationType: NavigationType;
-  authenticated: boolean;
-}
-
-export interface NavigationActions {
-  setHoveredItem: (item: string | null) => void;
-  onStateChange: (newState: NavigationView) => void;
 }
 
 /**

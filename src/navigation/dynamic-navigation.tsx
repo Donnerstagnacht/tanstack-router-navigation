@@ -7,7 +7,6 @@ import type {
   NavigationType,
   ScreenType,
 } from '@/navigation/types/navigation.types.tsx';
-import { useState } from 'react';
 import { useScreenStore } from '@/global-state/screen.store.tsx';
 
 export function DynamicNavigation({
@@ -15,17 +14,12 @@ export function DynamicNavigation({
   navigationType,
   screenType,
   navigationItems,
-  authenticated,
-  onStateChange,
 }: {
   navigationView: NavigationView;
   navigationType: NavigationType;
   screenType: ScreenType;
   navigationItems: NavigationItem[];
-  authenticated: boolean;
-  onStateChange: (newState: NavigationView) => void;
 }) {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const isMobile = useScreenStore(state => state.isMobileScreen);
 
   const isMobileDevice = screenType === 'mobile' || (screenType === 'automatic' && isMobile);
@@ -36,11 +30,7 @@ export function DynamicNavigation({
         navigationItems={navigationItems}
         navigationView={navigationView}
         navigationType={navigationType}
-        authenticated={authenticated}
         isMobile={isMobileDevice}
-        hoveredItem={hoveredItem}
-        onStateChange={onStateChange}
-        setHoveredItem={setHoveredItem}
       />
     );
   }
@@ -51,11 +41,7 @@ export function DynamicNavigation({
         navigationItems={navigationItems}
         navigationView={navigationView}
         navigationType={navigationType}
-        authenticated={authenticated}
         isMobile={isMobileDevice}
-        hoveredItem={hoveredItem}
-        setHoveredItem={setHoveredItem}
-        onStateChange={onStateChange}
       />
     );
   }
@@ -66,11 +52,7 @@ export function DynamicNavigation({
         navigationItems={navigationItems}
         navigationView={navigationView}
         navigationType={navigationType}
-        authenticated={authenticated}
         isMobile={isMobileDevice}
-        hoveredItem={hoveredItem}
-        setHoveredItem={setHoveredItem}
-        onStateChange={onStateChange}
       />
     );
   }

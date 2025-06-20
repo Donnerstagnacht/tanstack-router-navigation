@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
-import type { NavigationActions, NavigationProps } from '@/navigation/types/navigation.types.tsx';
-import { useRouter } from '@tanstack/react-router';
+import type { NavigationProps } from '@/navigation/types/navigation.types.tsx';
 import { useState } from 'react';
 
 export function AsButtonNavigation({
@@ -13,13 +12,7 @@ export function AsButtonNavigation({
   navigationView,
   navigationType,
   isMobile,
-  hoveredItem,
-  authenticated,
-  onStateChange,
-  setHoveredItem,
-}: NavigationProps & NavigationActions) {
-  const router = useRouter();
-  const currentRoute = router.state.location.pathname;
+}: NavigationProps) {
   const isPrimary = navigationType === 'primary';
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -40,30 +33,13 @@ export function AsButtonNavigation({
             <div className="flex w-full max-w-3xl flex-col items-center px-6">
               <NavItemList
                 navigationItems={navigationItems}
-                navigationView="asButton"
                 isMobile={isMobile}
                 isPrimary={isPrimary}
-                hoveredItem={hoveredItem}
-                setHoveredItem={setHoveredItem}
-                currentRoute={currentRoute}
               />
-              {authenticated && isPrimary && (
-                <NavUserAvatar
-                  className="mt-8"
-                  navigationView="asButton"
-                  hoveredItem={hoveredItem}
-                  setHoveredItem={setHoveredItem}
-                />
-              )}
+              {isPrimary && <NavUserAvatar className="mt-8" navigationView="asButton" />}
             </div>
           </div>
-          {isPrimary && (
-            <StateSwitcher
-              state={navigationView}
-              onStateChange={onStateChange}
-              navigationView="asButton"
-            />
-          )}
+          {isPrimary && <StateSwitcher state={navigationView} />}
         </div>
       )}
     </>

@@ -12,24 +12,18 @@ import {
 } from '@/components/ui/dropdown-menu.tsx';
 import type { NavigationView, NavigationType } from '@/navigation/types/navigation.types.tsx';
 import { useEffect, useState } from 'react';
+import { useNavigationStore } from '../state/navigation.store';
 
 export const StateSwitcher: React.FC<{
   state: NavigationView;
-  onStateChange?: (newState: NavigationView) => void;
   isMobile?: boolean;
-  navigationView?: NavigationView;
   navigationType?: NavigationType;
-}> = ({
-  state,
-  onStateChange,
-  isMobile = false,
-  navigationView: variant,
-  navigationType: priority = 'primary',
-}) => {
+}> = ({ state, isMobile = false, navigationType: priority = 'primary' }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const isPrimary = priority === 'primary';
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { navigationView, setNavigationView } = useNavigationStore();
 
   useEffect(() => {
     return () => {
@@ -39,13 +33,11 @@ export const StateSwitcher: React.FC<{
     };
   }, [hoverTimeout]);
 
-  if (!onStateChange) return null;
-
   // Horizontal layout for asLabeledButtonList
-  if (variant === 'asLabeledButtonList' && !isMobile) {
+  if (navigationView === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="flex items-center gap-3">
-        <StateToggle currentState={state} onStateChange={onStateChange} size="small" />
+        <StateToggle currentState={state} onStateChange={setNavigationView} size="small" />
         <div className="bg-border h-8 w-px"></div>
         <LanguageToggle size="small" />
         <div className="bg-border h-8 w-px"></div>
@@ -55,7 +47,7 @@ export const StateSwitcher: React.FC<{
   }
 
   // Mobile expandable variant - positioned based on priority
-  if ((variant === 'asButtonList' && isMobile) || (variant === 'asLabeledButtonList' && isMobile)) {
+  if (['asButtonList', 'asButtonList'].includes(navigationView) && isMobile) {
     return (
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>
@@ -108,7 +100,7 @@ export const StateSwitcher: React.FC<{
             <StateToggle
               currentState={state}
               onStateChange={newState => {
-                onStateChange(newState);
+                setNavigationView(newState);
                 setIsDropdownOpen(false);
               }}
               size="small"
@@ -120,7 +112,7 @@ export const StateSwitcher: React.FC<{
   }
 
   // Expandable variant for desktop asButtonList
-  if (variant === 'asButtonList' && !isMobile) {
+  if (navigationView === 'asButtonList' && !isMobile) {
     return (
       <DropdownMenu open={isExpanded} onOpenChange={setIsExpanded}>
         <DropdownMenuTrigger asChild>
@@ -179,7 +171,7 @@ export const StateSwitcher: React.FC<{
             <StateToggle
               currentState={state}
               onStateChange={newState => {
-                onStateChange(newState);
+                setNavigationView(newState);
                 setIsExpanded(false);
               }}
               size="small"
@@ -191,10 +183,10 @@ export const StateSwitcher: React.FC<{
   }
 
   // Overlay variant for asButton fullscreen
-  if (variant === 'asButton') {
+  if (navigationView === 'asButton') {
     return (
       <div className="bg-background/95 absolute bottom-8 left-1/2 flex -translate-x-1/2 transform gap-2 rounded-full border p-2 shadow-lg backdrop-blur-sm">
-        <StateToggle currentState={state} onStateChange={onStateChange} />
+        <StateToggle currentState={state} onStateChange={setNavigationView} />
         <>
           <div className="bg-border mx-1 w-px"></div>
           <LanguageToggle />

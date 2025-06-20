@@ -2,95 +2,35 @@ import { Badge } from '../../components/ui/badge.tsx';
 import { Button } from '../../components/ui/button.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover.tsx';
-import type { NavigationItem, NavigationView } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
-import React from 'react';
-
-// Helper function to determine if an item is active
-function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: boolean): boolean {
-  if (!currentRoute) return false;
-
-  // Direct match with href if available
-  if (item.href && currentRoute === item.href) {
-    return true;
-  }
-
-  // Check if current route is a child of this item's route
-  // For example: if item.href is '/projects' and currentRoute is '/projects/tasks'
-  // Only apply this check when isPrimary is true
-  if (isPrimary && item.href && currentRoute.startsWith(item.href + '/')) {
-    return true;
-  }
-
-  // Extract route from onClick function string representation
-  if (item.onClick) {
-    try {
-      const onClickStr = item.onClick.toString();
-      // Look for navigation patterns like "navigate({ to: '/route' })" or "router.navigate({ to: '/route' })"
-      const routeMatch = onClickStr.match(/to:\s*['"]([^'"]+)['"]\s*}/);
-      if (routeMatch) {
-        const route = routeMatch[1];
-        // Exact match
-        if (route === currentRoute) {
-          return true;
-        }
-        // Child route match - only apply when isPrimary is true
-        if (isPrimary && currentRoute.startsWith(route + '/')) {
-          return true;
-        }
-      }
-    } catch (e) {
-      console.error('Error parsing onClick route:', e);
-    }
-  }
-
-  // ID-based matching as fallback (for common routes like 'home' -> '/')
-  if (item.id === 'home' && currentRoute === '/') {
-    return true;
-  }
-
-  // Match route name with ID (exact match)
-  const routePath = currentRoute.startsWith('/') ? currentRoute.slice(1) : currentRoute;
-  if (routePath === item.id) {
-    return true;
-  }
-
-  // Child route matching with ID - only apply when isPrimary is trues
-  if (isPrimary && routePath.startsWith(item.id + '/')) {
-    return true;
-  }
-
-  return false;
-}
+import React, { useState } from 'react';
+import { useRouter } from '@tanstack/react-router';
+import { isItemActive } from './nav-helpers.ts';
+import { useNavigationStore } from '../state/navigation.store.tsx';
 
 export function NavItemList({
-  navigationItems: items,
-  navigationView: variant,
+  navigationItems,
   isMobile,
-  isPrimary: isPrimary,
-  hoveredItem,
-  setHoveredItem,
-  className,
-  currentRoute,
+  isPrimary,
 }: {
   navigationItems: NavigationItem[];
-  navigationView: NavigationView;
   isMobile: boolean;
   isPrimary: boolean;
-  hoveredItem: string | null;
-  setHoveredItem: (id: string | null) => void;
-  className?: string;
-  currentRoute?: string;
 }) {
-  // asButton variant - Grid layout of large buttons used in overlay
-  if (variant === 'asButton') {
+  const router = useRouter();
+  const currentRoute = router.state.location.pathname;
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const { navigationView } = useNavigationStore();
+
+  if (navigationView === 'asButton') {
     return (
       <div className="scrollbar-hide max-h-[70vh] overflow-y-auto">
         <div className="grid w-full auto-rows-max grid-cols-2 gap-8 p-4 sm:grid-cols-3 md:grid-cols-4">
           {/* Use different layout for fewer items */}
-          {items.length <= 4 ? (
+          {navigationItems.length <= 4 ? (
             <div className="col-span-full flex flex-wrap justify-center gap-8">
-              {items.map(item => (
+              {navigationItems.map(item => (
                 <Button
                   key={item.id}
                   variant="ghost"
@@ -124,7 +64,7 @@ export function NavItemList({
             </div>
           ) : (
             // Original layout for 5+ items
-            items.map(item => (
+            navigationItems.map(item => (
               <Button
                 key={item.id}
                 variant="ghost"
@@ -161,11 +101,11 @@ export function NavItemList({
   }
 
   // asButtonList variant - Mobile: Horizontal scrolling buttons with popovers
-  if (variant === 'asButtonList' && isMobile) {
+  if (navigationView === 'asButtonList' && isMobile) {
     return (
       <div className="scrollbar-hide flex-1 overflow-x-auto">
         <div className="flex min-w-max items-center justify-center gap-1 px-2">
-          {items.map(item => (
+          {navigationItems.map(item => (
             <Popover key={item.id} open={hoveredItem === item.id}>
               <PopoverTrigger asChild>
                 <Button
@@ -212,10 +152,10 @@ export function NavItemList({
   }
 
   // asButtonList variant - Desktop: Vertical sidebar with icon buttons and popovers
-  if (variant === 'asButtonList' && !isMobile) {
+  if (navigationView === 'asButtonList' && !isMobile) {
     return (
-      <div className={cn('flex flex-col items-center gap-2', className)}>
-        {items.map(item => (
+      <div className={cn('flex flex-col items-center gap-2')}>
+        {navigationItems.map(item => (
           <Popover key={item.id} open={hoveredItem === item.id}>
             <PopoverTrigger asChild>
               <Button
@@ -262,11 +202,11 @@ export function NavItemList({
   }
 
   // asLabeledButtonList variant - Mobile: Horizontal scrolling buttons with labels
-  if (variant === 'asLabeledButtonList' && isMobile) {
+  if (navigationView === 'asLabeledButtonList' && isMobile) {
     return (
       <div className="scrollbar-hide flex-1 overflow-x-auto">
         <div className="flex min-w-max items-center justify-center gap-1 px-2">
-          {items.map(item => (
+          {navigationItems.map(item => (
             <Button
               key={item.id}
               variant="ghost"
@@ -309,10 +249,10 @@ export function NavItemList({
   }
 
   // asLabeledButtonList variant - Desktop: Full sidebar with icons and labels
-  if (variant === 'asLabeledButtonList' && !isMobile) {
+  if (navigationView === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="flex flex-col gap-2">
-        {items.map(item => (
+        {navigationItems.map(item => (
           <Button
             key={item.id}
             variant="ghost"
