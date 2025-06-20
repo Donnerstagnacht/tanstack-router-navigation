@@ -28,13 +28,7 @@ export function AsButtonListNavigation({
             isPrimary={isPrimary}
           />
           {isPrimary && <Separator orientation="vertical" className="mx-2 h-8" />}
-          {isPrimary && (
-            <NavUserAvatar
-              id="user-avatar-mobile"
-              navigationView="asButtonList"
-              isMobile={isMobile}
-            />
-          )}
+          {isPrimary && <NavUserAvatar navigationView="asButtonList" isMobile={isMobile} />}
           {isPrimary && (
             <div className="flex items-center gap-2 px-2">
               <StateSwitcher
@@ -68,7 +62,7 @@ export function AsButtonListNavigation({
           </div>
           <div className="flex-shrink-0 border-t">
             <div className="flex flex-col items-center gap-2 p-2">
-              <NavUserAvatar id="user-avatar" isMobile={isMobile} navigationView="asButtonList" />
+              <NavUserAvatar isMobile={isMobile} navigationView="asButtonList" />
 
               <div className="flex flex-col items-center gap-2">
                 <StateSwitcher

@@ -7,19 +7,17 @@ import { useState } from 'react';
 import { useAuthStore } from '@/global-state/auth.store';
 
 export function NavUserAvatar({
-  id,
   navigationView,
   className,
   isMobile,
 }: {
-  id?: string;
-  navigationView?: NavigationView;
-  isMobile?: boolean;
+  navigationView: NavigationView;
+  isMobile: boolean;
   className?: string;
 }) {
   const authenticated = useAuthStore(state => state.isAuthenticated);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  // Handle backwards compatibility
+
   const clickHandler = () => {
     console.log('User avatar clicked');
   };
@@ -28,7 +26,7 @@ export function NavUserAvatar({
   const userName = 'John Doe';
 
   // If no id is provided, use a default based on variant
-  const popoverId = id || (isMobile ? 'user-avatar-mobile' : 'user-avatar');
+  const popoverId = isMobile ? 'user-avatar-mobile' : 'user-avatar';
 
   if (!authenticated) {
     return null;

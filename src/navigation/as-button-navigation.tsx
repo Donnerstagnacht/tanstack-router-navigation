@@ -36,7 +36,9 @@ export function AsButtonNavigation({
                 isMobile={isMobile}
                 isPrimary={isPrimary}
               />
-              {isPrimary && <NavUserAvatar className="mt-8" navigationView="asButton" />}
+              {isPrimary && (
+                <NavUserAvatar className="mt-8" navigationView="asButton" isMobile={isMobile} />
+              )}
             </div>
           </div>
           {isPrimary && <StateSwitcher state={navigationView} />}
