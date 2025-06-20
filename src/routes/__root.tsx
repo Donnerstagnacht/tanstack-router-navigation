@@ -12,12 +12,25 @@ import type {
   NavigationView,
 } from '@/navigation/types/navigation.types';
 import { useNavigation } from '@/navigation/state/useNavigation';
+import { navItemsUnauthenticated } from '@/navigation/nav-items/nav-items-unauthenticated';
+import { useAuthStore, useAuthInitializer } from '@/global-state/auth.store';
 
 export const Route = createRootRoute({
   component: () => {
-    // Initialize theme and screen responsive detection
+    // Initialize theme, screen responsive detection, and auth state
     useThemeInitializer({ defaultTheme: 'system', storageKey: 'theme' });
     useScreenResponsiveDetector();
+
+    // Initialize authentication
+    useAuthInitializer({
+      onInitialized: isAuthenticated => {
+        console.log('Auth initialized:', isAuthenticated);
+        // You could trigger additional actions here when auth state is initialized
+      },
+      // Uncomment to enable auto-login for development
+      autoLogin: true,
+      storageKey: 'auth-storage',
+    });
 
     return (
       <>
@@ -33,6 +46,10 @@ function Layout() {
   const { screenType, isMobileScreen } = useScreenStore();
   const { navigationType, navigationView, setNavigationView } = useNavigationStore();
   const { primaryNavItems, secondaryNavItems } = useNavigation();
+  const { isAuthenticated } = useAuthStore();
+
+  // Determine navigation items based on authentication status
+  const navigationItems = isAuthenticated ? primaryNavItems : navItemsUnauthenticated;
 
   const isMobile = screenType === 'mobile' || (screenType === 'automatic' && isMobileScreen);
 
@@ -40,26 +57,30 @@ function Layout() {
     <div className="bg-background min-h-screen">
       {['primary', 'combined'].includes(navigationType) && (
         <DynamicNavigation
-          navigationView={navigationView}
           navigationType="primary"
-          screenType={screenType}
-          onStateChange={newState => {
-            setNavigationView(newState);
-          }}
-          navigationItems={primaryNavItems}
-        />
-      )}
-      {secondaryNavItems && ['secondary', 'combined'].includes(navigationType) && (
-        <DynamicNavigation
           navigationView={navigationView}
-          navigationType="secondary"
+          navigationItems={navigationItems}
           screenType={screenType}
+          authenticated={isAuthenticated}
           onStateChange={newState => {
             setNavigationView(newState);
           }}
-          navigationItems={secondaryNavItems}
         />
       )}
+      {isAuthenticated &&
+        secondaryNavItems &&
+        ['secondary', 'combined'].includes(navigationType) && (
+          <DynamicNavigation
+            navigationType="secondary"
+            navigationView={navigationView}
+            navigationItems={secondaryNavItems}
+            screenType={screenType}
+            authenticated={isAuthenticated}
+            onStateChange={newState => {
+              setNavigationView(newState);
+            }}
+          />
+        )}
       <main
         className={`transition-all duration-300 ${getMarginClasses({
           isMobile,
@@ -73,9 +94,8 @@ function Layout() {
 
       {/* Command Dialog for global search */}
       <NavigationCommandDialog
-        primaryNavItems={primaryNavItems}
+        primaryNavItems={navigationItems}
         secondaryNavItems={secondaryNavItems}
-        navigationType={navigationType}
       />
     </div>
   );

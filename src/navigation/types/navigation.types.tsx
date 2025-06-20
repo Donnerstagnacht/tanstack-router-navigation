@@ -13,8 +13,8 @@ export interface NavigationItem {
   icon: IconName;
   label: string;
   badge?: number;
-  onClick?: () => void;
   href?: string;
+  onClick?: () => void;
 }
 
 export interface NavigationProps {
@@ -23,7 +23,7 @@ export interface NavigationProps {
   hoveredItem: string | null;
   navigationView: NavigationView;
   navigationType: NavigationType;
-  authenticated?: boolean;
+  authenticated: boolean;
 }
 
 export interface NavigationActions {

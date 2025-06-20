@@ -22,6 +22,7 @@ import {
 import { navItemsAuthenticated } from '@/navigation/nav-items/nav-items-authenticated.tsx';
 import { useNavigationStore } from '@/navigation/state/navigation.store';
 import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
+import { useAuthStore } from '@/global-state/auth.store';
 
 export function NavigationCommandDialog({
   primaryNavItems,
@@ -36,6 +37,7 @@ export function NavigationCommandDialog({
   const [open, setOpen] = useState(false);
 
   useCommandDialogShortcut(setOpen, open);
+  const authenticated = useAuthStore(state => state.isAuthenticated);
 
   const onThemeToggle = () => {
     // TODO Implement theme toggle logic here
@@ -121,79 +123,84 @@ export function NavigationCommandDialog({
           })}
         </CommandGroup>
 
-        {[
-          {
-            type: 'projects',
-            heading: t('commandDialog.groups.projectsNavigation'),
-            items: navItemsAuthenticated(router).projectSecondaryNavItems,
-          },
-          {
-            type: 'dashboard',
-            heading: t('commandDialog.groups.dashboardNavigation'),
-            items: navItemsAuthenticated(router).dashboardSecondaryNavItems,
-          },
-        ].map(
-          navGroup =>
-            navGroup.items.length > 0 && (
-              <div key={navGroup.type}>
-                <CommandSeparator />
-                <CommandGroup heading={navGroup.heading}>
-                  {navGroup.items.map((item: NavigationItem) => {
-                    const IconComponent = getIconComponent(item.icon);
-                    return (
-                      <CommandItem
-                        key={item.id}
-                        onSelect={() => {
-                          // Navigate to the appropriate route using TanStack Router
-                          if (item.onClick) {
-                            item.onClick();
-                          } else {
-                            router.navigate({ to: item.href });
-                          }
-                          setOpen(false);
-                        }}
-                      >
-                        <div className="flex items-center">
-                          <IconComponent className="mr-2 h-4 w-4" />
-                          <span>{item.label}</span>
-                          {item.badge && (
-                            <Badge className="ml-2" variant="secondary">
-                              {item.badge}
-                            </Badge>
-                          )}
-                        </div>
-                        <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
-                      </CommandItem>
-                    );
-                  })}
-                </CommandGroup>
-              </div>
-            )
-        )}
+        {authenticated &&
+          [
+            {
+              type: 'projects',
+              heading: t('commandDialog.groups.projectsNavigation'),
+              items: navItemsAuthenticated(router).projectSecondaryNavItems,
+            },
+            {
+              type: 'dashboard',
+              heading: t('commandDialog.groups.dashboardNavigation'),
+              items: navItemsAuthenticated(router).dashboardSecondaryNavItems,
+            },
+          ].map(
+            navGroup =>
+              navGroup.items.length > 0 && (
+                <div key={navGroup.type}>
+                  <CommandSeparator />
+                  <CommandGroup heading={navGroup.heading}>
+                    {navGroup.items.map((item: NavigationItem) => {
+                      const IconComponent = getIconComponent(item.icon);
+                      return (
+                        <CommandItem
+                          key={item.id}
+                          onSelect={() => {
+                            // Navigate to the appropriate route using TanStack Router
+                            if (item.onClick) {
+                              item.onClick();
+                            } else {
+                              router.navigate({ to: item.href });
+                            }
+                            setOpen(false);
+                          }}
+                        >
+                          <div className="flex items-center">
+                            <IconComponent className="mr-2 h-4 w-4" />
+                            <span>{item.label}</span>
+                            {item.badge && (
+                              <Badge className="ml-2" variant="secondary">
+                                {item.badge}
+                              </Badge>
+                            )}
+                          </div>
+                          <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                </div>
+              )
+          )}
 
-        <CommandSeparator />
-        <CommandGroup heading={t('commandDialog.groups.settings')}>
-          <CommandItem
-            onSelect={() => {
-              if (onThemeToggle) onThemeToggle();
-              setOpen(false);
-            }}
-          >
-            <Moon className="mr-2 h-4 w-4" />
-            {t('commandDialog.items.changeTheme')}
-            <CommandShortcut>{getShortcutForItem('theme').display}</CommandShortcut>
-          </CommandItem>
-          <CommandItem
-            onSelect={() => {
-              if (onKeyboardShortcutsOpen) onKeyboardShortcutsOpen();
-              setOpen(false);
-            }}
-          >
-            <Keyboard className="mr-2 h-4 w-4" />
-            {t('commandDialog.items.keyboardShortcuts')}
-            <CommandShortcut>{getShortcutForItem('keyboard').display}</CommandShortcut>
-          </CommandItem>
-        </CommandGroup>
+        {authenticated && (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading={t('commandDialog.groups.settings')}>
+              <CommandItem
+                onSelect={() => {
+                  if (onThemeToggle) onThemeToggle();
+                  setOpen(false);
+                }}
+              >
+                <Moon className="mr-2 h-4 w-4" />
+                {t('commandDialog.items.changeTheme')}
+                <CommandShortcut>{getShortcutForItem('theme').display}</CommandShortcut>
+              </CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  if (onKeyboardShortcutsOpen) onKeyboardShortcutsOpen();
+                  setOpen(false);
+                }}
+              >
+                <Keyboard className="mr-2 h-4 w-4" />
+                {t('commandDialog.items.keyboardShortcuts')}
+                <CommandShortcut>{getShortcutForItem('keyboard').display}</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </>
+        )}
       </CommandList>
     </CommandDialog>
   );
