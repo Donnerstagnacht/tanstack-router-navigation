@@ -121,69 +121,55 @@ export function NavigationCommandDialog({
           })}
         </CommandGroup>
 
-        <CommandSeparator />
-        <CommandGroup heading={t('commandDialog.groups.projectsNavigation')}>
-          {navItemsAuthenticated(router).projectSecondaryNavItems.map((item: NavigationItem) => {
-            const IconComponent = getIconComponent(item.icon);
-            return (
-              <CommandItem
-                key={item.id}
-                onSelect={() => {
-                  // Navigate to the appropriate route using TanStack Router
-                  if (item.onClick) {
-                    item.onClick();
-                  } else {
-                    router.navigate({ to: item.href });
-                  }
-                  setOpen(false);
-                }}
-              >
-                <div className="flex items-center">
-                  <IconComponent className="mr-2 h-4 w-4" />
-                  <span>{item.label}</span>
-                  {item.badge && (
-                    <Badge className="ml-2" variant="secondary">
-                      {item.badge}
-                    </Badge>
-                  )}
-                </div>
-                <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
-              </CommandItem>
-            );
-          })}
-        </CommandGroup>
-
-        <CommandSeparator />
-        <CommandGroup heading={t('commandDialog.groups.dashboardNavigation')}>
-          {navItemsAuthenticated(router).dashboardSecondaryNavItems.map((item: NavigationItem) => {
-            const IconComponent = getIconComponent(item.icon);
-            return (
-              <CommandItem
-                key={item.id}
-                onSelect={() => {
-                  // Navigate to the appropriate route using TanStack Router
-                  if (item.onClick) {
-                    item.onClick();
-                  } else {
-                    router.navigate({ to: item.href });
-                  }
-                  setOpen(false);
-                }}
-              >
-                <div className="flex items-center">
-                  <IconComponent className="mr-2 h-4 w-4" />
-                  <span>{item.label}</span>
-                  {item.badge && (
-                    <Badge className="ml-2" variant="secondary">
-                      {item.badge}
-                    </Badge>
-                  )}
-                </div>
-                <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
-              </CommandItem>
-            );
-          })}
-        </CommandGroup>
+        {[
+          {
+            type: 'projects',
+            heading: t('commandDialog.groups.projectsNavigation'),
+            items: navItemsAuthenticated(router).projectSecondaryNavItems,
+          },
+          {
+            type: 'dashboard',
+            heading: t('commandDialog.groups.dashboardNavigation'),
+            items: navItemsAuthenticated(router).dashboardSecondaryNavItems,
+          },
+        ].map(
+          navGroup =>
+            navGroup.items.length > 0 && (
+              <div key={navGroup.type}>
+                <CommandSeparator />
+                <CommandGroup heading={navGroup.heading}>
+                  {navGroup.items.map((item: NavigationItem) => {
+                    const IconComponent = getIconComponent(item.icon);
+                    return (
+                      <CommandItem
+                        key={item.id}
+                        onSelect={() => {
+                          // Navigate to the appropriate route using TanStack Router
+                          if (item.onClick) {
+                            item.onClick();
+                          } else {
+                            router.navigate({ to: item.href });
+                          }
+                          setOpen(false);
+                        }}
+                      >
+                        <div className="flex items-center">
+                          <IconComponent className="mr-2 h-4 w-4" />
+                          <span>{item.label}</span>
+                          {item.badge && (
+                            <Badge className="ml-2" variant="secondary">
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </div>
+                        <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </div>
+            )
+        )}
 
         <CommandSeparator />
         <CommandGroup heading={t('commandDialog.groups.settings')}>
