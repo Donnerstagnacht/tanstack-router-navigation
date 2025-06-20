@@ -3,7 +3,7 @@ import type { AnyRouter } from '@tanstack/react-router';
 import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 
 // This function factory creates navigation items with router integration
-export const useNavItems = (
+export const navItemsAuthenticated = (
   router: AnyRouter, // Use AnyRouter type from TanStack Router
   setCurrentPrimaryRoute?: (route: string) => void
 ) => {

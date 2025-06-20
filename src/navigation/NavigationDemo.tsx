@@ -11,7 +11,7 @@ import { ThemeToggle } from '@/navigation/toggles/theme-toggle.tsx';
 import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { PriorityType, ScreenType } from './types/navigation.types.tsx';
+import type { NavigationType, ScreenType } from './types/navigation.types.tsx';
 import { useScreenStore } from '@/global-state/screen.store.tsx';
 
 export default function NavigationDemo({
@@ -19,13 +19,13 @@ export default function NavigationDemo({
   onPriorityChange,
 }: {
   onScreenTypeChange?: (screenType: ScreenType) => void;
-  onPriorityChange?: (priority: PriorityType) => void;
+  onPriorityChange?: (priority: NavigationType) => void;
 }) {
   const { t } = useTranslation();
-  const isMobile = useScreenStore(state => state.isMobile);
+  const isMobile = useScreenStore(state => state.isMobileScreen);
   const [screenType, setScreenType] = useState<ScreenType>('automatic');
   const [actualScreen, setActualScreen] = useState<'mobile' | 'desktop'>('desktop');
-  const [priority, setPriority] = useState<PriorityType>('combined');
+  const [priority, setPriority] = useState<NavigationType>('combined');
 
   // Handle screen type changes
   const handleScreenTypeChange = (type: ScreenType) => {
@@ -36,7 +36,7 @@ export default function NavigationDemo({
   };
 
   // Handle priority changes
-  const handlePriorityChange = (type: PriorityType) => {
+  const handlePriorityChange = (type: NavigationType) => {
     setPriority(type);
     if (onPriorityChange) {
       onPriorityChange(type);

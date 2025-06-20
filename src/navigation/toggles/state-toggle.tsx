@@ -2,7 +2,7 @@ import { AlignLeft, Circle, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
 import { useTranslation } from 'react-i18next';
-import type { NavigationState, Size } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationView, Size } from '@/navigation/types/navigation.types.tsx';
 
 const StateButton = ({
   state,
@@ -12,8 +12,8 @@ const StateButton = ({
   title,
   size = 'default',
 }: {
-  state: NavigationState;
-  currentState: NavigationState;
+  state: NavigationView;
+  currentState: NavigationView;
   onClick: () => void;
   icon: React.ComponentType<{ className?: string }>;
   title: string;
@@ -40,8 +40,8 @@ export function StateToggle({
   size = 'default',
   className,
 }: {
-  currentState: NavigationState;
-  onStateChange: (state: NavigationState) => void;
+  currentState: NavigationView;
+  onStateChange: (state: NavigationView) => void;
   size?: Size;
   className?: string;
 }) {

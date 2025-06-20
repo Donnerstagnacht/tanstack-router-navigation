@@ -10,15 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx';
-import type { NavigationState, PriorityType } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationView, NavigationType } from '@/navigation/types/navigation.types.tsx';
 import { useEffect, useState } from 'react';
 
 export const StateSwitcher: React.FC<{
-  state: NavigationState;
-  onStateChange?: (newState: NavigationState) => void;
+  state: NavigationView;
+  onStateChange?: (newState: NavigationView) => void;
   isMobile?: boolean;
-  variant?: NavigationState;
-  priority?: PriorityType;
+  variant?: NavigationView;
+  priority?: NavigationType;
 }> = ({ state, onStateChange, isMobile = false, variant, priority = 'primary' }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);

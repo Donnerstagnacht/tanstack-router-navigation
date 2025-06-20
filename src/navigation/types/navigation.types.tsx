@@ -2,9 +2,9 @@ import type { IconName } from '../nav-items/icon-map';
 
 export type ScreenType = 'mobile' | 'desktop' | 'automatic';
 
-export type PriorityType = 'primary' | 'secondary' | 'combined';
+export type NavigationType = 'primary' | 'secondary' | 'combined';
 
-export type NavigationState = 'asButton' | 'asButtonList' | 'asLabeledButtonList';
+export type NavigationView = 'asButton' | 'asButtonList' | 'asLabeledButtonList';
 
 export type Size = 'default' | 'small';
 
@@ -24,11 +24,10 @@ export interface BaseNavigationProps {
   isMobile: boolean;
   hoveredItem: string | null;
   setHoveredItem: (item: string | null) => void;
-  state: NavigationState;
-  onStateChange?: (newState: NavigationState) => void;
+  state: NavigationView;
+  onStateChange?: (newState: NavigationView) => void;
   className?: string;
   authenticated?: boolean;
-  onUserClick?: () => void;
 }
 
 // Specific props for AsButton navigation
@@ -39,7 +38,7 @@ export type AsButtonNavigationProps = BaseNavigationProps & {
 
 // Specific props for list-type navigations
 export type ListNavigationProps = BaseNavigationProps & {
-  priority: PriorityType;
+  priority: NavigationType;
 };
 
 /**

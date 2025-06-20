@@ -19,8 +19,6 @@ export function AsButtonNavigation({
   onStateChange,
   className,
   authenticated,
-  userName,
-  avatarUrl,
 }: AsButtonNavigationProps) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
@@ -58,10 +56,8 @@ export function AsButtonNavigation({
                 currentRoute={currentRoute}
               />
               {/* User Avatar and Name Button - Full width below menu grid */}
-              {authenticated && userName && isPrimary && (
+              {authenticated && isPrimary && (
                 <NavUserAvatar
-                  userName={userName}
-                  avatarUrl={avatarUrl}
                   className="mt-8"
                   variant="asButton"
                   hoveredItem={hoveredItem}

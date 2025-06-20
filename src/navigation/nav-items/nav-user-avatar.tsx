@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
-import type { NavigationState } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationView } from '@/navigation/types/navigation.types.tsx';
 
 export function NavUserAvatar({
   id,
@@ -15,7 +15,7 @@ export function NavUserAvatar({
   id?: string;
   hoveredItem: string | null;
   setHoveredItem: (item: string | null) => void;
-  variant?: NavigationState;
+  variant?: NavigationView;
   isMobile?: boolean;
   className?: string;
 }) {

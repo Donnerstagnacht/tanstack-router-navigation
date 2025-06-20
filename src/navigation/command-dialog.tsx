@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { useRouter } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
-import { useScreenStore } from '@/global-state/screen.store.tsx';
+import { useNavigationStore } from '@/navigation/state/navigation.store';
 import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 
 // Custom hook to handle command dialog keyboard shortcut
@@ -66,7 +66,7 @@ export function NavigationCommandDialog({
 
   // Verwende den Navigation-Keyboard-Hook direkt in der Komponente
   // Import setPriority für die Navigation-Priorisierung
-  const { setPriority } = useScreenStore();
+  const { setNavigationType: setPriority } = useNavigationStore();
 
   useNavigationKeyboard({
     isActive: true,

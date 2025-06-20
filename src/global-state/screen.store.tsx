@@ -1,22 +1,17 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { useEffect } from 'react';
-import type { PriorityType, ScreenType } from '@/navigation/types/navigation.types.tsx';
+import type { ScreenType } from '@/navigation/types/navigation.types.tsx';
 
-// Define the mobile breakpoint
 const MOBILE_BREAKPOINT = 768;
 
-// Define the store state interface
 interface ScreenState {
-  screen: ScreenType;
-  priority: PriorityType;
-  isMobile: boolean;
+  screenType: ScreenType;
+  isMobileScreen: boolean;
 }
 
-// Define the store actions interface
 interface ScreenActions {
-  setScreen: (screenType: ScreenType) => void;
-  setPriority: (priorityType: PriorityType) => void;
+  setScreenType: (screenType: ScreenType) => void;
   setIsMobile: (isMobile: boolean) => void;
 }
 
@@ -24,26 +19,19 @@ interface ScreenActions {
 export const useScreenStore = create<ScreenState & ScreenActions>()(
   immer(set => ({
     // Initial state
-    screen: 'automatic',
-    priority: 'combined',
-    isMobile: false,
+    screenType: 'automatic',
+    isMobileScreen: false,
 
     // Actions
-    setScreen: screenType => {
+    setScreenType: screenType => {
       set(state => {
-        state.screen = screenType;
-      });
-    },
-
-    setPriority: priorityType => {
-      set(state => {
-        state.priority = priorityType;
+        state.screenType = screenType;
       });
     },
 
     setIsMobile: mobile => {
       set(state => {
-        state.isMobile = mobile;
+        state.isMobileScreen = mobile;
       });
     },
   }))

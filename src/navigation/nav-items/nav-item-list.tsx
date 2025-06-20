@@ -2,7 +2,7 @@ import { Badge } from '../../components/ui/badge.tsx';
 import { Button } from '../../components/ui/button.tsx';
 import { cn } from '@/i18n/i18n.types.ts';
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover.tsx';
-import type { NavigationItem, NavigationState } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationItem, NavigationView } from '@/navigation/types/navigation.types.tsx';
 import { iconMap } from '@/navigation/nav-items/icon-map.tsx';
 import React from 'react';
 
@@ -74,7 +74,7 @@ export function NavItemList({
   currentRoute,
 }: {
   items: NavigationItem[];
-  variant: NavigationState;
+  variant: NavigationView;
   isMobile: boolean;
   isPrimary: boolean;
   hoveredItem: string | null;
