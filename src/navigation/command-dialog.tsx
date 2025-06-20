@@ -38,12 +38,12 @@ export function NavigationCommandDialog({
   useCommandDialogShortcut(setOpen, open);
 
   const onThemeToggle = () => {
-    // Implement theme toggle logic here
+    // TODO Implement theme toggle logic here
     setOpen(false);
   };
 
   const onKeyboardShortcutsOpen = () => {
-    // Implement logic to open keyboard shortcuts dialog
+    // TODO Implement logic to open keyboard shortcuts dialog
     setOpen(false);
   };
 
@@ -121,7 +121,6 @@ export function NavigationCommandDialog({
           })}
         </CommandGroup>
 
-        {/* Always show projects navigation items */}
         <CommandSeparator />
         <CommandGroup heading={t('commandDialog.groups.projectsNavigation')}>
           {navItemsAuthenticated(router).projectSecondaryNavItems.map((item: NavigationItem) => {
@@ -154,7 +153,6 @@ export function NavigationCommandDialog({
           })}
         </CommandGroup>
 
-        {/* Always show dashboard navigation items */}
         <CommandSeparator />
         <CommandGroup heading={t('commandDialog.groups.dashboardNavigation')}>
           {navItemsAuthenticated(router).dashboardSecondaryNavItems.map((item: NavigationItem) => {
