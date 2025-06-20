@@ -23,7 +23,7 @@ export function DynamicNavigation({
   navigationType: NavigationType;
   screenType: ScreenType;
   navigationItems: NavigationItem[];
-  onStateChange?: (newState: NavigationView) => void;
+  onStateChange: (newState: NavigationView) => void;
   authenticated?: boolean;
 }) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);

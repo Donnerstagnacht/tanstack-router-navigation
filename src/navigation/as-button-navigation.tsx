@@ -25,19 +25,16 @@ export function AsButtonNavigation({
 
   return (
     <>
-      {/* Main navigation button - hidden when overlay is open */}
       {!isExpanded && (
         <NavButton isPrimary={isPrimary} isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       )}
 
-      {/* Fullscreen Overlay */}
       {isExpanded && (
         <div
           className="bg-background/95 fixed inset-0 z-50 backdrop-blur-sm"
           onMouseLeave={() => setIsExpanded(false)}
           onClick={() => setIsExpanded(false)}
         >
-          {/* Close button - positioned based on priority */}
           <CloseButton isPrimary={isPrimary} onClose={() => setIsExpanded(false)} />
           <div className="flex h-full items-center justify-center">
             <div className="flex w-full max-w-3xl flex-col items-center px-6">
@@ -50,7 +47,6 @@ export function AsButtonNavigation({
                 setHoveredItem={setHoveredItem}
                 currentRoute={currentRoute}
               />
-              {/* User Avatar and Name Button - Full width below menu grid */}
               {authenticated && isPrimary && (
                 <NavUserAvatar
                   className="mt-8"
@@ -61,8 +57,7 @@ export function AsButtonNavigation({
               )}
             </div>
           </div>
-          {/* State Switcher in Overlay - Only shown for primary navigation */}
-          {isPrimary && onStateChange && (
+          {isPrimary && (
             <StateSwitcher
               state={navigationView}
               onStateChange={onStateChange}

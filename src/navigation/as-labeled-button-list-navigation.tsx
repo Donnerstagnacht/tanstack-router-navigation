@@ -3,6 +3,7 @@ import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
 import { useRouter } from '@tanstack/react-router';
+import { Separator } from '@/components/ui/separator';
 import type { NavigationProps, NavigationActions } from './types/navigation.types';
 
 export function AsLabeledButtonListNavigation({
@@ -38,8 +39,7 @@ export function AsLabeledButtonListNavigation({
             currentRoute={currentRoute}
           />
 
-          {/* Divider */}
-          {isPrimary && <div className="bg-border mx-2 h-12 w-px" />}
+          {isPrimary && <Separator orientation="vertical" className="mx-2 h-12" />}
           {authenticated && isPrimary && (
             <NavUserAvatar
               hoveredItem={hoveredItem}
@@ -94,7 +94,7 @@ export function AsLabeledButtonListNavigation({
             isMobile={false}
           />
         )}
-        {onStateChange && isPrimary && (
+        {isPrimary && (
           <div className="px-4 pb-4">
             <StateSwitcher
               state={navigationView}

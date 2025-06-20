@@ -3,6 +3,7 @@ import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
 import { useRouter } from '@tanstack/react-router';
+import { Separator } from '@/components/ui/separator';
 import type { NavigationProps, NavigationActions } from './types/navigation.types';
 
 export function AsButtonListNavigation({
@@ -37,8 +38,7 @@ export function AsButtonListNavigation({
             currentRoute={currentRoute}
             setHoveredItem={setHoveredItem}
           />
-          {/* Divider */}
-          {isPrimary && <div className={cn('bg-border mx-2 w-px', isPrimary ? 'h-8' : 'h-8')} />}
+          {isPrimary && <Separator orientation="vertical" className="mx-2 h-8" />}
           {authenticated && isPrimary && (
             <NavUserAvatar
               id="user-avatar-mobile"
@@ -48,7 +48,7 @@ export function AsButtonListNavigation({
               isMobile={isMobile}
             />
           )}
-          {onStateChange && isPrimary && (
+          {isPrimary && (
             <div className="flex items-center gap-2 px-2">
               <StateSwitcher
                 state={navigationView}

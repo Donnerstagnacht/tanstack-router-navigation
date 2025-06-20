@@ -14,46 +14,30 @@ import { getIconComponent } from '@/navigation/nav-items/icon-map.tsx';
 import { getShortcutForItem } from '@/navigation/nav-keyboard/keyboard-navigation.ts';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
-import { useNavigationKeyboard } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
+import { useState } from 'react';
+import {
+  useCommandDialogShortcut,
+  useNavigationKeyboard,
+} from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
 import { useNavigationStore } from '@/navigation/state/navigation.store';
-import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
-
-// Custom hook to handle command dialog keyboard shortcut
-export function useCommandDialogShortcut(setOpen: (open: boolean) => void, isOpen: boolean) {
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      // Ctrl+K or Cmd+K to toggle command dialog
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(!isOpen); // Toggle based on current state
-        return;
-      }
-    };
-
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
-  }, [setOpen, isOpen]);
-}
+import type { NavigationItem, NavigationType } from '@/navigation/types/navigation.types.tsx';
 
 export function NavigationCommandDialog({
   primaryNavItems,
   secondaryNavItems,
-  priority,
+  navigationType,
 }: {
   primaryNavItems: NavigationItem[];
   secondaryNavItems: NavigationItem[] | null;
-  priority: 'primary' | 'secondary' | 'combined';
+  navigationType: NavigationType;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
 
-  // Aktiviere den Keyboard-Shortcut direkt in der Komponente
   useCommandDialogShortcut(setOpen, open);
 
-  // Definiere die Callback-Funktionen für Navigation und Dialoge
   const onThemeToggle = () => {
     // Implement theme toggle logic here
     setOpen(false);
@@ -64,9 +48,7 @@ export function NavigationCommandDialog({
     setOpen(false);
   };
 
-  // Verwende den Navigation-Keyboard-Hook direkt in der Komponente
-  // Import setPriority für die Navigation-Priorisierung
-  const { setNavigationType: setPriority } = useNavigationStore();
+  const { setNavigationType } = useNavigationStore();
 
   useNavigationKeyboard({
     isActive: true,
@@ -89,9 +71,9 @@ export function NavigationCommandDialog({
           : false;
 
         if (inPrimary && !inSecondary) {
-          setPriority('primary');
+          setNavigationType('primary');
         } else if (inSecondary && !inPrimary) {
-          setPriority('secondary');
+          setNavigationType('secondary');
         }
 
         setOpen(false);
@@ -140,7 +122,7 @@ export function NavigationCommandDialog({
           })}
         </CommandGroup>
 
-        {priority === 'combined' && secondaryNavItems && (
+        {navigationType === 'combined' && secondaryNavItems && (
           <>
             <CommandSeparator />
             <CommandGroup heading={t('commandDialog.groups.secondaryNavigation')}>

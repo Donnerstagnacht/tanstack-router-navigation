@@ -61,3 +61,19 @@ export function useNavigationKeyboard({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isActive, items, onNavigate, onThemeToggle, onKeyboardShortcutsOpen, onClose]);
 }
+
+export function useCommandDialogShortcut(setOpen: (open: boolean) => void, isOpen: boolean) {
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      // Ctrl+K or Cmd+K to toggle command dialog
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen(!isOpen); // Toggle based on current state
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, [setOpen, isOpen]);
+}

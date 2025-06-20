@@ -75,7 +75,7 @@ function Layout() {
       <NavigationCommandDialog
         primaryNavItems={primaryNavItems}
         secondaryNavItems={secondaryNavItems}
-        priority={navigationType}
+        navigationType={navigationType}
       />
     </div>
   );

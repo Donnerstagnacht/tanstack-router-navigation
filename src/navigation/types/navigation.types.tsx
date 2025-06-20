@@ -12,12 +12,11 @@ export interface NavigationItem {
   id: string;
   icon: IconName;
   label: string;
-  href?: string;
-  onClick?: () => void;
   badge?: number;
+  onClick?: () => void;
+  href?: string;
 }
 
-// Core shared navigation props
 export interface NavigationProps {
   navigationItems: NavigationItem[];
   isMobile: boolean;
@@ -29,7 +28,7 @@ export interface NavigationProps {
 
 export interface NavigationActions {
   setHoveredItem: (item: string | null) => void;
-  onStateChange?: (newState: NavigationView) => void;
+  onStateChange: (newState: NavigationView) => void;
 }
 
 /**
