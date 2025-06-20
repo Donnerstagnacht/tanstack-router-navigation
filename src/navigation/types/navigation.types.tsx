@@ -18,28 +18,19 @@ export interface NavigationItem {
 }
 
 // Core shared navigation props
-export interface BaseNavigationProps {
-  items: NavigationItem[];
-  isPrimary: boolean;
+export interface NavigationProps {
+  navigationItems: NavigationItem[];
   isMobile: boolean;
   hoveredItem: string | null;
-  setHoveredItem: (item: string | null) => void;
-  state: NavigationView;
-  onStateChange?: (newState: NavigationView) => void;
-  className?: string;
+  navigationView: NavigationView;
+  navigationType: NavigationType;
   authenticated?: boolean;
 }
 
-// Specific props for AsButton navigation
-export type AsButtonNavigationProps = BaseNavigationProps & {
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
-};
-
-// Specific props for list-type navigations
-export type ListNavigationProps = BaseNavigationProps & {
-  priority: NavigationType;
-};
+export interface NavigationActions {
+  setHoveredItem: (item: string | null) => void;
+  onStateChange?: (newState: NavigationView) => void;
+}
 
 /**
  * Shortcut representation with display text and keys array

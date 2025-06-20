@@ -8,14 +8,14 @@ export function NavUserAvatar({
   id,
   hoveredItem,
   setHoveredItem,
-  variant,
+  navigationView: variant,
   className,
   isMobile,
 }: {
   id?: string;
   hoveredItem: string | null;
   setHoveredItem: (item: string | null) => void;
-  variant?: NavigationView;
+  navigationView?: NavigationView;
   isMobile?: boolean;
   className?: string;
 }) {

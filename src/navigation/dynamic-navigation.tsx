@@ -16,7 +16,6 @@ export function DynamicNavigation({
   navigationType,
   screenType,
   navigationItems = navItemsUnauthenticated,
-  className = '',
   onStateChange: onStateChange,
   authenticated = true,
 }: {
@@ -24,15 +23,12 @@ export function DynamicNavigation({
   navigationType: NavigationType;
   screenType: ScreenType;
   navigationItems: NavigationItem[];
-  className?: string;
   onStateChange?: (newState: NavigationView) => void;
   authenticated?: boolean;
 }) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
   const isMobile = useScreenStore(state => state.isMobileScreen);
 
-  const isPrimary = navigationType === 'primary';
   const isMobileDevice = screenType === 'mobile' || (screenType === 'automatic' && isMobile);
 
   // Use authenticated status to determine which items to show
@@ -41,17 +37,14 @@ export function DynamicNavigation({
   if (navigationView === 'asButton') {
     return (
       <AsButtonNavigation
-        items={items}
-        isPrimary={isPrimary}
+        navigationItems={items}
         isMobile={isMobileDevice}
-        isExpanded={isExpanded}
-        setIsExpanded={setIsExpanded}
         hoveredItem={hoveredItem}
-        setHoveredItem={setHoveredItem}
-        state={navigationView}
-        onStateChange={onStateChange}
-        className={className}
+        navigationView={navigationView}
         authenticated={authenticated}
+        navigationType={navigationType}
+        onStateChange={onStateChange}
+        setHoveredItem={setHoveredItem}
       />
     );
   }
@@ -59,15 +52,13 @@ export function DynamicNavigation({
   if (navigationView === 'asButtonList') {
     return (
       <AsButtonListNavigation
-        items={items}
-        isPrimary={isPrimary}
+        navigationItems={items}
         isMobile={isMobileDevice}
         hoveredItem={hoveredItem}
         setHoveredItem={setHoveredItem}
-        state={navigationView}
+        navigationView={navigationView}
         onStateChange={onStateChange}
-        priority={navigationType}
-        className={className}
+        navigationType={navigationType}
         authenticated={authenticated}
       />
     );
@@ -76,15 +67,13 @@ export function DynamicNavigation({
   if (navigationView === 'asLabeledButtonList') {
     return (
       <AsLabeledButtonListNavigation
-        items={items}
-        isPrimary={isPrimary}
+        navigationItems={items}
         isMobile={isMobileDevice}
         hoveredItem={hoveredItem}
         setHoveredItem={setHoveredItem}
-        state={navigationView}
+        navigationView={navigationView}
         onStateChange={onStateChange}
-        priority={navigationType}
-        className={className}
+        navigationType={navigationType}
         authenticated={authenticated}
       />
     );

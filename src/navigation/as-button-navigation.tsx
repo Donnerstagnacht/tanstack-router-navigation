@@ -4,35 +4,30 @@ import { Button } from '@/components/ui/button.tsx';
 import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
-import type { AsButtonNavigationProps } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationActions, NavigationProps } from '@/navigation/types/navigation.types.tsx';
 import { useRouter } from '@tanstack/react-router';
+import { useState } from 'react';
 
 export function AsButtonNavigation({
-  items,
-  isPrimary,
+  navigationItems,
+  navigationView,
+  navigationType,
   isMobile,
-  isExpanded,
-  setIsExpanded,
   hoveredItem,
-  setHoveredItem,
-  state,
-  onStateChange,
-  className,
   authenticated,
-}: AsButtonNavigationProps) {
+  onStateChange,
+  setHoveredItem,
+}: NavigationProps & NavigationActions) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
+  const isPrimary = navigationType === 'primary';
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <>
       {/* Main navigation button - hidden when overlay is open */}
       {!isExpanded && (
-        <NavButton
-          isPrimary={isPrimary}
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
-          className={className}
-        />
+        <NavButton isPrimary={isPrimary} isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       )}
 
       {/* Fullscreen Overlay */}
@@ -47,8 +42,8 @@ export function AsButtonNavigation({
           <div className="flex h-full items-center justify-center">
             <div className="flex w-full max-w-3xl flex-col items-center px-6">
               <NavItemList
-                items={items}
-                variant="asButton"
+                navigationItems={navigationItems}
+                navigationView="asButton"
                 isMobile={isMobile}
                 isPrimary={isPrimary}
                 hoveredItem={hoveredItem}
@@ -59,7 +54,7 @@ export function AsButtonNavigation({
               {authenticated && isPrimary && (
                 <NavUserAvatar
                   className="mt-8"
-                  variant="asButton"
+                  navigationView="asButton"
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}
                 />
@@ -68,7 +63,11 @@ export function AsButtonNavigation({
           </div>
           {/* State Switcher in Overlay - Only shown for primary navigation */}
           {isPrimary && onStateChange && (
-            <StateSwitcher state={state} onStateChange={onStateChange} variant="asButton" />
+            <StateSwitcher
+              state={navigationView}
+              onStateChange={onStateChange}
+              navigationView="asButton"
+            />
           )}
         </div>
       )}
@@ -80,7 +79,6 @@ export function NavButton({
   isPrimary,
   isExpanded,
   setIsExpanded,
-  className,
   icon = <Home className="h-6 w-6" />,
 }: {
   isPrimary: boolean;
@@ -95,8 +93,7 @@ export function NavButton({
       size="icon"
       className={cn(
         'fixed bottom-6 z-50 h-14 w-14 rounded-full shadow-lg transition-all duration-300 hover:scale-110',
-        isPrimary ? 'left-6' : 'right-6',
-        className
+        isPrimary ? 'left-6' : 'right-6'
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onClick={() => setIsExpanded(!isExpanded)}

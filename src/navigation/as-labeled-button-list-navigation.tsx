@@ -3,38 +3,34 @@ import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
 import { useRouter } from '@tanstack/react-router';
-import type { ListNavigationProps } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationProps, NavigationActions } from './types/navigation.types';
 
 export function AsLabeledButtonListNavigation({
-  items,
-  isPrimary,
+  navigationItems,
+  navigationView,
+  navigationType,
   isMobile,
   hoveredItem,
-  setHoveredItem,
-  state,
-  onStateChange,
-  priority,
-  className,
   authenticated,
-}: ListNavigationProps) {
+  onStateChange,
+  setHoveredItem,
+}: NavigationProps & NavigationActions) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
+  const isPrimary = navigationType === 'primary';
 
   if (isMobile) {
-    // Mobile: Bottom bar (primary) or Top bar (secondary) with carousel + expandable more menu
     return (
       <div
         className={cn(
           'bg-background fixed right-0 left-0 z-40',
-          isPrimary ? 'bottom-0 border-t' : 'top-0 border-b',
-          className
+          isPrimary ? 'bottom-0 border-t' : 'top-0 border-b'
         )}
       >
         <div className="flex items-center py-2">
-          {/* Scrollable navigation items */}
           <NavItemList
-            items={items}
-            variant="asLabeledButtonList"
+            navigationItems={navigationItems}
+            navigationView="asLabeledButtonList"
             isMobile={true}
             isPrimary={isPrimary}
             hoveredItem={hoveredItem}
@@ -44,25 +40,23 @@ export function AsLabeledButtonListNavigation({
 
           {/* Divider */}
           {isPrimary && <div className="bg-border mx-2 h-12 w-px" />}
-          {/* User Avatar - For Mobile (positioned left of the state switcher) */}
           {authenticated && isPrimary && (
             <NavUserAvatar
               hoveredItem={hoveredItem}
               setHoveredItem={setHoveredItem}
-              variant="asLabeledButtonList"
+              navigationView="asLabeledButtonList"
               isMobile={true}
             />
           )}
 
-          {/* Fixed Expandable State Switcher - Only shown for primary navigation */}
           {onStateChange && isPrimary && (
             <div className="flex items-center gap-2 px-2">
               <StateSwitcher
-                state={state}
+                state={navigationView}
                 onStateChange={onStateChange}
                 isMobile={isMobile}
-                variant="asLabeledButtonList"
-                priority={priority}
+                navigationView="asLabeledButtonList"
+                navigationType={navigationType}
               />
             </div>
           )}
@@ -71,20 +65,18 @@ export function AsLabeledButtonListNavigation({
     );
   }
 
-  // Desktop: Full sidebar with icons and labels
+  // Desktop
   return (
     <div
       className={cn(
         'bg-background fixed top-0 z-40 flex h-full w-64 flex-col border-r',
-        isPrimary ? 'left-0' : 'right-0 border-r-0 border-l',
-        className
+        isPrimary ? 'left-0' : 'right-0 border-r-0 border-l'
       )}
     >
-      {/* Main navigation items with vertical scrolling */}
       <div className="scrollbar-hide flex-1 overflow-y-auto p-4">
         <NavItemList
-          items={items}
-          variant="asLabeledButtonList"
+          navigationItems={navigationItems}
+          navigationView="asLabeledButtonList"
           isMobile={false}
           isPrimary={isPrimary}
           hoveredItem={hoveredItem}
@@ -93,24 +85,21 @@ export function AsLabeledButtonListNavigation({
         />
       </div>
 
-      {/* Footer section with single divider at the top */}
       <div className="flex-shrink-0 border-t">
-        {/* User avatar and name - positioned right below the divider */}
         {authenticated && isPrimary && (
           <NavUserAvatar
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
-            variant="asLabeledButtonList"
+            navigationView="asLabeledButtonList"
             isMobile={false}
           />
         )}
-        {/* State Switcher - Only shown for primary navigation (no additional border) */}
         {onStateChange && isPrimary && (
           <div className="px-4 pb-4">
             <StateSwitcher
-              state={state}
+              state={navigationView}
               onStateChange={onStateChange}
-              variant="asLabeledButtonList"
+              navigationView="asLabeledButtonList"
             />
           </div>
         )}

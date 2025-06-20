@@ -183,10 +183,6 @@ function getMarginBottomForPrimaryMobile({
   isMobile: boolean;
   navigationView: NavigationView;
 }): string {
-  console.log('getMarginBottomForPrimaryMobile', {
-    isMobile,
-    navigationView,
-  });
   if (!isMobile) return '';
 
   if (navigationView === 'asButtonList') {

@@ -17,9 +17,15 @@ export const StateSwitcher: React.FC<{
   state: NavigationView;
   onStateChange?: (newState: NavigationView) => void;
   isMobile?: boolean;
-  variant?: NavigationView;
-  priority?: NavigationType;
-}> = ({ state, onStateChange, isMobile = false, variant, priority = 'primary' }) => {
+  navigationView?: NavigationView;
+  navigationType?: NavigationType;
+}> = ({
+  state,
+  onStateChange,
+  isMobile = false,
+  navigationView: variant,
+  navigationType: priority = 'primary',
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const isPrimary = priority === 'primary';

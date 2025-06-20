@@ -64,8 +64,8 @@ function isItemActive(item: NavigationItem, currentRoute?: string, isPrimary?: b
 }
 
 export function NavItemList({
-  items,
-  variant,
+  navigationItems: items,
+  navigationView: variant,
   isMobile,
   isPrimary: isPrimary,
   hoveredItem,
@@ -73,8 +73,8 @@ export function NavItemList({
   className,
   currentRoute,
 }: {
-  items: NavigationItem[];
-  variant: NavigationView;
+  navigationItems: NavigationItem[];
+  navigationView: NavigationView;
   isMobile: boolean;
   isPrimary: boolean;
   hoveredItem: string | null;

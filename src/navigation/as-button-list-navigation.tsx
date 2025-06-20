@@ -3,65 +3,59 @@ import { StateSwitcher } from '@/navigation/toggles/state-switcher.tsx';
 import { NavItemList } from '@/navigation/nav-items/nav-item-list.tsx';
 import { NavUserAvatar } from '@/navigation/nav-items/nav-user-avatar.tsx';
 import { useRouter } from '@tanstack/react-router';
-import type { ListNavigationProps } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationProps, NavigationActions } from './types/navigation.types';
 
 export function AsButtonListNavigation({
-  items,
-  isPrimary,
+  navigationItems,
+  navigationView,
+  navigationType,
   isMobile,
   hoveredItem,
-  setHoveredItem,
-  state,
-  onStateChange,
-  priority,
-  className,
   authenticated,
-}: ListNavigationProps) {
+  onStateChange,
+  setHoveredItem,
+}: NavigationProps & NavigationActions) {
   const router = useRouter();
   const currentRoute = router.state.location.pathname;
+  const isPrimary = navigationType === 'primary';
 
   if (isMobile) {
-    // Mobile: Bottom bar (primary) or Top bar (secondary) with carousel + expandable more menu
     return (
       <div
         className={cn(
           'bg-background fixed right-0 left-0 z-40',
-          isPrimary ? 'bottom-0 border-t' : 'top-0 border-b',
-          className
+          isPrimary ? 'bottom-0 border-t' : 'top-0 border-b'
         )}
       >
         <div className="flex items-center py-2">
-          {/* Scrollable navigation items */}
           <NavItemList
-            items={items}
-            variant="asButtonList"
+            navigationItems={navigationItems}
+            navigationView="asButtonList"
             isMobile={isMobile}
-            isPrimary={isPrimary}
             hoveredItem={hoveredItem}
-            setHoveredItem={setHoveredItem}
+            isPrimary={isPrimary}
             currentRoute={currentRoute}
+            setHoveredItem={setHoveredItem}
           />
           {/* Divider */}
           {isPrimary && <div className={cn('bg-border mx-2 w-px', isPrimary ? 'h-8' : 'h-8')} />}
-          {/* User Avatar - For Mobile (positioned left of the state switcher) */}
           {authenticated && isPrimary && (
             <NavUserAvatar
               id="user-avatar-mobile"
               hoveredItem={hoveredItem}
               setHoveredItem={setHoveredItem}
-              variant="asButtonList"
+              navigationView="asButtonList"
               isMobile={isMobile}
             />
           )}
-          {/* Fixed Expandable State Switcher - Only shown for primary navigation */}
           {onStateChange && isPrimary && (
             <div className="flex items-center gap-2 px-2">
               <StateSwitcher
-                state={state}
+                state={navigationView}
                 onStateChange={onStateChange}
                 isMobile={isMobile}
-                variant="asButtonList"
-                priority={priority}
+                navigationView="asButtonList"
+                navigationType={navigationType}
               />
             </div>
           )}
@@ -70,22 +64,20 @@ export function AsButtonListNavigation({
     );
   }
 
-  // Desktop: Side bar with icons and popover labels
+  // Desktop
   return (
     <div
       className={cn(
         'bg-background fixed top-0 z-40 flex h-full w-16 flex-col border-r',
-        isPrimary ? 'left-0' : 'right-0 border-r-0 border-l',
-        className
+        isPrimary ? 'left-0' : 'right-0 border-r-0 border-l'
       )}
     >
       {isPrimary ? (
-        // Primary Navigation (links) - with vertical scrolling
         <>
           <div className="scrollbar-hide flex-1 overflow-y-auto py-4">
             <NavItemList
-              items={items}
-              variant="asButtonList"
+              navigationItems={navigationItems}
+              navigationView="asButtonList"
               isMobile={isMobile}
               isPrimary={isPrimary}
               hoveredItem={hoveredItem}
@@ -95,25 +87,23 @@ export function AsButtonListNavigation({
           </div>
           <div className="flex-shrink-0 border-t">
             <div className="flex flex-col items-center gap-2 p-2">
-              {/* User Avatar */}
               {authenticated && (
                 <NavUserAvatar
                   id="user-avatar"
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}
                   isMobile={isMobile}
-                  variant="asButtonList"
+                  navigationView="asButtonList"
                 />
               )}
-              {/* Expandable State Switcher */}
               {onStateChange && (
                 <div className="flex flex-col items-center gap-2">
                   <StateSwitcher
-                    state={state}
+                    state={navigationView}
                     isMobile={isMobile}
                     onStateChange={onStateChange}
-                    variant="asButtonList"
-                    priority={priority}
+                    navigationView="asButtonList"
+                    navigationType={navigationType}
                   />
                 </div>
               )}
@@ -121,11 +111,10 @@ export function AsButtonListNavigation({
           </div>
         </>
       ) : (
-        // Secondary Navigation (rechts) - with vertical scrolling
         <div className="scrollbar-hide flex-1 overflow-y-auto py-4">
           <NavItemList
-            items={items}
-            variant="asButtonList"
+            navigationItems={navigationItems}
+            navigationView="asButtonList"
             isMobile={false}
             isPrimary={isPrimary}
             hoveredItem={hoveredItem}
