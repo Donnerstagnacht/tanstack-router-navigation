@@ -19,17 +19,16 @@ import {
   useCommandDialogShortcut,
   useNavigationKeyboard,
 } from '@/navigation/nav-keyboard/use-navigation-keyboard.tsx';
+import { navItemsAuthenticated } from '@/navigation/nav-items/nav-items-authenticated.tsx';
 import { useNavigationStore } from '@/navigation/state/navigation.store';
-import type { NavigationItem, NavigationType } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationItem } from '@/navigation/types/navigation.types.tsx';
 
 export function NavigationCommandDialog({
   primaryNavItems,
   secondaryNavItems,
-  navigationType,
 }: {
   primaryNavItems: NavigationItem[];
   secondaryNavItems: NavigationItem[] | null;
-  navigationType: NavigationType;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
@@ -122,41 +121,71 @@ export function NavigationCommandDialog({
           })}
         </CommandGroup>
 
-        {navigationType === 'combined' && secondaryNavItems && (
-          <>
-            <CommandSeparator />
-            <CommandGroup heading={t('commandDialog.groups.secondaryNavigation')}>
-              {secondaryNavItems.map(item => {
-                const IconComponent = getIconComponent(item.icon);
-                return (
-                  <CommandItem
-                    key={item.id}
-                    onSelect={() => {
-                      // Navigate to the appropriate route using TanStack Router
-                      if (item.onClick) {
-                        item.onClick();
-                      } else {
-                        router.navigate({ to: item.href });
-                      }
-                      setOpen(false);
-                    }}
-                  >
-                    <div className="flex items-center">
-                      <IconComponent className="mr-2 h-4 w-4" />
-                      <span>{item.label}</span>
-                      {item.badge && (
-                        <Badge className="ml-2" variant="secondary">
-                          {item.badge}
-                        </Badge>
-                      )}
-                    </div>
-                    <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
-                  </CommandItem>
-                );
-              })}
-            </CommandGroup>
-          </>
-        )}
+        {/* Always show projects navigation items */}
+        <CommandSeparator />
+        <CommandGroup heading={t('commandDialog.groups.projectsNavigation')}>
+          {navItemsAuthenticated(router).projectSecondaryNavItems.map((item: NavigationItem) => {
+            const IconComponent = getIconComponent(item.icon);
+            return (
+              <CommandItem
+                key={item.id}
+                onSelect={() => {
+                  // Navigate to the appropriate route using TanStack Router
+                  if (item.onClick) {
+                    item.onClick();
+                  } else {
+                    router.navigate({ to: item.href });
+                  }
+                  setOpen(false);
+                }}
+              >
+                <div className="flex items-center">
+                  <IconComponent className="mr-2 h-4 w-4" />
+                  <span>{item.label}</span>
+                  {item.badge && (
+                    <Badge className="ml-2" variant="secondary">
+                      {item.badge}
+                    </Badge>
+                  )}
+                </div>
+                <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
+              </CommandItem>
+            );
+          })}
+        </CommandGroup>
+
+        {/* Always show dashboard navigation items */}
+        <CommandSeparator />
+        <CommandGroup heading={t('commandDialog.groups.dashboardNavigation')}>
+          {navItemsAuthenticated(router).dashboardSecondaryNavItems.map((item: NavigationItem) => {
+            const IconComponent = getIconComponent(item.icon);
+            return (
+              <CommandItem
+                key={item.id}
+                onSelect={() => {
+                  // Navigate to the appropriate route using TanStack Router
+                  if (item.onClick) {
+                    item.onClick();
+                  } else {
+                    router.navigate({ to: item.href });
+                  }
+                  setOpen(false);
+                }}
+              >
+                <div className="flex items-center">
+                  <IconComponent className="mr-2 h-4 w-4" />
+                  <span>{item.label}</span>
+                  {item.badge && (
+                    <Badge className="ml-2" variant="secondary">
+                      {item.badge}
+                    </Badge>
+                  )}
+                </div>
+                <CommandShortcut>{getShortcutForItem(item.id).display}</CommandShortcut>
+              </CommandItem>
+            );
+          })}
+        </CommandGroup>
 
         <CommandSeparator />
         <CommandGroup heading={t('commandDialog.groups.settings')}>

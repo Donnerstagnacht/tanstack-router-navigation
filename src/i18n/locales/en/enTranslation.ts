@@ -135,6 +135,8 @@ const enTranslation = {
     groups: {
       primaryNavigation: 'Primary Navigation',
       secondaryNavigation: 'Secondary Navigation',
+      projectsNavigation: 'Projects Navigation',
+      dashboardNavigation: 'Dashboard Navigation',
       settings: 'Settings',
     },
     items: {
