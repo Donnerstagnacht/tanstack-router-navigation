@@ -1,4 +1,4 @@
-import { Moon, Sun, Laptop } from 'lucide-react';
+import { Laptop, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -6,10 +6,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useTheme } from '@/components/navigation/toggles/theme-provider';
+import { useThemeStore } from '@/global-state/theme.store.tsx';
 
 export function ThemeToggle() {
-  const { theme, setTheme, isDark } = useTheme();
+  const theme = useThemeStore(state => state.theme);
+  const setTheme = useThemeStore(state => state.setTheme);
+  const isDark = useThemeStore(state => state.isDark);
 
   return (
     <DropdownMenu>

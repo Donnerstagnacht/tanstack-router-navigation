@@ -136,6 +136,8 @@ const deTranslation: I18nLocale = {
     groups: {
       primaryNavigation: 'Primäre Navigation',
       secondaryNavigation: 'Sekundäre Navigation',
+      projectsNavigation: 'Projekte Navigation',
+      dashboardNavigation: 'Dashboard Navigation',
       settings: 'Einstellungen',
     },
     items: {

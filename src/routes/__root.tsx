@@ -1,214 +1,209 @@
-import { Outlet, createRootRoute, useRouter } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { ThemeProvider } from '@/components/navigation/toggles/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { DynamicNavigation } from '@/components/navigation/dynamic-navigation';
-import { NavigationCommandDialog } from '@/components/navigation/command-dialog';
-import { useState, useEffect } from 'react';
-import { ScreenProvider, useScreenContext } from '@/contexts/screen-context';
-import { useNavigationKeyboard } from '@/hooks/use-navigation-keyboard';
-import { useNavItems } from '@/lib/navigation/nav-config';
+import { DynamicNavigation } from '@/navigation/dynamic-navigation.tsx';
+import { NavigationCommandDialog } from '@/navigation/command-dialog.tsx';
+import { useScreenResponsiveDetector, useScreenStore } from '@/global-state/screen.store.tsx';
+import { useNavigationStore } from '@/navigation/state/navigation.store';
+import { useThemeInitializer } from '@/global-state/theme.store.tsx';
+import type {
+  NavigationItem,
+  NavigationType,
+  NavigationView,
+} from '@/navigation/types/navigation.types';
+import { useNavigation } from '@/navigation/state/useNavigation';
+import { navItemsUnauthenticated } from '@/navigation/nav-items/nav-items-unauthenticated';
+import { useAuthStore, useAuthInitializer } from '@/global-state/auth.store';
 
 export const Route = createRootRoute({
   component: () => {
+    // Initialize theme, screen responsive detection, and auth state
+    useThemeInitializer({ defaultTheme: 'system', storageKey: 'theme' });
+    useScreenResponsiveDetector();
+
+    // Initialize authentication
+    useAuthInitializer({
+      onInitialized: isAuthenticated => {
+        console.log('Auth initialized:', isAuthenticated);
+        // You could trigger additional actions here when auth state is initialized
+      },
+      // Uncomment to enable auto-login for development
+      autoLogin: true,
+      storageKey: 'auth-storage',
+    });
+
     return (
-      <ThemeProvider defaultTheme="system" storageKey="theme">
-        <ScreenProvider>
-          <RootContent />
-          <Toaster richColors position="top-right" />
-          <TanStackRouterDevtools />
-        </ScreenProvider>
-      </ThemeProvider>
+      <>
+        <Layout />
+        <Toaster richColors position="top-right" />
+        <TanStackRouterDevtools />
+      </>
     );
   },
 });
 
-function RootContent() {
-  // State for navigation configuration
-  const [state, setState] = useState<'asButton' | 'asButtonList' | 'asLabeledButtonList'>(
-    'asButtonList'
-  );
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
-  // Get screen and priority from context
-  const { screen, priority, setPriority } = useScreenContext();
-  // Track current route to determine which secondary nav items to display
-  const [currentPrimaryRoute, setCurrentPrimaryRoute] = useState<string | null>(null);
+function Layout() {
+  const { screenType, isMobileScreen } = useScreenStore();
+  const { navigationType, navigationView } = useNavigationStore();
+  const { primaryNavItems, secondaryNavItems } = useNavigation();
+  const { isAuthenticated } = useAuthStore();
 
-  // Import navigation items from the navigation config
-  const { primaryNavItems, getSecondaryNavItems } = useNavItems(router, setCurrentPrimaryRoute);
+  // Determine navigation items based on authentication status
+  const navigationItems = isAuthenticated ? primaryNavItems : navItemsUnauthenticated;
 
-  const secondaryNavItems = getSecondaryNavItems(currentPrimaryRoute);
-
-  // Set initial route based on current path
-  useEffect(() => {
-    const path = window.location.pathname;
-    const route = path === '/' ? 'home' : path.split('/')[1];
-    setCurrentPrimaryRoute(route);
-  }, []);
-
-  // Add command dialog open effect with keyboard shortcut
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      // Ctrl+K or Cmd+K to toggle command dialog
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(open => !open);
-        return;
-      }
-    };
-
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
-  }, []);
-
-  // Use our custom hook for handling navigation shortcuts
-  useNavigationKeyboard({
-    isActive: true,
-    onNavigate: (itemId: string) => {
-      const allItems = [...primaryNavItems, ...(secondaryNavItems || [])];
-      const item = allItems.find(item => item.id === itemId);
-      if (item) {
-        console.log(`Navigating to ${item.label}`);
-        setOpen(false);
-
-        // Navigate to the appropriate route using TanStack Router
-        if (item.onClick) {
-          item.onClick();
-        } else {
-          const route = itemId === 'home' ? '/' : `/${itemId}`;
-          router.navigate({ to: route });
-        }
-
-        // Toggle priority based on navigation item if it exists in both
-        const inPrimary = primaryNavItems.some(i => i.id === item.id);
-        const inSecondary = secondaryNavItems
-          ? secondaryNavItems.some(i => i.id === item.id)
-          : false;
-        if (inPrimary && !inSecondary) {
-          setPriority('primary');
-        } else if (inSecondary && !inPrimary) {
-          setPriority('secondary');
-        }
-      }
-    },
-    onThemeToggle: () => {
-      console.log('Changing theme');
-      setOpen(false);
-    },
-    onKeyboardShortcutsOpen: () => {
-      console.log('Opening keyboard shortcuts');
-      setOpen(false);
-    },
-    onClose: () => setOpen(false),
-    items: [...primaryNavItems, ...(secondaryNavItems || [])],
-  });
-
-  const getMarginClass = () => {
-    const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
-    const isEffectivelyMobile = screen === 'mobile' || (screen === 'automatic' && isMobileDevice);
-    const isEffectivelyDesktop =
-      screen === 'desktop' || (screen === 'automatic' && !isMobileDevice);
-
-    // Check if secondary navigation items exist
-    const hasSecondaryNav = secondaryNavItems && secondaryNavItems.length > 0;
-    // Check if secondary nav should be visible based on priority
-    const isSecondaryNavVisible =
-      hasSecondaryNav && (priority === 'secondary' || priority === 'combined');
-    const isPrimaryNavVisible = priority === 'primary' || priority === 'combined';
-
-    // Mobile navigation
-    if (isEffectivelyMobile && (state === 'asButtonList' || state === 'asLabeledButtonList')) {
-      if (priority === 'combined' && hasSecondaryNav) {
-        return 'mt-20 mb-20'; // Space for both bars
-      }
-
-      // Only add top margin if secondary nav exists and is visible
-      const topMargin = isSecondaryNavVisible ? 'mt-20' : '';
-      // Only add bottom margin if primary nav is visible
-      const bottomMargin = isPrimaryNavVisible ? 'mb-20' : '';
-
-      return `${topMargin} ${bottomMargin}`.trim();
-    }
-
-    // Desktop side navigation
-    if (isEffectivelyDesktop) {
-      if (state === 'asButton') return '';
-      if (state === 'asButtonList') {
-        if (priority === 'combined' && hasSecondaryNav) {
-          return 'ml-16 mr-16'; // Space for both side bars
-        }
-
-        // Only add right margin if secondary nav exists and is visible
-        const rightMargin = isSecondaryNavVisible ? 'mr-16' : '';
-        // Only add left margin if primary nav is visible
-        const leftMargin = isPrimaryNavVisible ? 'ml-16' : '';
-
-        return `${leftMargin} ${rightMargin}`.trim();
-      }
-      if (state === 'asLabeledButtonList') {
-        if (priority === 'combined' && hasSecondaryNav) {
-          return 'ml-64 mr-64'; // Space for both labeled side bars
-        }
-
-        // Only add right margin if secondary nav exists and is visible
-        const rightMargin = isSecondaryNavVisible ? 'mr-64' : '';
-        // Only add left margin if primary nav is visible
-        const leftMargin = isPrimaryNavVisible ? 'ml-64' : '';
-
-        return `${leftMargin} ${rightMargin}`.trim();
-      }
-    }
-
-    return '';
-  };
+  const isMobile = screenType === 'mobile' || (screenType === 'automatic' && isMobileScreen);
 
   return (
     <div className="bg-background min-h-screen">
-      {(priority === 'primary' || priority === 'combined') && (
+      {['primary', 'combined'].includes(navigationType) && (
         <DynamicNavigation
-          state={state}
-          priority="primary"
-          screen={screen}
-          onStateChange={newState => {
-            setState(newState);
-            console.log(`State changed to ${newState}`);
-          }}
-          userName="John Doe"
-          avatarUrl="/placeholder-user.jpg"
-          onUserClick={() => console.log('User profile clicked')}
-          navigationItems={primaryNavItems}
+          navigationType="primary"
+          navigationView={navigationView}
+          navigationItems={navigationItems}
+          screenType={screenType}
         />
       )}
-      {secondaryNavItems && (priority === 'secondary' || priority === 'combined') && (
-        <DynamicNavigation
-          state={state}
-          priority="secondary"
-          screen={screen}
-          onStateChange={newState => {
-            setState(newState);
-            console.log(`State changed to ${newState}`);
-          }}
-          userName="John Doe"
-          avatarUrl="/placeholder-user.jpg"
-          onUserClick={() => console.log('User profile clicked')}
-          navigationItems={secondaryNavItems}
-        />
-      )}
-      <main className={`transition-all duration-300 ${getMarginClass()}`}>
+      {isAuthenticated &&
+        secondaryNavItems &&
+        ['secondary', 'combined'].includes(navigationType) && (
+          <DynamicNavigation
+            navigationType="secondary"
+            navigationView={navigationView}
+            navigationItems={secondaryNavItems}
+            screenType={screenType}
+          />
+        )}
+      <main
+        className={`transition-all duration-300 ${getMarginClasses({
+          isMobile,
+          navigationView: navigationView,
+          navigationType: navigationType,
+          secondaryNavItems,
+        })}`}
+      >
         <Outlet />
       </main>
 
       {/* Command Dialog for global search */}
       <NavigationCommandDialog
-        open={open}
-        setOpen={setOpen}
-        primaryNavItems={primaryNavItems}
+        primaryNavItems={navigationItems}
         secondaryNavItems={secondaryNavItems}
-        priority={priority}
-        onThemeToggle={() => console.log('Changing theme')}
-        onKeyboardShortcutsOpen={() => console.log('Opening keyboard shortcuts')}
       />
     </div>
   );
+}
+
+function getMarginClasses({
+  isMobile,
+  navigationView,
+  navigationType,
+  secondaryNavItems,
+}: {
+  isMobile: boolean;
+  navigationView: NavigationView;
+  navigationType: NavigationType;
+  secondaryNavItems: NavigationItem[] | null;
+}) {
+  // Check if secondary nav should be visible based on priority
+  const isSecondaryNavVisible =
+    secondaryNavItems &&
+    secondaryNavItems.length > 0 &&
+    ['secondary', 'combined'].includes(navigationType);
+
+  const marginLeft = getMarginLeftForPrimaryDesktop({
+    isMobile,
+    navigationView: navigationView,
+  });
+  const marginRight = getMarginRightForSecondaryDesktop({
+    isMobile,
+    state: navigationView,
+    isSecondaryNavVisible,
+  });
+  const marginTop = getMarginTopForSecondaryMobile({
+    isMobile,
+    navigationView: navigationView,
+    isSecondaryNavVisible,
+  });
+  const marginBottom = getMarginBottomForPrimaryMobile({
+    isMobile,
+    navigationView: navigationView,
+  });
+
+  return [marginLeft, marginRight, marginTop, marginBottom].filter(Boolean).join(' ');
+}
+
+function getMarginLeftForPrimaryDesktop({
+  isMobile,
+  navigationView,
+}: {
+  isMobile: boolean;
+  navigationView: NavigationView;
+}): string {
+  if (isMobile) return '';
+
+  if (navigationView === 'asButton') return '';
+  if (navigationView === 'asButtonList') return 'ml-16';
+  if (navigationView === 'asLabeledButtonList') return 'ml-64';
+
+  return '';
+}
+
+function getMarginRightForSecondaryDesktop({
+  isMobile,
+  state,
+  isSecondaryNavVisible,
+}: {
+  isMobile: boolean;
+  state: NavigationView;
+  isSecondaryNavVisible: boolean | null;
+}): string {
+  if (isMobile) return '';
+
+  if (state === 'asButton') return '';
+  if (state === 'asButtonList' && isSecondaryNavVisible) return 'mr-16';
+  if (state === 'asLabeledButtonList' && isSecondaryNavVisible) return 'mr-64';
+
+  return '';
+}
+
+function getMarginTopForSecondaryMobile({
+  isMobile,
+  navigationView,
+  isSecondaryNavVisible,
+}: {
+  isMobile: boolean;
+  navigationView: NavigationView;
+  isSecondaryNavVisible: boolean | null;
+}): string {
+  if (!isMobile || !isSecondaryNavVisible) return '';
+
+  if (navigationView === 'asButtonList') {
+    return 'mt-16';
+  }
+
+  if (navigationView === 'asLabeledButtonList') {
+    return 'mt-20';
+  }
+
+  return '';
+}
+
+function getMarginBottomForPrimaryMobile({
+  isMobile,
+  navigationView,
+}: {
+  isMobile: boolean;
+  navigationView: NavigationView;
+}): string {
+  if (!isMobile) return '';
+
+  if (navigationView === 'asButtonList') {
+    return 'mb-16';
+  }
+
+  if (navigationView === 'asLabeledButtonList') {
+    return 'mb-20';
+  }
+
+  return '';
 }

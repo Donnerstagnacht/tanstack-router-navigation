@@ -1,4 +1,4 @@
-import type { DeepReplace } from '@/lib/utils';
+import type { DeepReplace } from '@/i18n/i18n.types.ts';
 
 const enTranslation = {
   home: {
@@ -135,6 +135,8 @@ const enTranslation = {
     groups: {
       primaryNavigation: 'Primary Navigation',
       secondaryNavigation: 'Secondary Navigation',
+      projectsNavigation: 'Projects Navigation',
+      dashboardNavigation: 'Dashboard Navigation',
       settings: 'Settings',
     },
     items: {
