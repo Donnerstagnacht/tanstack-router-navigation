@@ -33,7 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { insertBlock, insertInlineElement } from '@/components/transforms';
+import { insertBlock, insertInlineElement } from '@/components/plate-js/transforms.ts';
 
 import { ToolbarButton, ToolbarMenuGroup } from './toolbar';
 

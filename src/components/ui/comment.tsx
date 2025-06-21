@@ -32,8 +32,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
-import { BasicMarksKit } from '@/components/basic-marks-kit';
-import { type TDiscussion, discussionPlugin } from '@/components/discussion-kit';
+import { BasicMarksKit } from '@/components/plate-js/basic-marks-kit.tsx';
+import { type TDiscussion, discussionPlugin } from '@/components/plate-js/discussion-kit.tsx';
 
 import { Editor, EditorContainer } from './editor';
 

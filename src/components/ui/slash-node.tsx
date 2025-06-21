@@ -25,7 +25,7 @@ import {
 import { type TComboboxInputElement, KEYS } from 'platejs';
 import { PlateElement } from 'platejs/react';
 
-import { insertBlock, insertInlineElement } from '@/components/transforms';
+import { insertBlock, insertInlineElement } from '@/components/plate-js/transforms.ts';
 
 import {
   InlineCombobox,

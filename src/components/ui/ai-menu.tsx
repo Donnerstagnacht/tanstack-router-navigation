@@ -28,7 +28,7 @@ import { Button } from '@/components/ui/button';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { useChat } from '@/components/use-chat';
+import { useChat } from '@/components/plate-js/use-chat.ts';
 
 import { AIChatEditor } from './ai-chat-editor';
 

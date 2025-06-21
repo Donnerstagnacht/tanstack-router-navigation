@@ -7,7 +7,7 @@ import { CornerDownLeftIcon } from 'lucide-react';
 import { PlateLeaf, useEditorPlugin, usePluginOption } from 'platejs/react';
 
 import { cn } from '@/lib/utils';
-import { type SuggestionConfig, suggestionPlugin } from '@/components/suggestion-kit';
+import { type SuggestionConfig, suggestionPlugin } from '@/components/plate-js/suggestion-kit.tsx';
 
 export function SuggestionLeaf(props: PlateLeafProps<TSuggestionText>) {
   const { api, setOption } = useEditorPlugin(suggestionPlugin);

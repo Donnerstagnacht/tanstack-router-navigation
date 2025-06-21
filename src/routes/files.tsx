@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { PlateEditor } from '@/components/plate-editor';
+import { PlateEditor } from '@/components/plate-js/plate-editor.tsx';
 
 export const Route = createFileRoute('/files')({ component: Files });
 

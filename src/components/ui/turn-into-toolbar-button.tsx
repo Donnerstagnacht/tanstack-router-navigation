@@ -27,7 +27,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { getBlockType, setBlockType } from '@/components/transforms';
+import { getBlockType, setBlockType } from '@/components/plate-js/transforms.ts';
 
 import { ToolbarButton, ToolbarMenuGroup } from './toolbar';
 

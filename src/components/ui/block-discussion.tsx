@@ -20,9 +20,9 @@ import { useEditorPlugin, useEditorRef, usePluginOption } from 'platejs/react';
 
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { commentPlugin } from '@/components/comment-kit';
-import { type TDiscussion, discussionPlugin } from '@/components/discussion-kit';
-import { suggestionPlugin } from '@/components/suggestion-kit';
+import { commentPlugin } from '@/components/plate-js/comment-kit.tsx';
+import { type TDiscussion, discussionPlugin } from '@/components/plate-js/discussion-kit.tsx';
+import { suggestionPlugin } from '@/components/plate-js/suggestion-kit.tsx';
 
 import {
   BlockSuggestionCard,

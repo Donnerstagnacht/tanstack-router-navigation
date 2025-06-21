@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useAIChatEditor } from '@platejs/ai/react';
 import { usePlateEditor } from 'platejs/react';
 
-import { BaseEditorKit } from '@/components/editor-base-kit';
+import { BaseEditorKit } from '@/components/plate-js/editor-base-kit.tsx';
 
 import { EditorStatic } from './editor-static';
 
