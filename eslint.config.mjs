@@ -8,7 +8,7 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 export default tseslint.config(
   {
     // Define ignores for the flat config
-    ignores: ['src/components/**/*'],
+    ignores: ['src/components/ui/**/*', 'src/components/plate-js/**/*'],
   },
   eslint.configs.recommended,
   tseslint.configs.strict,
