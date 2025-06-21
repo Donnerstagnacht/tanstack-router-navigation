@@ -61,7 +61,7 @@ const groups: Group[] = [
       },
       {
         icon: <Heading1Icon />,
-        label: 'Heading 1',
+        label: 'Überschrift 1',
         value: 'h1',
       },
       {

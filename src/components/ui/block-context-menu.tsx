@@ -129,7 +129,9 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
             <ContextMenuSubContent className="w-48">
               <ContextMenuItem onClick={() => handleTurnInto(KEYS.p)}>Paragraph</ContextMenuItem>
 
-              <ContextMenuItem onClick={() => handleTurnInto(KEYS.h1)}>Heading 1</ContextMenuItem>
+              <ContextMenuItem onClick={() => handleTurnInto(KEYS.h1)}>
+                Überschrift 1
+              </ContextMenuItem>
               <ContextMenuItem onClick={() => handleTurnInto(KEYS.h2)}>Heading 2</ContextMenuItem>
               <ContextMenuItem onClick={() => handleTurnInto(KEYS.h3)}>Heading 3</ContextMenuItem>
               <ContextMenuItem onClick={() => handleTurnInto(KEYS.blockquote)}>

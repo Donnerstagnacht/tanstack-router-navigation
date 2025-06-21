@@ -41,7 +41,7 @@ const turnIntoItems = [
   {
     icon: <Heading1Icon />,
     keywords: ['title', 'h1'],
-    label: 'Heading 1',
+    label: 'Überschrift 1',
     value: 'h1',
   },
   {

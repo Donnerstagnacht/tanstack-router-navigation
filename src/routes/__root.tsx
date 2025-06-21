@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+// import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { Toaster } from '@/components/ui/sonner';
 import { DynamicNavigation } from '@/navigation/dynamic-navigation.tsx';
 import { NavigationCommandDialog } from '@/navigation/command-dialog.tsx';
@@ -36,7 +36,7 @@ export const Route = createRootRoute({
       <>
         <Layout />
         <Toaster richColors position="top-right" />
-        <TanStackRouterDevtools />
+        {/*<TanStackRouterDevtools /> */}
       </>
     );
   },

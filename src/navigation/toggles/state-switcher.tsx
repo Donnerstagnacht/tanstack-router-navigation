@@ -10,18 +10,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx';
-import type { NavigationView, NavigationType } from '@/navigation/types/navigation.types.tsx';
+import type { NavigationType } from '@/navigation/types/navigation.types.tsx';
 import { useEffect, useState } from 'react';
 import { useNavigationStore } from '../state/navigation.store';
 
 export const StateSwitcher: React.FC<{
-  state: NavigationView;
-  isMobile?: boolean;
-  navigationType?: NavigationType;
-}> = ({ state, isMobile = false, navigationType: priority = 'primary' }) => {
+  isMobile: boolean;
+  navigationType: NavigationType;
+}> = ({ isMobile, navigationType: navigationType }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
-  const isPrimary = priority === 'primary';
+  const isPrimary = navigationType === 'primary';
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { navigationView, setNavigationView } = useNavigationStore();
 
@@ -37,7 +36,7 @@ export const StateSwitcher: React.FC<{
   if (navigationView === 'asLabeledButtonList' && !isMobile) {
     return (
       <div className="flex items-center gap-3">
-        <StateToggle currentState={state} onStateChange={setNavigationView} size="small" />
+        <StateToggle currentState={navigationView} onStateChange={setNavigationView} size="small" />
         <div className="bg-border h-8 w-px"></div>
         <LanguageToggle size="small" />
         <div className="bg-border h-8 w-px"></div>
@@ -47,7 +46,7 @@ export const StateSwitcher: React.FC<{
   }
 
   // Mobile expandable variant - positioned based on priority
-  if (['asButtonList', 'asButtonList'].includes(navigationView) && isMobile) {
+  if (['asButtonList', 'asLabeledButtonList'].includes(navigationView) && isMobile) {
     return (
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>
@@ -98,7 +97,7 @@ export const StateSwitcher: React.FC<{
           <DropdownMenuSeparator />
           <div className="p-1">
             <StateToggle
-              currentState={state}
+              currentState={navigationView}
               onStateChange={newState => {
                 setNavigationView(newState);
                 setIsDropdownOpen(false);
@@ -169,7 +168,7 @@ export const StateSwitcher: React.FC<{
           </>
           <div className="p-1">
             <StateToggle
-              currentState={state}
+              currentState={navigationView}
               onStateChange={newState => {
                 setNavigationView(newState);
                 setIsExpanded(false);
@@ -186,7 +185,7 @@ export const StateSwitcher: React.FC<{
   if (navigationView === 'asButton') {
     return (
       <div className="bg-background/95 absolute bottom-8 left-1/2 flex -translate-x-1/2 transform gap-2 rounded-full border p-2 shadow-lg backdrop-blur-sm">
-        <StateToggle currentState={state} onStateChange={setNavigationView} />
+        <StateToggle currentState={navigationView} onStateChange={setNavigationView} />
         <>
           <div className="bg-border mx-1 w-px"></div>
           <LanguageToggle />

@@ -45,7 +45,7 @@ const TYPE_TEXT_MAP: Record<string, (node?: TElement) => string> = {
   [KEYS.column]: () => 'Column',
   [KEYS.equation]: () => 'Equation',
   [KEYS.file]: () => 'File',
-  [KEYS.h1]: () => `Heading 1`,
+  [KEYS.h1]: () => `Überschrift 1`,
   [KEYS.h2]: () => `Heading 2`,
   [KEYS.h3]: () => `Heading 3`,
   [KEYS.h4]: () => `Heading 4`,
