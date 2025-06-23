@@ -11,6 +11,7 @@ import ReactFlow, {
   type NodeMouseHandler,
   type EdgeMouseHandler,
 } from 'reactflow';
+import type { NodeTypes } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -44,6 +45,38 @@ interface Edge {
   type?: string;
   style?: React.CSSProperties;
 }
+
+// Custom Group Node component
+//ts-expect-warn-next-line
+const GroupNode = ({ data }: { data: { label: string }; selected: boolean }) => {
+  return (
+    <>
+      <div
+        className="group-node-label"
+        style={{
+          position: 'absolute',
+          top: '8px',
+          left: '8px',
+          padding: '2px 5px',
+          background: 'rgba(255, 255, 255, 0.9)',
+          borderRadius: '3px',
+          fontSize: '12px',
+          fontWeight: 'bold',
+          zIndex: 1,
+        }}
+      >
+        {data.label}
+      </div>
+      {/* This is a wrapper that contains the child nodes */}
+      <div style={{ width: '100%', height: '100%', position: 'relative' }} />
+    </>
+  );
+};
+
+// Node types configuration
+const nodeTypes: NodeTypes = {
+  group: GroupNode,
+};
 
 // Initial nodes representing a city council workflow
 const initialNodes: Node[] = [
@@ -492,13 +525,13 @@ export function FlowEditor() {
             strokeWidth: selectedEdge?.id === edge.id ? 3 : undefined,
           },
         }))}
+        nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
         onNodeClick={onNodeClick}
         // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
-
         onEdgeClick={onEdgeClick}
         fitView
       >
