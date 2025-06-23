@@ -26,6 +26,9 @@ interface Node {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
   type?: string;
+  style?: React.CSSProperties;
+  parentId?: string;
+  extent?: 'parent';
 }
 
 interface Edge {
@@ -150,7 +153,8 @@ export function FlowEditor() {
   // Initialize nodes and edges with our predefined city council workflow
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [selectedNodes, setSelectedNodes] = useState<Node[]>([]);
+  const [multiSelectMode, setMultiSelectMode] = useState(false);
 
   // Handle new connections between nodes
   const onConnect = useCallback(
@@ -164,10 +168,100 @@ export function FlowEditor() {
   // Handle node selection
   const onNodeClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>, node: Node) => {
-      setSelectedNode(node);
+      if (multiSelectMode) {
+        // In multi-select mode, toggle the node selection
+        setSelectedNodes(prev => {
+          const isSelected = prev.some(n => n.id === node.id);
+          if (isSelected) {
+            return prev.filter(n => n.id !== node.id);
+          } else {
+            return [...prev, node];
+          }
+        });
+      } else {
+        // In single-select mode, just select this node
+        setSelectedNodes([node]);
+      }
     },
-    []
+    [multiSelectMode]
   );
+
+  // Toggle multi-select mode
+  const toggleMultiSelectMode = useCallback(() => {
+    setMultiSelectMode(prev => !prev);
+    if (!multiSelectMode) {
+      // Clear selection when entering multi-select mode
+      setSelectedNodes([]);
+    }
+  }, [multiSelectMode]);
+
+  // Create a group from selected nodes
+  const createGroup = useCallback(() => {
+    if (selectedNodes.length < 2) return;
+
+    // Find boundaries of selected nodes
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
+    selectedNodes.forEach(node => {
+      minX = Math.min(minX, node.position.x);
+      minY = Math.min(minY, node.position.y);
+      maxX = Math.max(maxX, node.position.x + ((node.style?.width as number) || 180));
+      maxY = Math.max(maxY, node.position.y + 50); // Assuming height of about 50px
+    });
+
+    // Add padding
+    const padding = 30;
+    minX -= padding;
+    minY -= padding;
+    maxX += padding;
+    maxY += padding;
+
+    // Create group node
+    const groupId = `group-${Date.now()}`;
+    const groupNode: Node = {
+      id: groupId,
+      type: 'group',
+      position: { x: minX, y: minY },
+      style: {
+        width: maxX - minX,
+        height: maxY - minY,
+        backgroundColor: 'rgba(240, 240, 240, 0.7)',
+        border: '1px dashed #aaa',
+        borderRadius: 8,
+        padding: 10,
+        zIndex: -1,
+      },
+      data: { label: `Group ${nodes.length + 1}` },
+    };
+
+    // Update child nodes to reference the group
+    const updatedNodes = nodes.map(node => {
+      if (selectedNodes.some(n => n.id === node.id)) {
+        return {
+          ...node,
+          parentId: groupId,
+          extent: 'parent' as const,
+          position: {
+            x: node.position.x - minX,
+            y: node.position.y - minY,
+          },
+          style: {
+            ...node.style,
+            backgroundColor: node.style?.background || '#bbdefb',
+          },
+        };
+      }
+      return node;
+    });
+
+    // Add the group node and update child nodes
+    setNodes([groupNode, ...updatedNodes]);
+    setSelectedNodes([]);
+    setMultiSelectMode(false);
+  }, [nodes, selectedNodes, setNodes]);
+
   // Add a new proposal node
   const addProposalNode = useCallback(() => {
     const newId = (nodes.length + 1).toString();
@@ -184,14 +278,21 @@ export function FlowEditor() {
   const resetWorkflow = useCallback(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
-    setSelectedNode(null);
+    setSelectedNodes([]);
   }, [setNodes, setEdges]);
 
   return (
     <div className="h-screen w-full">
       {' '}
       <ReactFlow
-        nodes={nodes}
+        nodes={nodes.map(node => ({
+          ...node,
+          // Highlight selected nodes
+          style: {
+            ...node.style,
+            boxShadow: selectedNodes.some(n => n.id === node.id) ? '0 0 0 2px #ff0072' : undefined,
+          },
+        }))}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
@@ -205,19 +306,32 @@ export function FlowEditor() {
           <p className="mb-3 text-sm text-gray-600">
             Interactive diagram showing the proposal lifecycle in city government
           </p>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button size="sm" onClick={addProposalNode}>
               Add Proposal
             </Button>
+            <Button
+              size="sm"
+              variant={multiSelectMode ? 'default' : 'outline'}
+              onClick={toggleMultiSelectMode}
+            >
+              {multiSelectMode ? 'Multi-Select: ON' : 'Multi-Select: OFF'}
+            </Button>
+            {selectedNodes.length >= 2 && (
+              <Button size="sm" variant="secondary" onClick={createGroup}>
+                Group Selected ({selectedNodes.length})
+              </Button>
+            )}
             <Button size="sm" variant="outline" onClick={resetWorkflow}>
               Reset
             </Button>
           </div>
         </Panel>
+
         {/* Information panel for selected node */}
-        {selectedNode && (
+        {selectedNodes.length === 1 && (
           <Panel position="top-right" className="w-80 rounded bg-white p-4 shadow">
-            <h3 className="text-md font-bold">{selectedNode.data.label}</h3>
+            <h3 className="text-md font-bold">{selectedNodes[0].data.label}</h3>
           </Panel>
         )}
 
