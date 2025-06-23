@@ -63,6 +63,16 @@ export const navItemsAuthenticated = (
       },
     },
     {
+      id: 'flow',
+      label: t('navigation.primary.flow'),
+      icon: 'Workflow',
+      href: '/flow',
+      onClick: () => {
+        router.navigate({ to: '/flow' });
+        if (setCurrentPrimaryRoute) setCurrentPrimaryRoute('flow');
+      },
+    },
+    {
       id: 'projects',
       label: t('navigation.primary.projects'),
       icon: 'FolderOpen',

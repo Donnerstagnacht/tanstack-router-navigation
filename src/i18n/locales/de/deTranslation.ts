@@ -45,6 +45,7 @@ const deTranslation: I18nLocale = {
       projects: 'Projekte',
       calendar: 'Kalender',
       notifications: 'Benachrichtigungen',
+      flow: 'Flow',
     },
     secondary: {
       projects: {

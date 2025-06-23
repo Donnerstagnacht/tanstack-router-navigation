@@ -21,6 +21,7 @@ export const navigationShortcuts: Record<string, KeyboardShortcut> = {
   projects: { display: 'Alt+Shift+P', keys: ['Alt', 'Shift', 'p'] },
   calendar: { display: 'Alt+Shift+C', keys: ['Alt', 'Shift', 'c'] },
   notifications: { display: 'Alt+Shift+N', keys: ['Alt', 'Shift', 'n'] },
+  flow: { display: 'Alt+Shift+L', keys: ['Alt', 'Shift', 'l'] },
 
   // Settings shortcut items
   theme: { display: 'Alt+Shift+T', keys: ['Alt', 'Shift', 't'] },

@@ -19,6 +19,7 @@ import {
   Settings,
   Sun,
   User,
+  Workflow,
 } from 'lucide-react';
 import type { ComponentType } from 'react';
 
@@ -43,6 +44,7 @@ export const iconMap = {
   LineChart,
   FileText,
   AreaChart,
+  Workflow,
 } as const;
 
 export type IconName = keyof typeof iconMap;
