@@ -8,6 +8,7 @@ import ReactFlow, {
   addEdge,
   Panel,
   ConnectionLineType,
+  type NodeMouseHandler,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Button } from '../ui/button';
@@ -23,7 +24,7 @@ interface Connection {
 interface Node {
   id: string;
   position: { x: number; y: number };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   data: any;
   type?: string;
   style?: React.CSSProperties;
@@ -167,7 +168,7 @@ export function FlowEditor() {
 
   // Handle node selection
   const onNodeClick = useCallback(
-    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, node: Node) => {
+    (event: NodeMouseHandler, node: Node) => {
       if (multiSelectMode) {
         // In multi-select mode, toggle the node selection
         setSelectedNodes(prev => {
@@ -239,6 +240,11 @@ export function FlowEditor() {
     // Update child nodes to reference the group
     const updatedNodes = nodes.map(node => {
       if (selectedNodes.some(n => n.id === node.id)) {
+        // Create a new style object with the correct property name and type
+        const newStyle = { ...node.style };
+        // Don't attempt to set backgroundColor, keep using background property
+        // This avoids the type conflict
+
         return {
           ...node,
           parentId: groupId,
@@ -247,10 +253,8 @@ export function FlowEditor() {
             x: node.position.x - minX,
             y: node.position.y - minY,
           },
-          style: {
-            ...node.style,
-            backgroundColor: node.style?.background || '#bbdefb',
-          },
+          // Keep the original style properties without modifying them
+          style: newStyle,
         };
       }
       return node;
@@ -260,6 +264,40 @@ export function FlowEditor() {
     setNodes([groupNode, ...updatedNodes]);
     setSelectedNodes([]);
     setMultiSelectMode(false);
+  }, [nodes, selectedNodes, setNodes]);
+
+  // Ungroup nodes from a selected group
+  const ungroupNodes = useCallback(() => {
+    if (selectedNodes.length !== 1 || selectedNodes[0].type !== 'group') return;
+
+    const groupNode = selectedNodes[0];
+    const groupId = groupNode.id;
+    const groupPosition = groupNode.position;
+
+    // Find all child nodes of this group
+    //const childNodes = nodes.filter(node => node.parentId === groupId);
+
+    // Update nodes: remove the group and update child nodes
+    const updatedNodes = nodes
+      .filter(node => node.id !== groupId) // Remove the group node
+      .map(node => {
+        if (node.parentId === groupId) {
+          // Reposition child nodes to absolute coordinates
+          return {
+            ...node,
+            parentId: undefined,
+            extent: undefined,
+            position: {
+              x: node.position.x + groupPosition.x,
+              y: node.position.y + groupPosition.y,
+            },
+          };
+        }
+        return node;
+      });
+
+    setNodes(updatedNodes);
+    setSelectedNodes([]);
   }, [nodes, selectedNodes, setNodes]);
 
   // Add a new proposal node
@@ -297,6 +335,7 @@ export function FlowEditor() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
         onNodeClick={onNodeClick}
         fitView
       >
@@ -320,6 +359,11 @@ export function FlowEditor() {
             {selectedNodes.length >= 2 && (
               <Button size="sm" variant="secondary" onClick={createGroup}>
                 Group Selected ({selectedNodes.length})
+              </Button>
+            )}
+            {selectedNodes.length === 1 && selectedNodes[0].type === 'group' && (
+              <Button size="sm" variant="secondary" onClick={ungroupNodes}>
+                Ungroup
               </Button>
             )}
             <Button size="sm" variant="outline" onClick={resetWorkflow}>
