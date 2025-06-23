@@ -23,7 +23,7 @@ export default tseslint.config(
       'react-hooks': reactHooksPlugin,
     },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off'
-    }
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
   }
 );

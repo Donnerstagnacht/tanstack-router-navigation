@@ -9,9 +9,12 @@ import ReactFlow, {
   Panel,
   ConnectionLineType,
   type NodeMouseHandler,
+  type EdgeMouseHandler,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 
 // Define missing types since they're not exported
 interface Connection {
@@ -24,7 +27,7 @@ interface Connection {
 interface Node {
   id: string;
   position: { x: number; y: number };
-   
+
   data: any;
   type?: string;
   style?: React.CSSProperties;
@@ -40,8 +43,6 @@ interface Edge {
   animated?: boolean;
   type?: string;
 }
-
-// No custom node components - using basic nodes instead
 
 // Initial nodes representing a city council workflow
 const initialNodes: Node[] = [
@@ -155,7 +156,11 @@ export function FlowEditor() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNodes, setSelectedNodes] = useState<Node[]>([]);
+  const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
+  const [edgeLabel, setEdgeLabel] = useState<string>('');
   const [multiSelectMode, setMultiSelectMode] = useState(false);
+  const [nodeLabel, setNodeLabel] = useState<string>('');
+  const [isEditingNode, setIsEditingNode] = useState(false);
 
   // Handle new connections between nodes
   const onConnect = useCallback(
@@ -169,6 +174,9 @@ export function FlowEditor() {
   // Handle node selection
   const onNodeClick = useCallback(
     (event: NodeMouseHandler, node: Node) => {
+      // Clear any selected edge when selecting a node
+      setSelectedEdge(null);
+
       if (multiSelectMode) {
         // In multi-select mode, toggle the node selection
         setSelectedNodes(prev => {
@@ -182,10 +190,34 @@ export function FlowEditor() {
       } else {
         // In single-select mode, just select this node
         setSelectedNodes([node]);
+        setNodeLabel(node.data.label || '');
+        setIsEditingNode(false);
       }
     },
     [multiSelectMode]
   );
+
+  // Handle edge selection
+  const onEdgeClick = useCallback((event: EdgeMouseHandler, edge: Edge) => {
+    // Clear any selected nodes when selecting an edge
+    setSelectedNodes([]);
+    setSelectedEdge(edge);
+    setEdgeLabel(edge.label || '');
+  }, []);
+
+  // Update edge label
+  const updateEdgeLabel = useCallback(() => {
+    if (!selectedEdge) return;
+
+    setEdges(eds =>
+      eds.map(e => {
+        if (e.id === selectedEdge.id) {
+          return { ...e, label: edgeLabel };
+        }
+        return e;
+      })
+    );
+  }, [selectedEdge, edgeLabel, setEdges]);
 
   // Toggle multi-select mode
   const toggleMultiSelectMode = useCallback(() => {
@@ -319,6 +351,39 @@ export function FlowEditor() {
     setSelectedNodes([]);
   }, [setNodes, setEdges]);
 
+  // Start editing node
+  const startEditingNode = useCallback(() => {
+    if (selectedNodes.length !== 1) return;
+    setIsEditingNode(true);
+  }, [selectedNodes]);
+
+  // Cancel editing node
+  const cancelEditNode = useCallback(() => {
+    if (selectedNodes.length !== 1) return;
+    setIsEditingNode(false);
+    setNodeLabel(selectedNodes[0].data.label || '');
+  }, [selectedNodes]);
+
+  // Update node properties
+  const updateNodeProperties = useCallback(() => {
+    if (selectedNodes.length !== 1 || !isEditingNode) return;
+
+    const selectedNode = selectedNodes[0];
+
+    setNodes(nds =>
+      nds.map(node => {
+        if (node.id === selectedNode.id) {
+          // Create a new data object with the updated label
+          const newData = { ...node.data, label: nodeLabel };
+          return { ...node, data: newData };
+        }
+        return node;
+      })
+    );
+
+    setIsEditingNode(false);
+  }, [selectedNodes, nodeLabel, isEditingNode, setNodes]);
+
   return (
     <div className="h-screen w-full">
       {' '}
@@ -331,12 +396,22 @@ export function FlowEditor() {
             boxShadow: selectedNodes.some(n => n.id === node.id) ? '0 0 0 2px #ff0072' : undefined,
           },
         }))}
-        edges={edges}
+        edges={edges.map(edge => ({
+          ...edge,
+          // Highlight selected edge
+          style: {
+            stroke: selectedEdge?.id === edge.id ? '#ff0072' : undefined,
+            strokeWidth: selectedEdge?.id === edge.id ? 3 : undefined,
+          },
+        }))}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
         onNodeClick={onNodeClick}
+        // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
+
+        onEdgeClick={onEdgeClick}
         fitView
       >
         {/* Control panels */}
@@ -375,7 +450,59 @@ export function FlowEditor() {
         {/* Information panel for selected node */}
         {selectedNodes.length === 1 && (
           <Panel position="top-right" className="w-80 rounded bg-white p-4 shadow">
-            <h3 className="text-md font-bold">{selectedNodes[0].data.label}</h3>
+            {isEditingNode ? (
+              <div className="space-y-2">
+                <h3 className="text-md mb-2 font-bold">Edit Node</h3>
+                <Label htmlFor="nodeLabel">Label</Label>
+                <Input
+                  id="nodeLabel"
+                  value={nodeLabel}
+                  onChange={e => setNodeLabel(e.target.value)}
+                  placeholder="Enter node label"
+                />
+                <div className="flex gap-2">
+                  <Button size="sm" onClick={updateNodeProperties}>
+                    Save
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={cancelEditNode}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h3 className="text-md font-bold">{selectedNodes[0].data.label}</h3>
+                <div className="mt-2">
+                  <Button size="sm" onClick={startEditingNode}>
+                    Edit Node
+                  </Button>
+                </div>
+              </div>
+            )}
+          </Panel>
+        )}
+
+        {/* Edge label editor panel */}
+        {selectedEdge && (
+          <Panel position="top-right" className="w-80 rounded bg-white p-4 shadow">
+            <h3 className="text-md mb-2 font-bold">Edit Edge Label</h3>
+            <div className="space-y-2">
+              <Label htmlFor="edgeLabel">Label</Label>
+              <Input
+                id="edgeLabel"
+                value={edgeLabel}
+                onChange={e => setEdgeLabel(e.target.value)}
+                placeholder="Enter edge label"
+              />
+              <div className="flex gap-2">
+                <Button size="sm" onClick={updateEdgeLabel}>
+                  Update Label
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => setSelectedEdge(null)}>
+                  Cancel
+                </Button>
+              </div>
+            </div>
           </Panel>
         )}
 
