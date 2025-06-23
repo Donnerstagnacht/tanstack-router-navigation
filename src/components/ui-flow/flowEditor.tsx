@@ -384,6 +384,27 @@ export function FlowEditor() {
     setIsEditingNode(false);
   }, [selectedNodes, nodeLabel, isEditingNode, setNodes]);
 
+  // Delete selected nodes
+  const deleteSelectedNodes = useCallback(() => {
+    if (selectedNodes.length === 0) return;
+
+    // Get IDs of nodes to delete
+    const nodeIdsToDelete = selectedNodes.map(node => node.id);
+
+    // Filter out the selected nodes
+    const updatedNodes = nodes.filter(node => !nodeIdsToDelete.includes(node.id));
+
+    // Also remove edges connected to deleted nodes
+    const updatedEdges = edges.filter(
+      edge => !nodeIdsToDelete.includes(edge.source) && !nodeIdsToDelete.includes(edge.target)
+    );
+
+    // Update state
+    setNodes(updatedNodes);
+    setEdges(updatedEdges);
+    setSelectedNodes([]);
+  }, [nodes, edges, selectedNodes, setNodes, setEdges]);
+
   return (
     <div className="h-screen w-full">
       {' '}
@@ -441,6 +462,11 @@ export function FlowEditor() {
                 Ungroup
               </Button>
             )}
+            {selectedNodes.length > 0 && (
+              <Button size="sm" variant="destructive" onClick={deleteSelectedNodes}>
+                Delete Selected
+              </Button>
+            )}
             <Button size="sm" variant="outline" onClick={resetWorkflow}>
               Reset
             </Button>
@@ -472,9 +498,12 @@ export function FlowEditor() {
             ) : (
               <div>
                 <h3 className="text-md font-bold">{selectedNodes[0].data.label}</h3>
-                <div className="mt-2">
+                <div className="mt-2 flex gap-2">
                   <Button size="sm" onClick={startEditingNode}>
                     Edit Node
+                  </Button>
+                  <Button size="sm" variant="destructive" onClick={deleteSelectedNodes}>
+                    Delete
                   </Button>
                 </div>
               </div>
