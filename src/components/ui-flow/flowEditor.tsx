@@ -42,6 +42,7 @@ interface Edge {
   label?: string;
   animated?: boolean;
   type?: string;
+  style?: React.CSSProperties;
 }
 
 // Initial nodes representing a city council workflow
@@ -138,17 +139,52 @@ const initialNodes: Node[] = [
 
 // Initial edges connecting the nodes
 const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2' },
-  { id: 'e2-3', source: '2', target: '3' },
-  { id: 'e3-4', source: '3', target: '4', label: 'Policy Review' },
-  { id: 'e3-5', source: '3', target: '5', label: 'Budget Impact' },
-  { id: 'e4-6', source: '4', target: '6' },
-  { id: 'e5-6', source: '5', target: '6' },
-  { id: 'e6-7', source: '6', target: '7', label: 'Approved by Committee' },
-  { id: 'e7-8', source: '7', target: '8' },
-  { id: 'e8-9', source: '8', target: '9' },
-  { id: 'e9-10', source: '9', target: '10', label: 'Passed' },
-  { id: 'e10-11', source: '10', target: '11', label: 'Signed' },
+  { id: 'e1-2', source: '1', target: '2', animated: true, style: { strokeDasharray: '5 5' } },
+  { id: 'e2-3', source: '2', target: '3', animated: true, style: { strokeDasharray: '5 5' } },
+  {
+    id: 'e3-4',
+    source: '3',
+    target: '4',
+    label: 'Policy Review',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+  },
+  {
+    id: 'e3-5',
+    source: '3',
+    target: '5',
+    label: 'Budget Impact',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+  },
+  { id: 'e4-6', source: '4', target: '6', animated: true, style: { strokeDasharray: '5 5' } },
+  { id: 'e5-6', source: '5', target: '6', animated: true, style: { strokeDasharray: '5 5' } },
+  {
+    id: 'e6-7',
+    source: '6',
+    target: '7',
+    label: 'Approved by Committee',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+  },
+  { id: 'e7-8', source: '7', target: '8', animated: true, style: { strokeDasharray: '5 5' } },
+  { id: 'e8-9', source: '8', target: '9', animated: true, style: { strokeDasharray: '5 5' } },
+  {
+    id: 'e9-10',
+    source: '9',
+    target: '10',
+    label: 'Passed',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+  },
+  {
+    id: 'e10-11',
+    source: '10',
+    target: '11',
+    label: 'Signed',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+  },
 ];
 
 export function FlowEditor() {
@@ -166,7 +202,15 @@ export function FlowEditor() {
   const onConnect = useCallback(
     (params: Connection | Edge) =>
       setEdges(eds =>
-        addEdge({ ...params, animated: true, type: ConnectionLineType.SmoothStep }, eds)
+        addEdge(
+          {
+            ...params,
+            animated: true,
+            type: ConnectionLineType.SmoothStep,
+            style: { strokeDasharray: '5 5' },
+          },
+          eds
+        )
       ),
     [setEdges]
   );
