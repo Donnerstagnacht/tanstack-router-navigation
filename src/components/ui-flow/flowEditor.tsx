@@ -405,6 +405,18 @@ export function FlowEditor() {
     setSelectedNodes([]);
   }, [nodes, edges, selectedNodes, setNodes, setEdges]);
 
+  // Delete selected edge
+  const deleteSelectedEdge = useCallback(() => {
+    if (!selectedEdge) return;
+
+    // Filter out the selected edge
+    const updatedEdges = edges.filter(edge => edge.id !== selectedEdge.id);
+
+    // Update state
+    setEdges(updatedEdges);
+    setSelectedEdge(null);
+  }, [selectedEdge, edges, setEdges]);
+
   return (
     <div className="h-screen w-full">
       {' '}
@@ -529,6 +541,11 @@ export function FlowEditor() {
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => setSelectedEdge(null)}>
                   Cancel
+                </Button>
+              </div>
+              <div className="mt-2">
+                <Button size="sm" variant="destructive" onClick={deleteSelectedEdge}>
+                  Delete Edge
                 </Button>
               </div>
             </div>
