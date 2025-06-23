@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import HelloPlate from '../components/plate-js/plate';
+import { PlateEditor } from '@/components/kit-platejs/plate-editor.tsx';
 
 export const Route = createFileRoute('/files')({ component: Files });
 
@@ -7,7 +7,7 @@ function Files() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="mb-4 text-2xl font-bold">Files</h1>
-      <HelloPlate />
+      <PlateEditor />
     </div>
   );
 }
