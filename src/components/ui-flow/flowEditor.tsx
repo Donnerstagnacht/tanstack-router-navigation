@@ -433,9 +433,20 @@ export function FlowEditor() {
     if (selectedNodes.length === 0) return;
 
     // Get IDs of nodes to delete
-    const nodeIdsToDelete = selectedNodes.map(node => node.id);
+    let nodeIdsToDelete = selectedNodes.map(node => node.id);
 
-    // Filter out the selected nodes
+    // Also identify child nodes of any group that's being deleted
+    selectedNodes.forEach(node => {
+      if (node.type === 'group') {
+        // Find all child nodes of this group
+        const childNodeIds = nodes.filter(n => n.parentId === node.id).map(n => n.id);
+
+        // Add child node IDs to the deletion list
+        nodeIdsToDelete = [...nodeIdsToDelete, ...childNodeIds];
+      }
+    });
+
+    // Filter out the selected nodes and their children
     const updatedNodes = nodes.filter(node => !nodeIdsToDelete.includes(node.id));
 
     // Also remove edges connected to deleted nodes
