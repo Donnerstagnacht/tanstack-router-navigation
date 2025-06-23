@@ -230,6 +230,20 @@ export function FlowEditor() {
   const [multiSelectMode, setMultiSelectMode] = useState(false);
   const [nodeLabel, setNodeLabel] = useState<string>('');
   const [isEditingNode, setIsEditingNode] = useState(false);
+  // Add state for interactive mode
+  const [isInteractive, setIsInteractive] = useState<boolean>(true);
+
+  // Handle interactive mode changes
+  const handleInteractiveChange = useCallback((interactiveState: boolean) => {
+    setIsInteractive(interactiveState);
+
+    // Clear selections when locking the editor
+    if (!interactiveState) {
+      setSelectedNodes([]);
+      setSelectedEdge(null);
+      setIsEditingNode(false);
+    }
+  }, []);
 
   // Handle new connections between nodes
   const onConnect = useCallback(
@@ -251,6 +265,8 @@ export function FlowEditor() {
   // Handle node selection
   const onNodeClick = useCallback(
     (event: NodeMouseHandler, node: Node) => {
+      if (!isInteractive) return; // Prevent selection when not interactive
+
       // Clear any selected edge when selecting a node
       setSelectedEdge(null);
 
@@ -271,16 +287,21 @@ export function FlowEditor() {
         setIsEditingNode(false);
       }
     },
-    [multiSelectMode]
+    [multiSelectMode, isInteractive]
   );
 
   // Handle edge selection
-  const onEdgeClick = useCallback((event: EdgeMouseHandler, edge: Edge) => {
-    // Clear any selected nodes when selecting an edge
-    setSelectedNodes([]);
-    setSelectedEdge(edge);
-    setEdgeLabel(edge.label || '');
-  }, []);
+  const onEdgeClick = useCallback(
+    (event: EdgeMouseHandler, edge: Edge) => {
+      if (!isInteractive) return; // Prevent selection when not interactive
+
+      // Clear any selected nodes when selecting an edge
+      setSelectedNodes([]);
+      setSelectedEdge(edge);
+      setEdgeLabel(edge.label || '');
+    },
+    [isInteractive]
+  );
 
   // Update edge label
   const updateEdgeLabel = useCallback(() => {
@@ -521,14 +542,20 @@ export function FlowEditor() {
           ...edge,
           // Highlight selected edge
           style: {
+            ...edge.style,
             stroke: selectedEdge?.id === edge.id ? '#ff0072' : undefined,
             strokeWidth: selectedEdge?.id === edge.id ? 3 : undefined,
           },
         }))}
+        nodesDraggable={isInteractive}
+        nodesFocusable={isInteractive}
+        nodesConnectable={isInteractive}
+        edgesFocusable={isInteractive}
+        edgesUpdatable={isInteractive}
         nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+        onNodesChange={isInteractive ? onNodesChange : undefined}
+        onEdgesChange={isInteractive ? onEdgesChange : undefined}
+        onConnect={isInteractive ? onConnect : undefined}
         // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
         onNodeClick={onNodeClick}
         // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
@@ -542,39 +569,50 @@ export function FlowEditor() {
             Interactive diagram showing the proposal lifecycle in city government
           </p>
           <div className="flex flex-wrap gap-2">
-            <Button size="sm" onClick={addProposalNode}>
-              Add Proposal
-            </Button>
+            {isInteractive && (
+              <>
+                <Button size="sm" onClick={addProposalNode}>
+                  Add Proposal
+                </Button>
+                <Button
+                  size="sm"
+                  variant={multiSelectMode ? 'default' : 'outline'}
+                  onClick={toggleMultiSelectMode}
+                >
+                  {multiSelectMode ? 'Multi-Select: ON' : 'Multi-Select: OFF'}
+                </Button>
+                {selectedNodes.length >= 2 && (
+                  <Button size="sm" variant="secondary" onClick={createGroup}>
+                    Group Selected ({selectedNodes.length})
+                  </Button>
+                )}
+                {selectedNodes.length === 1 && selectedNodes[0].type === 'group' && (
+                  <Button size="sm" variant="secondary" onClick={ungroupNodes}>
+                    Ungroup
+                  </Button>
+                )}
+                {selectedNodes.length > 0 && (
+                  <Button size="sm" variant="destructive" onClick={deleteSelectedNodes}>
+                    Delete Selected
+                  </Button>
+                )}
+                <Button size="sm" variant="outline" onClick={resetWorkflow}>
+                  Reset
+                </Button>
+              </>
+            )}
             <Button
               size="sm"
-              variant={multiSelectMode ? 'default' : 'outline'}
-              onClick={toggleMultiSelectMode}
+              variant={isInteractive ? 'outline' : 'default'}
+              onClick={() => setIsInteractive(!isInteractive)}
             >
-              {multiSelectMode ? 'Multi-Select: ON' : 'Multi-Select: OFF'}
-            </Button>
-            {selectedNodes.length >= 2 && (
-              <Button size="sm" variant="secondary" onClick={createGroup}>
-                Group Selected ({selectedNodes.length})
-              </Button>
-            )}
-            {selectedNodes.length === 1 && selectedNodes[0].type === 'group' && (
-              <Button size="sm" variant="secondary" onClick={ungroupNodes}>
-                Ungroup
-              </Button>
-            )}
-            {selectedNodes.length > 0 && (
-              <Button size="sm" variant="destructive" onClick={deleteSelectedNodes}>
-                Delete Selected
-              </Button>
-            )}
-            <Button size="sm" variant="outline" onClick={resetWorkflow}>
-              Reset
+              {isInteractive ? 'Lock Editor' : 'Unlock Editor'}
             </Button>
           </div>
         </Panel>
 
-        {/* Information panel for selected node */}
-        {selectedNodes.length === 1 && (
+        {/* Information panel for selected node - only show when interactive */}
+        {isInteractive && selectedNodes.length === 1 && (
           <Panel position="top-right" className="w-80 rounded bg-white p-4 shadow">
             {isEditingNode ? (
               <div className="space-y-2">
@@ -611,8 +649,8 @@ export function FlowEditor() {
           </Panel>
         )}
 
-        {/* Edge label editor panel */}
-        {selectedEdge && (
+        {/* Edge label editor panel - only show when interactive */}
+        {isInteractive && selectedEdge && (
           <Panel position="top-right" className="w-80 rounded bg-white p-4 shadow">
             <h3 className="text-md mb-2 font-bold">Edit Edge Label</h3>
             <div className="space-y-2">
@@ -640,7 +678,7 @@ export function FlowEditor() {
           </Panel>
         )}
 
-        <Controls />
+        <Controls onInteractiveChange={handleInteractiveChange} />
         <MiniMap zoomable pannable />
         <Background color="#aaa" gap={16} />
       </ReactFlow>
