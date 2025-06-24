@@ -4,157 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af919d9d-e07e-4bff-ad76-c0c0359139df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/@types/lodash.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui-platejs/floating-toolbar-buttons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/ai-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/ai-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/basic-blocks-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/basic-blocks-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/basic-blocks-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/basic-blocks-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/basic-marks-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/basic-marks-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/basic-marks-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/basic-marks-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/block-menu-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/block-menu-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/block-selection-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/block-selection-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/callout-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/callout-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/callout-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/callout-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/code-block-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/code-block-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/code-block-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/code-block-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/column-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/column-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/column-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/column-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/comment-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/comment-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/comment-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/comment-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/copilot-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/copilot-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/cursor-overlay-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/cursor-overlay-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/date-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/date-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/date-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/date-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/discussion-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/discussion-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/dnd-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/dnd-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/emoji-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/emoji-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/fixed-toolbar-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/fixed-toolbar-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/floating-toolbar-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/floating-toolbar-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/link-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/link-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/link-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/link-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/list-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/list-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/list-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/list-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/math-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/math-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/math-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/math-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/media-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/media-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/media-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/media-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/mention-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/mention-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/mention-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/mention-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/plate-editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/plate-editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/slash-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/slash-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/suggestion-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/suggestion-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/suggestion-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/suggestion-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/table-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/table-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/table-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/table-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/toc-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/toc-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/toc-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/toc-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/toggle-base-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/toggle-base-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plate-js/toggle-kit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plate-js/toggle-kit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/ai-chat-editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/ai-chat-editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/ai-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/ai-menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/ai-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/ai-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/ai-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/ai-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/align-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/align-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-context-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-context-menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-discussion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-discussion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-draggable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-draggable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-list-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-list-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-list.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-selection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-selection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/block-suggestion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/block-suggestion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/blockquote-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/blockquote-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/blockquote-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/blockquote-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/callout-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/callout-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/callout-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/callout-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/caption.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/caption.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/code-block-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/code-block-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/code-block-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/code-block-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/code-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/code-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/code-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/code-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/column-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/column-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/column-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/column-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/comment-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/comment-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/comment-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/comment-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/comment-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/comment-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/comment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/comment.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/cursor-overlay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/cursor-overlay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/date-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/date-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/date-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/date-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/editor-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/editor-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/emoji-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/emoji-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/emoji-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/emoji-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/equation-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/equation-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/equation-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/equation-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/equation-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/equation-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/export-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/export-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/fixed-toolbar-buttons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/fixed-toolbar-buttons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/fixed-toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/fixed-toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/floating-toolbar-buttons.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/floating-toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/floating-toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/font-color-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/font-color-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/font-size-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/font-size-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/ghost-text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/ghost-text.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/heading-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/heading-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/heading-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/heading-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/highlight-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/highlight-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/highlight-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/highlight-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/history-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/history-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/hr-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/hr-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/hr-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/hr-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/import-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/import-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/indent-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/indent-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/insert-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/insert-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/kbd-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/kbd-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/kbd-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/kbd-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/line-height-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/line-height-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/link-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/link-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/link-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/link-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/link-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/link-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/link-toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/link-toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/list-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/list-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/mark-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/mark-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-audio-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-audio-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-audio-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-audio-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-embed-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-embed-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-file-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-file-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-file-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-file-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-image-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-image-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-image-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-image-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-placeholder-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-placeholder-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-preview-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-preview-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-upload-toast.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-upload-toast.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-video-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-video-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/media-video-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/media-video-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/mention-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/mention-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/mention-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/mention-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/mode-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/mode-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/more-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/more-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/paragraph-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/paragraph-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/paragraph-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/paragraph-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/slash-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/slash-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/suggestion-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/suggestion-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/suggestion-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/suggestion-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/suggestion-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/suggestion-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/table-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/table-icons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/table-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/table-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/table-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/table-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/table-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/table-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/theme-toggle.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toc-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/toc-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toc-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/toc-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toggle-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/toggle-node-static.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toggle-node.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/toggle-node.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/toggle-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/toggle-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/turn-into-toolbar-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/turn-into-toolbar-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/locales/de/deTranslation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/locales/de/deTranslation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/locales/en/enTranslation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/locales/en/enTranslation.ts" afterDir="false" />
-    </list>
+    <list default="true" id="af919d9d-e07e-4bff-ad76-c0c0359139df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,23 +36,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;plate-js2&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\react\\polity\\node_modules\\prettier&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\react\\polity\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "react-flow",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\react\\polity\\node_modules\\prettier",
+    "ts.external.directory.path": "C:\\react\\polity\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\react\polity\src\components\ui" />
@@ -235,7 +85,7 @@
       <workItem from="1750243575138" duration="685000" />
       <workItem from="1750505563800" duration="797000" />
       <workItem from="1750666150580" duration="2762000" />
-      <workItem from="1750671480426" duration="6296000" />
+      <workItem from="1750671480426" duration="6700000" />
     </task>
     <servers />
   </component>

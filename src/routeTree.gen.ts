@@ -14,6 +14,7 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as FlowRouteImport } from './routes/flow'
 import { Route as FilesRouteImport } from './routes/files'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CalendarRouteImport } from './routes/calendar'
@@ -46,6 +47,11 @@ const MessagesRoute = MessagesRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlowRoute = FlowRouteImport.update({
+  id: '/flow',
+  path: '/flow',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FilesRoute = FilesRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/files': typeof FilesRoute
+  '/flow': typeof FlowRoute
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/files': typeof FilesRoute
+  '/flow': typeof FlowRoute
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/files': typeof FilesRoute
+  '/flow': typeof FlowRoute
   '/home': typeof HomeRoute
   '/messages': typeof MessagesRoute
   '/notifications': typeof NotificationsRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/files'
+    | '/flow'
     | '/home'
     | '/messages'
     | '/notifications'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/files'
+    | '/flow'
     | '/home'
     | '/messages'
     | '/notifications'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/files'
+    | '/flow'
     | '/home'
     | '/messages'
     | '/notifications'
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   FilesRoute: typeof FilesRoute
+  FlowRoute: typeof FlowRoute
   HomeRoute: typeof HomeRoute
   MessagesRoute: typeof MessagesRoute
   NotificationsRoute: typeof NotificationsRoute
@@ -230,6 +243,13 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flow': {
+      id: '/flow'
+      path: '/flow'
+      fullPath: '/flow'
+      preLoaderRoute: typeof FlowRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/files': {
@@ -324,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   DashboardRoute: DashboardRouteWithChildren,
   FilesRoute: FilesRoute,
+  FlowRoute: FlowRoute,
   HomeRoute: HomeRoute,
   MessagesRoute: MessagesRoute,
   NotificationsRoute: NotificationsRoute,
