@@ -7,7 +7,6 @@ import ReactFlow, {
   useEdgesState,
   addEdge,
   Panel,
-  ConnectionLineType,
   type NodeMouseHandler,
   type EdgeMouseHandler,
 } from 'reactflow';
@@ -16,6 +15,8 @@ import 'reactflow/dist/style.css';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import PositionableEdge from './PositionableEdge';
+import './PositionableEdge.css';
 
 // Define missing types since they're not exported
 interface Connection {
@@ -44,6 +45,7 @@ interface Edge {
   animated?: boolean;
   type?: string;
   style?: React.CSSProperties;
+  data?: any;
 }
 
 // Custom Group Node component
@@ -76,6 +78,10 @@ const GroupNode = ({ data }: { data: { label: string }; selected: boolean }) => 
 // Node types configuration
 const nodeTypes: NodeTypes = {
   group: GroupNode,
+};
+
+const edgeTypes = {
+  positionableedge: PositionableEdge,
 };
 
 // Initial nodes representing a city council workflow
@@ -172,8 +178,24 @@ const initialNodes: Node[] = [
 
 // Initial edges connecting the nodes
 const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true, style: { strokeDasharray: '5 5' } },
-  { id: 'e2-3', source: '2', target: '3', animated: true, style: { strokeDasharray: '5 5' } },
+  {
+    id: 'e1-2',
+    source: '1',
+    target: '2',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
+  },
+  {
+    id: 'e2-3',
+    source: '2',
+    target: '3',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
+  },
   {
     id: 'e3-4',
     source: '3',
@@ -181,6 +203,8 @@ const initialEdges: Edge[] = [
     label: 'Policy Review',
     animated: true,
     style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
   },
   {
     id: 'e3-5',
@@ -189,9 +213,27 @@ const initialEdges: Edge[] = [
     label: 'Budget Impact',
     animated: true,
     style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
   },
-  { id: 'e4-6', source: '4', target: '6', animated: true, style: { strokeDasharray: '5 5' } },
-  { id: 'e5-6', source: '5', target: '6', animated: true, style: { strokeDasharray: '5 5' } },
+  {
+    id: 'e4-6',
+    source: '4',
+    target: '6',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
+  },
+  {
+    id: 'e5-6',
+    source: '5',
+    target: '6',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
+  },
   {
     id: 'e6-7',
     source: '6',
@@ -199,9 +241,27 @@ const initialEdges: Edge[] = [
     label: 'Approved by Committee',
     animated: true,
     style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
   },
-  { id: 'e7-8', source: '7', target: '8', animated: true, style: { strokeDasharray: '5 5' } },
-  { id: 'e8-9', source: '8', target: '9', animated: true, style: { strokeDasharray: '5 5' } },
+  {
+    id: 'e7-8',
+    source: '7',
+    target: '8',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
+  },
+  {
+    id: 'e8-9',
+    source: '8',
+    target: '9',
+    animated: true,
+    style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
+  },
   {
     id: 'e9-10',
     source: '9',
@@ -209,6 +269,8 @@ const initialEdges: Edge[] = [
     label: 'Passed',
     animated: true,
     style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
   },
   {
     id: 'e10-11',
@@ -217,6 +279,8 @@ const initialEdges: Edge[] = [
     label: 'Signed',
     animated: true,
     style: { strokeDasharray: '5 5' },
+    type: 'positionableedge',
+    data: { type: 'smoothstep', positionHandlers: [] },
   },
 ];
 
@@ -253,8 +317,9 @@ export function FlowEditor() {
           {
             ...params,
             animated: true,
-            type: ConnectionLineType.SmoothStep,
             style: { strokeDasharray: '5 5' },
+            type: 'positionableedge',
+            data: { type: 'smoothstep', positionHandlers: [] },
           },
           eds
         )
@@ -526,6 +591,22 @@ export function FlowEditor() {
     setSelectedEdge(null);
   }, [selectedEdge, edges, setEdges]);
 
+  // Reset edge state
+  const resetEdgeState = useCallback(() => {
+    if (!selectedEdge) return;
+
+    setEdges(eds =>
+      eds.map(e => {
+        if (e.id === selectedEdge.id) {
+          // Reset position handlers
+          const newData = { ...e.data, positionHandlers: [] };
+          return { ...e, data: newData };
+        }
+        return e;
+      })
+    );
+  }, [selectedEdge, setEdges]);
+
   return (
     <div className="h-screen w-full">
       {' '}
@@ -552,13 +633,14 @@ export function FlowEditor() {
         nodesConnectable={isInteractive}
         edgesFocusable={isInteractive}
         edgesUpdatable={isInteractive}
+        edgeTypes={edgeTypes}
         nodeTypes={nodeTypes}
         onNodesChange={isInteractive ? onNodesChange : undefined}
         onEdgesChange={isInteractive ? onEdgesChange : undefined}
         onConnect={isInteractive ? onConnect : undefined}
         // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
         onNodeClick={onNodeClick}
-        // @ts-expect-error ReactFlow's onNodeClick expects different parameter types than what we're providing with our custom handler implementation
+        // @ts-expect-error ReactFlow's onEdgeClick expects different parameter types than what we're providing with our custom handler implementation
         onEdgeClick={onEdgeClick}
         fitView
       >
@@ -653,6 +735,7 @@ export function FlowEditor() {
         {isInteractive && selectedEdge && (
           <Panel position="top-right" className="w-80 rounded bg-white p-4 shadow">
             <h3 className="text-md mb-2 font-bold">Edit Edge Label</h3>
+            <p>Double click an edge to edit edge path.</p>
             <div className="space-y-2">
               <Label htmlFor="edgeLabel">Label</Label>
               <Input
@@ -661,17 +744,18 @@ export function FlowEditor() {
                 onChange={e => setEdgeLabel(e.target.value)}
                 placeholder="Enter edge label"
               />
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Button size="sm" onClick={updateEdgeLabel}>
                   Update Label
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => setSelectedEdge(null)}>
                   Cancel
                 </Button>
-              </div>
-              <div className="mt-2">
                 <Button size="sm" variant="destructive" onClick={deleteSelectedEdge}>
                   Delete Edge
+                </Button>
+                <Button size="sm" variant="outline" onClick={resetEdgeState}>
+                  Reset Edge Path
                 </Button>
               </div>
             </div>
