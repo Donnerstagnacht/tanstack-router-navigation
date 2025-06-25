@@ -25,3 +25,5 @@ public
 .env*
 !.env.example
 .chatmode.md
+
+.github/**/*
