@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af919d9d-e07e-4bff-ad76-c0c0359139df" name="Changes" comment="" />
+    <list default="true" id="af919d9d-e07e-4bff-ad76-c0c0359139df" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui-platejs/column-node-static.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui-platejs/column-node-static.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-debounce.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-is-touch-device.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-mounted.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-upload-file.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routeTree.gen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routeTree.gen.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +50,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "react-flow",
+    "git-widget-placeholder": "windsurf-tesst",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
@@ -49,6 +59,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\react\\polity\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
     "ts.external.directory.path": "C:\\react\\polity\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -86,6 +97,7 @@
       <workItem from="1750505563800" duration="797000" />
       <workItem from="1750666150580" duration="2762000" />
       <workItem from="1750671480426" duration="6700000" />
+      <workItem from="1750848626275" duration="3156000" />
     </task>
     <servers />
   </component>

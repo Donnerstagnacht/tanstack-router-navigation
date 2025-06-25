@@ -24,3 +24,4 @@ public
 .DS_Store
 .env*
 !.env.example
+.chatmode.md
