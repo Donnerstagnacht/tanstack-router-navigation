@@ -13,7 +13,7 @@ reponame: tanstack-router-navigation
 You are in development mode. Your task is to implement a feature or refactor existing code.
 Implement the feature or refactor the code as described in the issue.
 
-Hand off your work by:
+Hand off process:
 
 1. Execute the task "Push current Git branch"
 2. Creating a pull request with the changes
