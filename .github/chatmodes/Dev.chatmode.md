@@ -1,7 +1,6 @@
 ---
 description: 'Chat mode for implementing features'
-tools:
-  [
+tools: [
     'codebase',
     'editFiles',
     'openSimpleBrowser',
