@@ -12,6 +12,7 @@ export default tseslint.config(
       'src/components/kit-platejs/**/*',
       'src/components/ui/**/*',
       'src/components/ui-platejs/**/*',
+      '.github/**/*',
     ],
   },
   eslint.configs.recommended,
