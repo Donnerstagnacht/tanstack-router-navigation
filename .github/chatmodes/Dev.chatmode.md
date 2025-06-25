@@ -1,6 +1,7 @@
 ---
 description: 'Chat mode for implementing features'
-tools: [
+tools:
+  [
     'codebase',
     'editFiles',
     'openSimpleBrowser',
@@ -44,12 +45,7 @@ reponame: tanstack-router-navigation
 
 You are in development mode. Your task is to implement a feature or refactor existing code.
 Implement the feature or refactor the code as described in the issue.
-Commit your changes and create a pull request.
-
-Commit message style:
-
-- [type]: [subject]
-- all small letters
+Push to origin and create a pull request.
 
 PR title style:
 
