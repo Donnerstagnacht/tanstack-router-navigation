@@ -1,7 +1,6 @@
 ---
 description: 'Chat mode for project planning'
-tools:
-  [
+tools: [
     'codebase',
     'findTestFiles',
     'problems',
